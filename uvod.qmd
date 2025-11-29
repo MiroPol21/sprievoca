@@ -1,0 +1,287 @@
+Vo výklade matematickej analýzy by sa prirodzene mohlo začať definovaním reálnej funkcie reálnej premennej. Avšak táto definícia by mohla vyvolať veľa nepresností, ktorým by sme sa radi vyhli. Odrazovému mostíku sa, žiaľ, nevyhneme, a tak výklad matematickej analýzy na Masarykovej Univerzite sa začína  predpokladom, že vieme, čo je množina. Čo sú množiny, to je ďalšia legitímna otázka, avšak my budeme potrebovať práve množinu reálnych čísel a tú si zavedieme axiomaticky. Pretože tento teoretický podklad, ktorý je nevyhnutný k dôslednému zavedeniu čísel, funkcií a vôbec celej matematickej analýzy, je predmetom iných odvetví matematiky, tak to v tomto texte iba pripomenieme a nebudeme uvádzať každú definíciu.
+
+Na množinách možno definovať **karteziánsky súčin**[^U1] $(A \times B)$. Podmnožinu karteziánskeho súčinu voláme **binárna relácia**[^U2] $(f\subseteq A\times B)$ a niektoré binárne relácie sa volajú **zobrazenie**.[^U3] Presnejšie, zobrazenie je taká binárna relácia, v ktorej ak už je $y_1\in B$ dvojica s $x\in A$, potom $y_2\in B$ nemôže byť dvojica s $x$. Na základe tohto slovného opisu sa ponúka značiť zobrazenie ako $f:A\to B$, kde písmenkom $f$ označíme dané zobrazenie, trojica znakov $A \to B$ má znázorniť práve fakt, že zoberieme prvok z $A$ a priradíme mu práve jeden prvok z $B$. 
+
+
+![Príklad zobrazenia $A\to B$.](zobrazenie1.png){#fig-zobrazenie1 width=20% }
+
+![*Nie je* zobrazenie $A\to B$.](zobrazenie2.png){#fig-zobrazenie2 width=20%}
+
+
+
+Volajme prvky z $A$ vzory a prvky z $B$ obrazy zobrazenia $f:A\to B$, a teda zobrazenie priraďuje vzorom ich obraz. Ak všetky prvky z $B$ majú svoj vzor $(H(f) = B)$, potom zobrazenie nadobúda prívlastok **surjektívne**.[^U4] Ak zase každý obraz má iba jeden vzor, hovoríme o **injektívnom**[^U5] zobrazení. Ak zobrazenie má obe tieto vlastnosti, tak sa jedná o vzájomne jednoznačné zobrazenie a označujeme ho ako **bijektívne**.
+Tejto téme sa hlbšie venuje diskrétna matematika, pre nás je to však dôležité, pretože potrebujeme nejako zadefinovať reálne čísla, a keďže definícia používa tieto pojmy, tak si ich musíme aspoň trochu priblížiť. Ďalšie dôležité pojmy sú **suprémum** a **infímum**. Vybavení týmito pojmami môžeme definovať množinu reálnych čísel.
+
+<details>
+<summary>Suprémum a infímum</summary>
+
+Suprémum a infímum sú veľmi dôležité pojmy. Nie v zmysle porozumenia myšlienky derivácie alebo integrálu, ale v zmysle zavedenia reálnych čísel, teda niečoho, čomu dávame vlastnosti, s ktorými nemáme absolútne žiadnu skúsenosť v reálnom svete. Touto vlastnosťou je *spojitosť* tejto množiny, inými slovami, máme rovnako veľa prvkov na intervale $(0,1)$ ako na celej reálnej osi. Napriek tomu, že táto vlastnosť je takto čudná, ukazuje sa, že z hľadiska počítania veľmi uľahčuje našu prácu. V prípade záujmu zistiť niečo viac o tejto téme, Masarykova univerzita ponúka kurzy ako teória množín alebo topológia, ktoré by mohli priniesť trocha svetla do tejto teórie.
+
+::: {.callout-note title="Definícia usporiadania množiny" collapse="true"}
+
+::: {#def-usporiadanie}
+Nech $A$ je množina. Povieme, že binárna relácia $\leq$[^U6] na $A$ je *usporiadaním*, ak je
+
+1. *reflexívna*, tj. $\forall x\in A\,:\, x\leq x$,
+2. *antisymetrická*, tj. $\forall x,y \in A\,: x \leq y\, \wedge\, y \leq x \implies x = y$,
+3. *tranzitívna*, tj. $\forall x,y,z \in A\,:\, x \leq y\, \wedge\, y \leq z \implies x \leq z$.
+
+Povieme, že relácia $\leq$ je *úplné usporiadanie*, ak je usporiadaním a naviac platí, že $\forall x,y\in A$ je $x\leq y$ alebo $y\leq x$.
+
+- Ak je $\leq$ usporiadanie na $A$, potom dvojicu $(A,\leq)$ nazveme *usporiadanou množinou*.
+- Ak je $\leq$ úplné usporiadanie na $A$, potom dvojicu $(A,\leq)$ nazveme *úplne (lineárne) usporiadanou množinou*, alebo *reťazcom*.
+
+:::
+:::
+
+::: {.callout-note title="Definícia horného a dolného odhadu množiny" collapse="true"}
+
+::: {#def-zavory}
+Nech $A$ je usporiadaná množina, nech $B$ je ľubovoľná množina spĺňajúca $B\subseteq A$. Povieme, že prvok $u\in A$[^U7] je *horný odhad* (horná závora) množiny $B$, ak 
+$$
+x \leq u\, \forall x\in B,
+$$
+
+a povieme, že prvok $\ell\in A$ je *dolný odhad* (dolná závora) množiny $B$, ak 
+$$
+\ell \leq x\, \forall x\in B.
+$$
+
+Množina $B$ je *zhora (zdola) ohraničená*, ak má aspoň jeden horný (dolný) odhad, a je *ohraničená*, ak je ohraničená zhora aj zdola.
+:::
+:::
+
+::: {.callout-note title="Definícia supréma a infíma" collapse="true"}
+
+::: {#def-sup_inf}
+Nech je $A$ usporiadaná množina, pre ktorú platí $A\neq\emptyset$. Nech $B$ je ľubovoľná množina, pre ktorú platí $B\subseteq A$ a $B\neq\emptyset$. Povieme, že prvok $a\in A$[^U8] je *suprémum* množiny $B$[^U9], ak
+
+1. $x\leq a\, \forall x\in B$, tj. je to horný odhad.
+2. Ak je $\bar a \in A$ také, že $x\leq \bar a\, \forall x\in B$, potom je $a\leq \bar a$, tj. ak existuje iný horný odhad ($\bar a$) množiny $B$, potom $a\leq \bar a$.
+
+Číslo $a$ je teda najmenší horný odhad množiny $B$.
+
+*Infímum* množiny[^U10] sa definuje analogicky ako najväčší dolný odhad.
+:::
+:::
+
+</details>
+
+::: {.callout-note title="Axiomatická definícia reálnych čísel" collapse="true"}
+
+::: {#def-Real_Numbers}
+
+## Axiomatická definícia reálnych čísel
+Reálne čísla sú štruktúra $(\mathbb{R},+,\cdot,\le)$ tvorená množinou $\mathbb{R}$ s dvoma binárnymi operáciami $+$ (sčítanie) a $\cdot$ (násobenie) a jednou binárnou reláciou $\le$ (usporiadanie), pričom platia tieto axiomy (R1)–(R13):
+
+- **(I) Axiómy pre sčítanie**
+  - **(R1)** $x+(y+z)=(x+y)+z,\quad\forall x,y,z\in\mathbb{R},$
+  - **(R2)** $x+y=y+x,\quad\forall x,y\in\mathbb{R},$
+  - **(R3)** $\exists\,0\in\mathbb{R}\;\text{také, že}\;x+0=x,\;\forall x\in\mathbb{R},$
+  - **(R4)** $\forall x\in\mathbb{R}\;\exists\,(-x)\in\mathbb{R}\;\text{také, že}\;x+(-x)=0.$
+  
+  Teda $(\mathbb{R},+)$ je abelovská grupa.
+  
+- **(II) Axiómy pre násobenie (mimo nuly)**
+  - **(R5)** $x\cdot(y\cdot z)=(x\cdot y)\cdot z,\quad\forall x,y,z\in\mathbb{R},$
+  - **(R6)** $x\cdot y=y\cdot x,\quad\forall x,y\in\mathbb{R},$
+  - **(R7)** $\exists\,1\in\mathbb{R}\setminus\{0\}\;\text{také, že}\;1\cdot x=x,\;\forall x\in\mathbb{R},$
+  - **(R8)** $\forall x\in\mathbb{R}\setminus\{0\}\;\exists\,x^{-1}\in\mathbb{R}\;\text{také, že}\;x\cdot x^{-1}=1.$
+  
+  Teda $(\mathbb{R}\setminus\{0\},\cdot)$ je abelovská grupa.
+  
+- **(III) Distributívny zákon**
+  - **(R9)** $x\cdot(y+z)=x\cdot y + x\cdot z, \quad\forall x,y,z\in\mathbb{R}.$
+  
+  Axiómy (I), (II) a (III) znamenajú, že $(\mathbb{R},+,\cdot)$ je pole.
+
+- **(IV) Usporiadanie**
+  - **(R10)** $\le\text{ je reflexívna, antisymetrická, tranzitívna a úplná relácia na }\mathbb{R}.$
+  
+- **(V) Kompatibilita usporiadania s operáciami**
+  - **(R11)** $x\le y\;\Longrightarrow\;x+z\le y+z,\quad\forall x,y,z\in\mathbb{R},$
+  - **(R12)** $0\le x,\;0\le y\;\Longrightarrow\;0\le x\cdot y.$
+  
+- **(VI) Spočítateľná úplnosť**
+  - **(R13)** $\text{Každá neprázdna, zhora ohraničená podmnožina }\mathbb{R}\text{ má suprémum.}$
+
+:::
+:::
+
+
+Táto sústava axióm, ktoré má spĺňať množina reálnych čísel, má zaujímavé vlastnosti. Pomocou axiomatických operácií je možné definovať ďalšie operácie ako mocnina a odmocnina. Z hľadiska všeobecnej matematiky je zaujímavá diskusia o vnútornej nespornosti. V tomto bode sa znova základ opiera o teóriu množín a dá sa ukázať, že ak je nesporná teória množín, tak je možné takúto štruktúru skonštruovať.
+
+<details>
+<summary>Vlastnosti číselných oborov</summary>
+
+1. Množinu komplexných čísel $\mathbb{C}$ nie je možné usporiadať.[^U11]
+2. Pre každé $a,b\in\mathbb{R}$, $a>0$ existuje $n\in\mathbb{N}$ také, že $n\times a > b$.
+3. Pre každé $x,y\in\mathbb{R}$, $x<y$ existuje $z\in\mathbb{Q}$ také, že $x<z<y$. (Tj. množina $\mathbb{Q}$ je *hustá* v $\mathbb{R}$.)
+4. Množina $\mathbb{I}$ je hustá v $\mathbb{R}$.
+5. $|\mathbb{N}|=|\mathbb{Z}|=|\mathbb{Q}|$, tj. množiny majú rovnakú mohutnosť, tj. existuje medzi nimi bijektívne zobrazenie.
+6. $|\mathbb{I}|=|\mathbb{R}|$.
+7. $|\mathbb{Q}|<|\mathbb{R}|$.
+8. (Bernoulliho nerovnosť) Pre každé $x\in\mathbb{R},\ x>-1$ a pre každé $n\in\mathbb{N}$ platí[^U12] 
+  $$
+  (1+x)^n \geq 1 + nx.
+  $$
+
+</details>
+
+Teraz sme už vybavení potrebnými nástrojmi[^U13] na definovanie reálnej funkcie reálnej premennej.
+
+::: {.callout-note title="Definícia"}
+::: {#def-Real_function}
+
+## Reálna funkcia reálnej premennej
+Nech $M \subseteq \mathbb{R}$. Zobrazenie $f:M\to \mathbb{R}$ nazývame reálnou funkciu reálnej premennej alebo stručne funkciou jednej premennej. Množina $M$ sa nazýva definičný obor funkcie $f$ a značí sa $D(f)$, množina $H(f) \coloneqq \{f(x) : x\in M\}$ sa nazýva obor hodnôt funkcie $f$.
+:::
+:::
+
+Po definovaní funkcie si na prednáške definujeme 
+zopár často používaných funkcií, tzv. elementárne funkcie tj.
+
+- polynómy (k týmto funkciám sa viaže algoritmus *Hornerova schéma*),
+- racionálne lomené funkcie (*delenie polynómov* a *rozklad na parciálne zlomky*),
+- exponenciálne a logaritmické funkcie (``pravidlá logaritmovania''),
+- goniometrické a cyklometrické funkcie (*jednotková kružnica*),
+- všeobecná mocnina.
+
+Jedná sa o *pekné* modely našej veľmi všeobecnej definície funkcie. Okrem elementárnych funkcií naša všeobecná definícia obsahuje aj všetky ostatné funkcie. Jednou z tých zaujímavých funkcií, ktorá často môže slúžiť ako vhodný protipríklad ku naivným tvrdeniam, je Dirichletova funkcia 
+$$
+y = \chi(x) = 
+\begin{cases}
+  0, \quad x\in \mathbb{Q},\\
+  1, \quad x\in \mathbb{I}.
+\end{cases}
+$$
+
+Ďalšie vhodné funkcie pre rôzne "pomocné" účely sú
+
+- $y=|x|$,
+- $y=\lfloor x \rfloor$,
+- $y=\lceil x \rceil$,
+- $y=\mathrm{sgn}\, x$.
+
+<details>
+<summary>Vlastnosti absolútnej hodnoty $|x|$.</summary>
+
+- $|x_1 + x_2| \leq |x_1| + |x_2|$,
+- $\big||x_1|-|x_2|\big| \leq |x_1-x_2|$,
+- $|x-x_0|<\varepsilon$ je ekvivalentné so zápisom $x\in (x_0-\varepsilon, x_0+\varepsilon)$.
+
+</details>
+
+Okrem samotných funkcií ešte zadefinujeme časté vlastnosti funkcií ako napríklad parita, či periodicita. Tieto vlastnosti budú najskôr dôsledkami definícií jednotlivých funkcií, avšak neskôr môžu aj predstavovať vlastnosť nejakej neznámej hľadanej funkcie.
+
+::: {.callout-note title="Ohraničenosť" collapse="true"}
+::: {#def-Bounded}
+
+## Ohraničenosť
+Funkcia $f$ sa nazýva 
+
+- **(i)** *zhora ohraničená*, ak $\exists\, U\in\mathbb{R}$ také, že $f(x)\leq U\quad \forall x\in D(f)$,\
+- **(ii)** *zdola ohraničená*, ak $\exists\, L\in\mathbb{R}$ také, že $f(x)\geq L\quad \forall x\in D(f)$,
+- **(iii)** *ohraničená*, ak je ohraničená zhora aj zdola, teda ak $\exists\, K\in\mathbb{R}$ také, že $|f(x)|\leq K\quad \forall x\in D(f)$.
+:::
+:::
+
+::: {.callout-note title="Parita" collapse="true"}
+::: {#def-Parity}
+
+## Parita
+Povieme, že funkcia $f$ je
+
+- **(i)** *párna*, ak  $\forall\, x \in D(f)$ platí $-x \in D(f)$ a $f(-x)= f(x)$ (graf je súmerný vzhľadom k osi $y$),
+- **(ii)** *nepárna*, ak  $\forall\, x \in D(f)$ platí $-x \in D(f)$ a $f(-x)= -f(x)$ (graf je súmerný vzhľadom k počiatku, tj. k bodu $[0,0]$).
+:::
+:::
+
+::: {.callout-note title="Periodickosť" collapse="true"}
+::: {#def-periodicity}
+
+## Periodickosť
+Funkcia $f$ sa nazýva *periodická* s periódou $p \in \mathbb{R}^+$, ak platí, že $\forall\, x \in D(f)$ je tiež $x \pm p \in D(f)$ a $f(x+ p) = f(x- p) = f(x)$. Najmenšia perióda funkcie je najmenší prvok množiny všetkých periód tejto funkcie (ak samozrejme existuje).
+:::
+:::
+
+::: {.callout-note title="Monotónnosť" collapse="true"}
+::: {#def-Monotonic}
+
+## Monotónnosť
+Nech je daná funkcia $f: D(f) \to \mathbb{R}$ a množina $I \subseteq D(f)$. Potom funkciu $f$ nazveme
+
+- **(i)** *rastúca* na množine $I$, ak $\forall\, x_1,x_2\in I$ také, že $x_1<x_2$ je $f(x_1)<f(x_2)$,
+- **(ii)** *neklesajúca* na množine $I$, ak $\forall\, x_1,x_2\in I$ také, že $x_1<x_2$ je $f(x_1)\leq f(x_2)$,
+- **(iii)** *klesajúca* na množine $I$, ak $\forall\, x_1,x_2\in I$ také, že $x_1<x_2$ je $f(x_1)>f(x_2)$,
+- **(iv)** *nerastúca* na množine $I$, ak $\forall\, x_1,x_2\in I$ také, že $x_1<x_2$ je $f(x_1)\geq f(x_2)$.
+
+Funkcia, ktorá má niektorú z uvedených štyroch vlastností, sa nazýva *monotónna* na množine $I$. Funkcia, ktorá je rastúca alebo klesajúca, sa nazýva *rýdzo monotónna*.
+:::
+:::
+
+::: {.callout-note title="Zložená funkcia" collapse="true"}
+::: {#def-compound}
+
+## Zložená funkcia
+
+Nech $f:D(f)\to\mathbb{R}$ je funkcia s nejakým definičným oborom $D(f)\subseteq\mathbb{R}$ a nech $\varphi: D(\varphi)\to D(f)$ je nejaká iná funkcia. Potom *zložená funkcia* $F:D(\varphi)\to\mathbb{R}$ je definovaná ako $F\coloneqq f(\varphi(x))\, \forall x\in D(\varphi)$. Píšeme tieže $F = f\circ \varphi$.
+
+:::
+:::
+
+::: {.callout-note title="Inverzná funkcia" collapse="true"}
+::: {#def-inverse}
+
+## Inverzná funkcia
+
+Nech funkcia $f:D(f)\to \mathbb{R}$ je injektívna, resp. $f:D(f)\to H(f)$ je bijektívna. Potom *inverzná funkcia* (k funkcii $f$) $f^{-1}: H(f)\to D(f)$ je daná ako $\{(y,x)\in\mathbb{R}^2,\,y=f(x)\}$, tj. $y\mapsto x$.
+
+:::
+
+::: {#thm-inverse}
+Inverzné funkcie zachovávajú monotónnosť.
+
+:::
+:::
+
+V tejto časti môžeme ešte zaviesť špeciálnu množinu, ktorá sa nazýva **okolie** bodu $x_0$ na číselnej osi 
+$$
+\mathcal{O}_\delta(x_0) = (x_0 - \delta, x_0 + \delta),
+$$
+
+kde $x_0$ je konkrétny bod, ku ktorému konštruujeme okolie a $\delta$ špecifikuje *veľkosť* tohto okolia ($\mathcal{O}_\delta(x_0)$ značíme aj $\mathcal{O}(x_0)$). Všimnime si, že pojem okolie zahŕňa aj samotný bod $x_0$ napriek tomu, že v hovorovej reči je okolím často myslená množina *okolo* bodu $x_0$ bez samotného $x_0$, tj. množina $\mathcal{O}(x_0)\smallsetminus \{x_0\}$. Množine $\mathcal{O}(x_0)\smallsetminus \{x_0\}$ budeme hovoriť **rýdze okolie**. Niekedy sa nám bude totižto hodiť neuvažovať samotný bod $x_0$.
+
+
+[^U1]: *Karteziánskym súčinom* dvoch množín $A$ a $B$ rozumieme množinu všetkých usporiadaných dvojíc $(x,y)$, kde $x\in A$ a $y\in B$ sú ľubovoľné prvky. Značíme $A\times B$.
+  $$
+  A \times B = \{(x,y):\,x\in A\,\wedge\,y\in B \}.
+  $$
+
+[^U2]: *Binárnou reláciou* rozumieme ľubovoľnú podmnožinu karteziánskeho súčinu $A\times B$. 
+  Ak $A=B$, tak používame názov *binárna relácia na množine* $A$. 
+  K označeniu relácie používame obvykle malé písmená, napríklad $f\subseteq A\times B$.
+
+[^U3]: Reláciu $f\subseteq A\times B$ nazveme zobrazením množiny $A$ do množiny $B$, ak platí, že ku každému prvku $x\in A$ existuje práve jeden prvok $y\in B$ taký, že $(x,y)\in f$.
+  Množinu $A$ nazývame definičný obor $f$ a označujeme $D(f)$. 
+  Množinu všetkých prvkov $y\in B$ takých, že existuje $x\in A$ s vlastnosťou $(x,y)\in f$, nazývame obor hodnôt a značíme ho $H(f)$.
+
+[^U4]: $\forall y \in B\, \exists x \in A:\, y = f(x)$
+
+[^U5]: $x_1, x_2 \in A;\ x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$
+
+[^U6]: Klasicky by sme písali $f$, ale v tomto prípade veľmi obvyklým príkladom usporiadania je práve porovnávanie veľkosti čísel, preto značíme $\leq$ a prvky píšeme z jednej a druhej strany. Okrem toho zápis $x \geq y$ považujeme za inú formu zápisu vzťahu $y \leq x$. Ak je $x \leq y$, ale $x\neq y$, píšeme $x<y$. Obdobne zavádzame $x>y$.
+
+[^U7]: Dôležité je všimnúť si, že prvok $u$ je z celej množiny $A$.
+
+[^U8]: Znova prvok hovorí niečo o množine $B$, ale je z množiny $A$ (a teda nie nutne aj z množiny $B$).
+
+[^U9]: Píšeme $a = \sup B$.
+
+[^U10]: Značí sa $a = \inf B$.
+
+[^U11]: Kazdým prechodom $\mathbb{N}\to\mathbb{Z}\to\cdots\to\mathbb{C}$ sa nejaká vlastnosť získa a zároveň nejaká iná vlastnosť sa stratí.
+
+[^U12]: Pre $x\neq0$ a $n>1$ platí *ostrá* nerovnosť.
+
+[^U13]: Máme zadefinovanú množinu reálnych čísel a zobrazenie.

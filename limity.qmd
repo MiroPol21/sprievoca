@@ -1,0 +1,546 @@
+## Postupnosti reálnych čísel
+
+Na definičnom obore reálnych čísel môžeme definovať obrovské množstvo funkcií. Začnime preto od kraja. Dôležitým špeciálnym prípadom funkcie je postupnosť, tj. funkcia definovaná na množine prirodzených čísel $\mathbb{N}$. Píšeme $\{a_n\}_{n=1}^\infty = a_1, a_2, \dots$, čo vlastne znamená, že $a$ je označenie funkcie $a:\mathbb{N}\to\mathbb{R}$ a $a_n$ je skrátenie zápisu $a(n)$. 
+
+Postupnosť môžeme zadať rôznymi spôsobmi: výpisom prvkov, rekurentným vzťahom alebo explicitným vzorcom. Pre každú z týchto možností je celkom (teoreticky) jednoduché objaviť, aké číslo bude na $n$-tom mieste, respektíve aké číslo priradíme číslu $n$. Zaujímavá začína byť snaha nahliadnuť, čo sa deje na konci tejto postupnosti, totižto často sa tie čísla začnú na seba podobať. Definujeme tak číslo, ktoré by sa nachádzalo na *nekonečnom* mieste, a práve toto je obsahom časti tejto kapitoly. Pojem limita a všeobecnejší pojem hromadný bod postupnosti zastrešuje práve túto snahu. V našom prípade sa jedná o prvú snahu práce s nekonečnom. Práca s nekonečne veľkými, respektíve s nekonečne malými číslami bude tou hlavnou náplňou našich úvah. 
+
+::: {.callout-note title="Definícia"}
+::: {#def-hromadny_bod}
+
+## Hromadný bod
+
+Číslo $a\in\mathbb{R}^\ast$ (pozn. [^L5]) sa nazýva hromadný bod postupnosti $\{a_n\}$, ak pre každé okolie $\mathcal{O}(a)$ existuje nekonečne veľa indexov $k\in\mathbb{N}$, pre ktoré platí, že $a_k\in\mathcal{O}(a)$.
+:::
+:::
+
+Pomocou rôznych príkladov (modelov) si môžeme všimnúť, že postupnosť môže mať $0$ až nekonečno hromadných bodov. Z hľadiska analyzovania postupností sú zaujímavé postupnosti s práve jedným hromadným bodom, tento hromadný bod sa bude nazývať limita. Limita bude pre nás predstavovať základný nástroj na skúmanie hodnôt postupnosti v nekonečne.
+
+::: {.callout-note title="Definícia"}
+::: {#def-limita}
+
+## Limita
+Nech je daná postupnosť $\{a_n\}$ a číslo $A\in \mathbb{R}$. Povieme, že postupnosť $\{a_n\}$ má limitu $A$, ak ku každému $\varepsilon > 0$ existuje $n_0$ také, že pre každé $n\geq n_0$ platí, že $|a_n-A|<\varepsilon$.
+:::
+:::
+
+Aj definícia limity by mohla byť napísaná pomocou okolí (rovnako ako definícia hromadných bodov). Avšak definícia pomocou $\varepsilon$ je ekvivalentná a aplikovateľnejšia. Každopádne takto zadefinované pojmy limity a číselnej postupnosti majú nejaké všeobecné vlastnosti a vlastnosti viažúce sa na nejaký predpoklad. Predpokladom býva často nejaké konkrétne správanie postupnosti, ktoré nemusí platiť pre celú postupnosť, ale platí počínajúc nejakým prvkom danej postupnosti. Vo vetách sa index tohoto prvku často značí ako $n_0$.
+
+<details>
+<summary>Základné vety o limitách postupností.</summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post1}
+Každá postupnosť má najviac jednu limitu.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post2}
+Každá konvergentná postupnosť je ohraničená.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post3}
+Nech $\lim_{n\to\infty} a_n = 0$ a post. $\{b_n\}$ je ohraničená. Potom $\lim_{n\to\infty}a_n\cdot b_n = 0$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post4}
+Nech sú dané postupnosti $\{a_n\},\{b_n\}$ a $\exists\, n_0$ tak, že $\forall\, n \geq n_0$ je $a_n \leq b_n$. Potom platí
+
+- ***(i)*** $\lim_{n\to\infty} a_n = +\infty$ $\implies$ $\lim_{n\to\infty} b_n = +\infty$.
+- ***(ii)*** $\lim_{n\to\infty} b_n = -\infty$ $\implies$ $\lim_{n\to\infty} a_n = -\infty$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post5}
+Nech sú dané konvergentné postupnosti $\{a_n\},\{b_n\}$ a $\lim_{n\to\infty} a_n = a,\ \lim_{n\to\infty} b_n = b$. Potom platí
+
+- ***(i)*** Ak $a<b$, potom $\exists\, n_0$ tak, že $\forall\, n \geq n_0$ platí $a_n < b_n$.
+- ***(ii)*** Ak $\exists\, n_0$ tak, že $\forall\, n \geq n_0$ je $a_n \leq b_n$, potom $a \leq b$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post6}
+
+## O troch limitách
+
+Nech sú dané postupnosti $\{a_n\},\{b_n\}$ a $\{c_n\}$ a číslo $L\in\mathbb{R}$ také, že $a_n \leq b_n \leq c_n\ \forall n>n_0$, a $\lim_{n\to\infty} a_n = L = \lim_{n\to\infty} c_n$. Potom taktiež $\lim_{n\to\infty} b_n = L$.
+:::
+:::
+
+</details>
+
+Počítanie s limitami postupností ako s číslami vyžaduje väčšiu dôslednosť ako počítanie s číslami ako takými. Preto sa odvádzajú vety o takomto počítaní. V konečnom dôsledku sa ukáže, že to nie je až tak rozdielne od bežného počítania.
+
+
+<details>
+<summary>Vety o počítaní s limitami postupností.</summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post7}
+Nech $\lim_{n\to\infty} a_n = a$ a $\lim_{n\to\infty} b_n = b$, kde $a,b\in\mathbb{R}$. Potom platí:
+
+- $\lim_{n\to\infty} |a_n| = |a|$.
+- $\lim_{n\to\infty} (a_n + b_n) = a+b$.
+- $\lim_{n\to\infty}(a_n\cdot b_n) = a\cdot b$.
+- Ak $b\neq 0$, potom $\lim_{n\to\infty}\frac{a_n}{b_n} = \frac{a}{b}$.
+:::
+:::
+    
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post8}
+Nech je daná postupnosť $\{a_n\}$.
+
+- $\lim_{n\to\infty} |a_n| = \infty$ $\implies$ $\lim_{n\to\infty} \frac{1}{a_n} = 0$ (``$\frac{1}{\infty} = 0$'').
+- $\lim_{n\to\infty} |a_n| = 0^+$ $\implies$ $\lim_{n\to\infty} \frac{1}{a_n} = +\infty$ ("$\frac{1}{0^+} = +\infty$"). (Pozn.[^L6])
+- $\lim_{n\to\infty} |a_n| =  0^-$ $\implies$ $\lim_{n\to\infty} \frac{1}{a_n} = -\infty$ ("$\frac{1}{0^-} = -\infty$").
+:::
+:::
+</details>
+
+Limity postupností sa ukazujú ako užitočný nástroj na definovanie iracionálnych čísel pomocou racionálnych čísel. Konkrétne pomocou limity istej postupnosti budeme definovať *Eulerovo číslo*, ktoré je dôležité pre zavedenie elementárnych funkcií (napríklad $e^x$ -- táto funkcia, ako si ukážeme neskôr, má výnimočnú vlastnosť vzhľadom k ešte nedefinovanej operácii derivovania). 
+
+<details>
+<summary>Tvrdenia potrebné k správnemu zadefinovaniu Eulerovho čísla.</summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post9}
+
+- Každá neklesajúca zhora ohraničená postupnosť $\{a_n\}$ má vlastnú limitu a platí $\lim_{n\to\infty}a_n = \sup\{a_1,a_2,\dots\}$.
+- Každá nerastúca zdola ohraničená postupnosť $\{b_n\}$ má vlastnú limitu a platí $\lim_{n\to\infty}b_n = \inf\{b_1,b_2,\dots\}$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_post10}
+
+- Postupnosť $\{a_n\}$, kde $a_n=(1+\frac{1}{n})^n$ je *rastúca a zhora ohraničená* postupnosť. 
+- Postupnosť $\{b_n\}$, kde $a_n=(1+\frac{1}{n})^{n+1}$ je *klesajúca a zdola ohraničená* postupnosť.
+
+Obe postupnosti sú teda konvergentné a majú rovnakú limitu.
+:::
+:::
+</details>
+
+Eulerovo číslo značíme $e$ a definujeme ho ako jednu z limít vo vete (@thm-lim_post10).
+
+$$
+    e \coloneqq \lim_{n\to\infty}\left( 1+\frac{1}{n} \right)^n\approx 2.71\dots.
+$${#eq-eulerovo_cislo}
+
+Iné vyjadrenie Eulerovho čísla pomocou binomickej vety $(x+y)^n=\sum_{k=0}^n \binom{n}{k}(x)^ky^{n-k}$ je nasledovné 
+$$
+    \left(1+\frac{1}{n}\right)^n=\sum_{k=0}^n \binom{n}{k}\left(\frac{1}{n}\right)^k=\sum_{k=0}^n \frac{n!}{(n-k)!\cdot k!\cdot n^k}
+    \overset{n\to\infty}{\longrightarrow}
+    \sum_{k=0}^\infty \frac{1}{k!} = e.
+$$
+
+Po preskúmaní postupností s jedným hromadným bodom, teda s limitou, sa môžeme ešte venovať postupnostiam s viacerými hromadnými bodmi. Tento problém, respektíve túto prácu vieme previesť na predchádzajúci problém, a to práve zavedením podpostupností. Podpostupnosti vytvárame pomocou pomocnej postupnosti prirodzených čísel $\{n_k\}$, ktorá vyznačuje vhodné prvky pôvodnej postupnosti. Napríklad $n_k=2k$ určuje každý druhý prvok z postupnosti.
+
+::: {.callout-note title="Definícia"}
+::: {#def-podpostupnost}
+## Podpostupnosť
+
+Nech $\{a_n\}$ je postupnosť a nech $\{n_k\}\subseteq \mathbb{N}$ je rastúca postupnosť. Potom postupnosť $\{a_{n_k}\}$ sa nazýva *vybraná podpostupnosť* z postupnosti $\{a_n\}$.
+:::
+:::
+
+Na začiatku tejto kapitoly sme definovali hromadný bod ako *všeobecnejšiu limitu*. V kontexte vybraných podpostupností sa dá @def-hromadny_bod povedať aj inak. Hromadný bod je limitou nejakej vybranej podpostupnosti. Každopádne obe definície sú ekvivalentné a pre postupnosti platia nasledovné tvrdenia o hromadných bodoch.
+
+<details>
+<summary>Tvrdenia o hromadných bodoch.</summary>
+
+::: {.callout-tip title="Lemma"}
+::: {#lem-lim_post11}
+Každá postupnosť má najväčší a najmenší hromadný bod.
+:::
+:::
+
+::: {.callout-tip title="Dôsledok"}
+::: {#cor-lim_post12}
+Každá postupnosť má aspoň jeden hromadný bod.
+:::
+:::
+
+</details>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-Bolzano_Weierstrass}
+
+## Bolzano -- Weierstrass 
+
+Z každej ohraničenej postupnosti možno vybrať konvergentnú podpostupnosť.
+:::
+:::
+
+
+K hromadným bodom sa ešte pridajú pojmy ako horná limita a dolná limita, ktoré pomáhajú definovať rozhrania oscilácie postupností (nie nutne konvergentných postupností). A celkom prirodzene, ak sú tieto dve hodnoty rovnaké, tak oscilácia je nulová a postupnosť má limitu.
+
+::: {.callout-note title="Definíca hornej a dolnej limity" collapse="true"}
+::: {#def-horna_dolna_limita}
+Nech je daná postupnosť $\{a_n\}$. 
+
+- Najväčší hromadný bod tejto postupnosti nazveme limita superior a označujeme $\limsup_{n\to\infty} a_n$.
+- Najmenší hromadný bod tejto postupnosti nazveme limita inferior a označujeme $\liminf_{n\to\infty} a_n$.
+
+:::
+:::
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-lim_post13}
+Postupnosť $\{a_n\}$ má limitu (je konvergentná) $\iff$ $\limsup_{n\to\infty} a_n = \liminf_{n\to\infty} a_n$. Všetky tri hodnoty sú potom rovnaké.
+:::
+:::
+
+
+Posledným dôležitým pojmom v teórií limít postupností je **Cauchyho (cauchyovská) postupnosť**, ktorá definuje konvergetnosť postupnosti bez formálneho poznatku, k čomu konverguje daná postupnosť.
+
+::: {.callout-note title="Definícia"}
+::: {#def-cauchy_post}
+
+## Cauchyovská postupnosť
+
+Postupnosť $\{a_n\}$ je cauchyovská, ak pre každé $\varepsilon>0$ existuje index $n_0\in\mathbb{N}$ taký, že pre každé $n,m \geq n_0$ platí $|a_n-a_m|<\varepsilon$. 
+:::
+:::
+
+Táto definícia je ekvivalentná s klasickou definíciou konvergencie. 
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-lim_post14}
+$\{a_n\}$ je konvergentná $\iff$ $\{a_n\}$ je cauchyovská.
+:::
+:::
+
+Na koniec tejto sekcie dodajme iba, že pri počítaní limít postupností si vieme pomôcť aj prevedením postupnosti na funkciu, a použiť všetky ďalšie pravidlá, ktoré vyvinieme pre limity funkcií aj na postupnosti takýmto premostením.
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-lim_post15}
+Nech $\{a_n\}$ je postupnosť a funkcia $f(x)$ je ľubovoľná taká, že $f(n)=a_n\ \forall n\in\mathbb{N}$.[^L1] Ak existuje $\lim_{x\to\infty} f(x)=L$, potom existuje $\lim_{n\to\infty} a_n=L$.
+:::
+:::
+
+
+
+## Limita funkcií
+
+Na strane vzorov je limita vždy postupnosť blížiaca sa k nejakému *hromadnému bodu*. V prípade postupností bol tento *hromadný bod* vždy $\infty$. Ak uvažujeme definičný obor $\mathbb{R}$ pre funkciu $f$, tj. $D(f)=\mathbb{R}$, tak tento *hromadný bod* postupnosti vzorov môže byť ľubovoľné číslo $x_0\in\mathbb{R}$. Musíme preto zovšeobecniť definíciu limity.
+Pred uvedením definície pripomeňme pojem okolia bodu, ktorý na jedno-rozmernej reálnej osi má tvar $\mathcal{O}(x_0) = (x_0-\delta, x_0 + \delta)$, ak $x_0\in\mathbb{R}$, respektíve $\mathcal{O}(L) = (A,\infty)$, ak $L=\infty$, kde čísla $\delta,A\in\mathbb{R}$ určujú veľkosť daného okolia.
+
+::: {.callout-note title="Definícia"}
+::: {#def-limita_funkcie}
+## Limita funkcie
+
+Nech $x_0, L \in \mathbb{R}^\ast$. Povieme, že funkcia $f$ má v bode $x_0$ *limitu* rovnú číslu $L$ a píšeme $\lim_{x\to x_0} f(x) = L$, ak ku každému okoliu $\mathcal{O}(L)$ bodu $L$ existuje okolie $\mathcal{O}(x_0)$ bodu $x_0$ tak, že pre všetky $x \in \mathcal{O}(x_0)\smallsetminus \{x_0\}$ platí $f(x)\in\mathcal{O}(L)$. Píšeme $\lim_{x\to x_0} f(x) = L$.
+:::
+:::
+<details>
+<summary>Názvoslovie podľa hodnôt $x_0$ a $L$.</summary>
+
+- Vlastná limita vo vlastnom bode, ak $L\in\mathbb{R}$ a $x_0\in\mathbb{R}$.
+- Vlastná limita v nevlastnom bode, ak $L\in\mathbb{R}$ a $x_0=\pm\infty$.
+- Nevlastná limita vo vlastnom bode, ak $L=\pm\infty$ a $x_0\in\mathbb{R}$.
+- Nevlastná limita vo vlastnom bode, ak $L=\pm\infty$ a $x_0=\pm\infty$.
+</details>
+
+Mať limitu je lokálna vlastnosť funkcie popisujúca správanie funkcie v rýdzom okolí bodu, v ktorom limitu určujeme. Skutočnosť, že ide o rýdze okolie (tj. okolie okrem tohoto bodu), znamená, že limita nezávisí na funkčnej hodnote v tomto bode - funkčná hodnota sa môže líšiť od limity v tomto bode, alebo funkcia nemusí byť v danom bode definovaná. Inými slovami, funkčná hodnota v bode $x_0$ nemá nič spoločné s limitou v bode $x_0$.
+
+Definícia pomocou okolí je korektná, avšak na množine reálnych čísel vieme byť ešte špecifickejší, preto sa uvádza aj niekedy tzv. $\varepsilon-\delta$ definícia. Avšak $\varepsilon-\delta$ definície by sa museli uviesť dve, pretože je v takom prípade nutné špecifikovať, či sa jedná o vlastný alebo o nevlastný bod, ku ktorému limitu hľadáme.
+<details>
+<summary>$\varepsilon-\delta$ definície</summary>
+
+::: {.callout-note title="Definícia"}
+::: {#def-limita_funkcie_eps_delta1}
+
+## $\varepsilon-\delta$ definícia
+  
+Nech $x_0,L \in \mathbb{R}$. Povieme, že $\lim_{x\to x_0} f(x) = L$, ak 
+$$
+\forall\,\varepsilon>0\ \exists\, \delta >0 \ \forall\, x \in \mathbb{R} : |x-x_0| < \delta \implies |f(x)-L| <\varepsilon.
+$$
+:::
+:::
+
+::: {.callout-note title="Definícia"}
+::: {#def-limita_funkcie_eps_delta2}
+## $\varepsilon-\delta$ definícia 
+    
+Nech $L \in \mathbb{R}$. Povieme, že $\lim_{x\to \infty} f(x) = L$, ak
+$$
+\forall\,\varepsilon>0\ \exists\, A>0\ \forall\, x\in\mathbb{R}: x>A \implies |f(x)-L| <\varepsilon.
+$$
+:::
+:::
+
+Podobne definujeme aj ostatné prípady. 
+</details>
+
+Na začiatku tejto sekcie bolo uvedené, že $x_0$ je hromadným bodom na strane vzorov. Pretože so spojitými veličinami, ako sú reálne čísla, nemáme žiadnu skúsenosť tak to môžeme práve vnímať nasledovne. Ak ľubovoľná postupnosť vzorov konvergujúca k $x_0$ bude na strane obrazov konvergovať k $L$, tak sa jedná o limitu. Toto vnímanie môžeme trochu zovšeobecniť ak obmedzíme postupnosti ľubovoľne konvergujúce k $x_0$ na postupnosti, ktoré konvergujú iba sprava, resp. iba zľava.
+
+::: {.callout-note title="Definícia jednostrannej limity" collapse="true"}
+::: {#def-jednostr_lim}
+Nech $x_0 \in \mathbb{R}, L \in \mathbb{R}^\ast$. Povieme, že funkcia $f$ má v bode $x_0$ limitu sprava rovnú číslu $L$ ($\lim_{x\to x_0^+} f(x) = L$), ak
+$$
+\forall\, \mathcal{O}(L)\ \exists\,\delta>0\ \forall\,x \in (x_0,x_0 +\delta): f(x)\in \mathcal{O}(L).
+$$
+Podobne definujeme limitu zľava ($\lim_{x\to x_0^-} f(x) = L$).
+:::
+:::
+
+Existencia limity funkcie v nejakom bode do nejakej miery danú funkciu v okolí toho bodu vymedzuje. Nasledovné tvrdenia udávajú tieto vymedzenia.
+<details>
+<summary>Základné vety o limitách funkcií.</summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun1}
+Funkcia $f$ má v bode $x_0$ najviac jednu limitu.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-ohranicenost_v_okoli_limity}
+Ak má funkcia $f$ v bode $x_0$ vlastnú limitu ($L \in \mathbb{R}$), potom existuje $\mathcal{O}(x_0)$ také, že $f$ je na $\mathcal{O}(x_0)$ ohraničená.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun3}
+$\lim_{x\to x_0} f(x) = L$ $\iff$ $\lim_{x\to x_0^-} f(x) = L=\lim_{x\to x_0^+} f(x)$.
+:::
+:::
+</details>
+
+Limity (funkcií) sú, rovnako ako pri postupnostiach, len čísla, akurát sú definované cez nejaké nekonečno, a preto je potrebné znova dôkladne preskúmať a podložiť, ako vlastne s týmito číslami narábať. 
+<details>
+<summary>Vety o počítaní s limitami funkcií.</summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun4} 
+Nech $x_0,L,M\in\mathbb{R}^\ast$.
+
+- ***(i)*** Nech navyše $\exists\,\mathcal{O}(x_0)$ také, že $f(x)=g(x)\ \forall x\in\mathcal{O}(x_0)\smallsetminus\{x_0\}$, potom $\lim_{x\to x_0} f(x) = L \iff \lim_{x\to x_0} g(x) = L$.
+- ***(ii)*** Nech navyše $\lim_{x\to x_0} f(x) = L$ a $\lim_{x\to x_0} g(x) = M$ tak, že $L<M$, potom $\exists\,\mathcal{O}(x_0)$ také, že $f(x)<g(x)\ \forall x\in\mathcal{O}(x_0)\smallsetminus\{x_0\}$. 
+- ***(iii)*** Nech navyše $f(x)\leq g(x)\ \forall x\in\mathcal{O}(x_0)\smallsetminus\{x_0\}$, potom $L\leq M$. 
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun5}
+Nech $\lim_{x\to x_0} f(x) = 0$. Ak pre funkciu $g$ $\exists\,\mathcal{O}(x_0)$ také, že $g$ je v ňom ohraničená, potom 
+$$
+\lim_{x\to x_0} f(x)g(x) = 0 \qquad (0\cdot[\text{ohr.}]=0).
+$$
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun6}
+
+## Počítacie operácie s limitami
+
+Nech existujú obe (vlastné) limity $\lim_{x\to x_0} f(x) = L_1$ a $\lim_{x\to x_0} g(x) = L_2$, ($L_1,L_2\in\mathbb{R}$). Potom platí:
+
+- ***(i)*** $\lim_{x\to x_0} (f(x)\pm g(x)) = L_1\pm L_2$,
+- ***(ii)*** $\lim_{x\to x_0} (f(x)\cdot g(x)) = L_1\cdot L_2$,
+- ***(iii)*** Ak je $L_2\neq 0$, potom $\lim_{x\to x_0} \frac{f(x)}{g(x)} = \frac{L_1}{L_2}$,
+- ***(iv)*** $\lim_{x\to x_0} |f(x)| = |\lim_{x\to x_0} f(x)|$.
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun7}
+## O troch limitách
+
+Nech existuje rýdze okolie bodu $x_0\in\mathbb{R}^\ast$, v ktorom platí $f(x) \leq g(x) \leq h(x)$. Ak je $\lim_{x\to x_0} f(x)=L=\lim_{x\to x_0} h(x)$ potom taktiež $\lim_{x\to x_0} g(x)=L$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-limita_zlozenej_funkcie}
+
+## Limita zloženej funkcie
+
+Nech $\lim_{x\to x_0} \varphi(x)=\alpha$, $\lim_{y\to \alpha} f(y)=L$ a existuje $\mathcal{O}_1(x_0)$ také, že $\forall \, x \in \mathcal{O}_1(x_0)\smallsetminus\{x_0\}$ je $\varphi(x)\neq \alpha$.[^L2] Potom $\lim_{x\to x_0} f(\varphi(x))=L$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#lem-lim_fun9}
+Monotónnosť funkcie v pravom okolí $x_0\in[-\infty, +\infty)$ $\implies$ existuje $\lim_{x\to x_0^+} f(x) = L, L\in\mathbb{R}^\ast$. Obdobne v ľavom okolí $x_0$.
+:::
+:::
+</details>
+
+Dôležitými výsledkami plynúcimi z odvodených viet (z prednášky) a definícií (z prednášky) sú 
+$$
+    \lim_{x\to0} \frac{\sin x}{x}=1 
+    \qquad \text{a} \qquad 
+    \lim_{x\to0} \frac{e^x-1}{x}=1.
+$$
+Tieto dva príklady majú fundamentálny význam pri derivovaní goniometrických ($\sin x, \cos x$) funkcií a exponenciálnych ($e^x$) funkcií. To si ukážeme neskôr.
+
+
+## Spojitosť funkcií
+
+Zhoda funkčnej hodnoty a limity v nejakom bode sa označuje ako **spojitosť funkcie**. Pripomeňme, že to sme doteraz nijakým spôsobom nepredpokladali. 
+
+Vlastnosť spojitosti v nejakom bode, respektíve vo všetkých bodoch na nejakom intervale[^L3] je veľmi silná, v zmysle počtu logických dôsledkov, ktoré to so sebou prináša[^L4] a ešte dlho budeme objavovať, čo to pre funkciu znamená. 
+
+::: {.callout-note title="Definícia"}
+::: {#def-spojitost}
+
+Nech $x_0\in\mathbb{R}$. Povieme, že funkcia $f$ je v bode $x_0$ *spojitá*, ak 
+$$
+\lim_{x\to x_0} f(x) = f(x_0).
+$$
+Podobne môžeme definovať aj jednostranné spojitosti $\lim_{x\to x_0^-} f(x) = f(x_0)$ a $\lim_{x\to x_0^+} f(x) = f(x_0)$.
+:::
+:::
+
+
+Nakoľko stále pracujeme s limitami, tak bezprostredne z definície vyplýva, že spojitosť sa zachováva pri elementárnych operáciách so spojitými funkciami v danom bode. 
+<details>
+<summary>Základné vety o spojitosti.</summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun10}
+Ak sú funkcie $f,g$ spojité v bode $x_0$, potom sú funkcie $f \pm g,\ f \cdot g, \ f/g$ spojité v bode $x_0$. (Spojitosť $f/g$ vyžaduje navyše $g(x_0)\neq 0$.)
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun11}
+Nech $\lim_{x\to x_0} \varphi(x) = \alpha$ a funkcia $f$ je spojitá v bode $\alpha$. Potom platí, že $\lim_{x\to x_0} f(\varphi(x)) = f(\alpha)$.[^L7] Tj. platí zámena limity a spojitej funkcie ($f$)
+$$
+\lim_{x\to x_0} f(\varphi(x)) = f(\lim_{x\to x_0}\varphi(x)).
+$$
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lim_fun12}
+
+## Spojitosť zloženej funkcie
+
+Ak je funkcia $u = \varphi(x)$ spojitá v $x_0$ a $y = f(u)$ spojitá v bode $u_0 = \varphi(x_0)$, potom je funkcia $y = f(\varphi(x))$ spojitá v $x_0$.
+:::
+:::
+</details>
+
+Tieto vety majú za dôsledok, že skoro všetky funkcie, ktoré vznikli sčítaním alebo násobením, čiže skoro všetky funkcie, ktoré poznáme, pretože nič lepšie nevieme, sú spojité v každom bode ich definičného oboru. Spojitosť funkcií je teda v aplikáciách často implicitne daná, avšak v matematickej teórii je nutné ju zakaždým explicitne zahrnúť v predpokladoch vety, ktorá vyžaduje spojitosť, pretože to nie je samozrejmosťou.
+
+::: {.callout-tip title="Spojitosť elementárnych funkcií" collapse="true"}
+::: {#thm-spojitost_elementarnych_funkcii}
+Nasledujúce funkcie sú spojité v každom bode ich definičného oboru.
+
+- ***(i)*** $f(x)=c$, konštantné funkcie,
+- ***(ii)*** $P(x) = a_nx^n + \cdots + a_1 x+a_0$, polynómy,
+- ***(iii)*** $\frac{R(x)}{Q(x)}$, racionálne lomené funkcie,
+- ***(iv)*** $\sin x,\ \cos x,\ \tan x,\ \mathrm{cotg}\, x$, goniometrické funkcie,
+- ***(v)*** $a^x, a>0$, exponenciálne funkcie,
+- ***(vi)*** $\arcsin x,\ \arccos x,\ \mathrm{arctg}\, x,\ \mathrm{arccotg}\,x$, cyklometrické funkcie,
+- ***(vii)*** $\log_a x,\ a>0, a\neq1$ a $x^s,\ s\in\mathbb{R}$, logaritmické funkcie a všeobecná mocnina.
+:::
+:::
+
+
+Naopak Dirichletova funkcia[^L8] nemá bod (vo svojom definičnom obore), v ktorom by bola spojitá. 
+
+Limita funkcie a spojitosť funkcie v bode sú lokálnymi vlastnosťami, pretože popisujú správanie funkcie v okolí daného bodu. Ak vyšetrujeme správanie funkcie na nejakej množine (najčastejšie intervalu), hovoríme o globálnej vlastnosti. Globálna vlastnosť je napríklad periodicita alebo parita funkcie a taktiež nasledujúca vlastnosť.
+
+::: {.callout-note title="Definícia"}
+::: {#def-spojitost_interval}
+Nech je $f$ funkcia, $I\subseteq D(f)$ interval. Povieme, že $f$ je spojitá na intervale $I$, ak je spojitá v každom vnútornom bode intervalu $I$ a ak patrí ľavý (pravý) koncový bod do $I$, je v ňom spojitá sprava (zľava). Píšeme $f\in C(I)$ a ak je $I=[a,b]$, tak $f\in C[a,b]$.
+:::
+:::
+
+Jedným z prvých dôsledkov spojitosti funkcie na intervale je nasledovná veta, ktorá nadväzuje na vetu (@thm-ohranicenost_v_okoli_limity). Upozornime, že dôležitou súčasťou tejto vety je uzavretosť intervalu $[a,b]$.[^L9] Ilustrácia tejto vety je na obrázku (@fig-weierstrass).
+
+::: {.callout-tip title="Veta"}
+::: {#thm-weierstrass}
+
+## Weierstrass  
+
+Nech $f\in C[a,b]$. Potom je $f$ na tomto intervale ohraničená a nadobúda v ňom svoju najväčšiu a najmenšiu hodnotu.
+:::
+:::
+
+![Ilustrácia Weierstrassovej vety.](weierstrass.png){#fig-weierstrass width=50%}
+
+Ďalším celkom očakávaným výsledkom je Bolzanova veta. Tvrdenie Bolzanovej vety vieme využiť napríklad pri hľadaní koreňov nejakej funkcie, tj. pre ktoré $x$ je $f(x)=0$, viď. @fig-Bolzano.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-bolzano}
+
+## Bolzano 
+
+Nech $f\in C[a,b]$. Potom $f$ nadobúda všetky svoje hodnoty medzi svojou najväčšou a najmenšou hodnotou.
+:::
+:::
+
+::: {.callout-tip title="Dôsledok Bolzanovej vety" collapse="true"}
+::: {#cor-bolzano}
+Nech $f\in C[a,b]$. Ak $f(a)\cdot f(b) < 0$, tj. jedna funkčná hodnota je nad osou $x$ a druhá pod osou $x$, potom $\exists\,\xi\in(a,b)$ také, že $f(\xi)=0$.
+:::
+:::
+
+![Ilustrácia Bolzanovej vety, respektíve jej dôsledku.](bolzano.png){#fig-Bolzano width=80%}
+
+
+
+Ďalšia veta, ktorú si uvedieme, pojednáva o monotónnych, spojitých funkciách a hovorí o spojitosti ich inverzných funkcií. Práve toto tvrdenie je použité pri dôkaze o spojitosti funkcií $\arcsin x$, $\arccos x$, $\mathrm{arctg}\, x$, $\mathrm{arccotg}\,x$, $\log_a x$ a $x^s$ z vety (@thm-spojitost_elementarnych_funkcii).
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-lim_fun13}
+Ak je $f$ rýdzo monotónna a spojitá na $I\subseteq D(f)$, potom je $f^{-1}$ tiež spojitá a rýdzo monotónna na intervale $J=f(I)$, kde $f(I) =$ obraz intervalu $I$.
+:::
+:::
+
+
+
+
+## Body nespojitosti
+
+S funkciami, ktoré nie sú spojité (v bode $x_0$), sa pracuje o niečo ťažšie. Avšak možností tejto nespojitosti je viac. Preto si uvedieme klasifikáciu bodov nespojitosti. Rozlišujeme nasledovné situácie, ktoré môžu nastať:
+
+- **(1a)** Existuje vlastná limita $\lim_{x\to x_0} f(x) = a$, ale $a\neq f(x_0)$. Bod $x_0$ potom nazveme **odstrániteľným bodom nespojitosti**, respektíve **bodom nespojitosti prvého druhu** funkcie $f$. Pripusťme aj situáciu, kedy hodnota $f(x_0)$ nie je definovaná.
+    
+![Odstrániteľné body nespojitosti. Odstrániteľný bod vieme predefinovať alebo doplniť, ak nie je definovaný v danom bode.](nespojitost1.png){#fig-nespojitost1 width=50%}
+
+- **(1b)** Neexistuje vlastná limita $\lim_{x\to x_0} f(x)$, ale existujú obe vlastné jednostranné limity 
+$$
+        \lim_{x\to x_0^+} f(x) = a_1 \qquad\text{a}\qquad \lim_{x\to x_0^-} f(x) = a_2,
+$$
+kde $a_1\neq a_2$ . V tomto prípade bod $x_0$ nazývame **skok**. Aj tento bod nazývame **bodom nespojitosti prvého druhu** funkcie $f$.
+
+- **(2)** Neexistuje vlastná limita $\lim_{x\to x_0} f(x)$, a aspoň jedna z jednostranných limít funkcie $f$ v bode $x_0$ neexistuje alebo je nevlastná. Potom bod $x_0$ nazývame **bodom nespojitosti druhého druhu** funkcie $f$.
+
+![$x_1$ -- nespojitosť druhého druhu (*nekonečný skok*), $x_2$ a $x_3$ -- nespojitosť prvého druhu (skok), $x_4$ -- nespojitosť druhého druhu (*nekonečná oscilácia*).](nespojitost.png){#fig-nespojitost width=60%}
+
+
+[^L1]: Inými slovami, funkcia prechádza (všetkými) bodmi postupnosti.
+
+[^L2]: Táto podmienka je nevyhnutná, pretože by mohol vzniknúť konflikt s predchádzajúcou podmienkou $\lim_{y\to \alpha} f(y)=L$, v ktorej limita nemá nič spoločné s hodnotou $f(\alpha)$.
+
+[^L3]: Respektíve na nejakej množine pre funkcie viacerých premenných.
+
+[^L4]: Alebo inak povedané, kladie veľké obmedzenie na to, ako daná funkcia môže vyzerať, a preto bude veľa ďalších tvrdení, ktoré budú práve túto vlastnosť predpokladať. Zároveň toto obmedzenie je celkom prirodzené a pri modelovaní rôznych javov nás nebude veľmi obmedzovať.
+
+[^L5]: $\mathbb{R}^\ast = \mathbb{R}\cup\{\infty, -\infty\}$, množinu $\mathbb{R}^\ast$ nazývame *rozšírená množina reálnych čísel*. Prvky $+\infty$ a $-\infty$ sa tiež niekedy nazývajú *nevlastné body* rozšírenej reálnej osi. O číslach $x\in\mathbb{R}$ potom hovoríme, že sú to *vlastné body*.
+
+[^L6]: $0^+$ znamená, že $\exists\, n_0$ také, že $\forall\, n\geq n_0$ platí $a_n>0$.
+
+[^L7]: Všimnite si, že teraz už nie je potrebná požiadavka $\varphi(x)\neq\alpha$ na nejakom okolí $\mathcal{O}_1(x_0)\smallsetminus\{x_0\}$, ako vo @thm-limita_zlozenej_funkcie.
+
+[^L8]: Z Dirichletovej funkcie sa dajú vytvoriť rôzne prípady spojitosti. Napríklad modifikáciou $y=\chi(x)\cdot x$ dostaneme funkciu, ktorá je spojitá len v jednom bode -- v počiatku.
+
+[^L9]: Uzavrený a ohraničený interval sa nazýva aj *kompaktný interval*.

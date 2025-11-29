@@ -1,0 +1,1276 @@
+## Konštrukcia Riemannovho integrálu a jeho výpočet
+
+Základnú úlohu integrálneho počtu možno sformulovať takto: Nech je daná spojitá funkcia $f(x)$ na $[a,b]$. Nájdite obsah plochy medzi osou $x$ a grafom $f(x)$. Hľadáme teda obsah plochy
+$$
+P = \{(x,y)\in \mathbb{R}^2,\ x\in [a,b],\ 0\leq y\leq f(x)\}.
+$${#eq-mnozina_P}
+
+![Množina $P$.](integral_mnozina.png){#fig-mnozina_P width=40%}
+
+![Časť množiny $P$ *pod* osou $x$ prispieva záporným obsahom do celkového obsahu.](integral_mnozina_plusminus.png){#fig-integral_mnozina_pod_x width=40%}
+
+V sekcii o obsahu cez neurčitý integrál v @eq-obsah_integral1 sme ukázali nejaký výpočet plochy pod krivkou. Teraz ukážeme iný spôsob, viac konštrukčný, a neskôr ukážeme, že sú ekvivalentné. Aproximujme obsah $P$ (@eq-mnozina_P) pomocou obdĺžnikov. Pretože chceme aproximovať presne, takže tých obdĺžnikov tam chceme mať viac ako jeden, preto podelíme interval $[a,b]$ na $n$ podintervalov $[x_{k-1}, x_k]$, kde $x_0=a$ a $x_n=b$. Jeden obdĺžnik bude mať teda podstavu $[x_{k-1}, x_k]$. Ako voliť výšku tohto obdĺžnika? Označme tento problém $\circledast$, pretože budeme voliť rôzne možnosti, a teda k tejto otázke sa ešte budeme vracať.
+
+$\circledast_1$ Voľme výšku obdĺžnika minimum, resp. infímum funkčnej hodnoty na intervale $[x_{k-1}, x_k]$, a označme túto hodnotu $m_k$,
+$$
+m_k = \inf_{x\in[x_{k-1}, x_k]} f(x).
+$$
+
+Plochu pod krivkou aproximujeme ako
+$$
+\sum_{k=1}^n m_k \cdot (x_k - x_{k-1}).
+$${#eq-mk}
+
+![Dolný súčet.](dolny_sucet.png){#fig-dolny_sucet width=40%}
+
+$\circledast_2$ Podobne môžeme voliť suprémum ako výšku obdĺžnika,
+$$
+M_k = \sup_{x\in[x_{k-1}, x_k]} f(x).
+$$
+
+Plochu dostaneme ako
+$$
+\sum_{k=1}^n M_k \cdot (x_k - x_{k-1}).
+$${#eq-Mk}
+
+![Horný súčet.](horny_sucet.png){#fig-horny_sucet width=40%}
+
+
+Zrejme prístup $\circledast_1$ dáva dolnú hranicu ľubovolnej (rozumnej) aproximácie hľadaného obsahu. Prístup $\circledast_2$ dáva hornú hranicu. Inými slovami, platí
+$$
+\sum_{k=1}^n m_k \cdot (x_k - x_{k-1}) \leq
+P \leq
+\sum_{k=1}^n M_k \cdot (x_k - x_{k-1}).
+$$
+
+Avšak kým bude týchto intervalov konečný počet, tak naša aproximácia nebude nikdy dostatočne dobrá. Z tohto dôvodu musíme zaviesť vhodnú definíciu delenia intervalov.
+
+::: {.callout-note title="Definícia"}
+::: {#def-delenie_intervalu}
+
+Nech $a,b \in \mathbb{R},\ a<b$. **Delením intervalu** $[a,b]$ rozumieme každú konečnú množinu $D\subseteq [a,b]$ navzájom rôznych bodov takú, že $a,b\in D$.
+
+:::
+:::
+
+Množinu $D$ budeme písať ako konečnú postupnosť $D = \{x_0, x_1,\dots, x_n\}$, ktorej členy spĺňajú $a=x_0 < x_1 < x_2 < \dots<x_n=b$. Čísla $x_k$ budeme nazývať **deliace body**, intervaly $[x_{k-1}, x_k]$ **deliace intervaly** a číslo
+$$
+\nu (D)= \max \{x_k - x_{k-1}|\  k=1,\dots,n\}
+$$
+
+nazveme **normou delenia** $D$. Všimnime si, že @def-delenie_intervalu má iba konečný počet prvkov, čo nie je úplne tak, ako sme to sľubovali. Avšak výhodou je, že nie je špecifikované, koľko je deliacich bodov a nie je ani špecifikované, ako sú umiestnené. Spomínané nekonečno vystúpi až v počte všetkých možných deliacich intervalov. Preto označme množinu všetkých delení intervalu $[a,b]$ ako $\mathcal{D}([a,b])$, alebo skrátene len $\mathcal{D}$.
+
+Odhady obsahu $P$ v rovnici (@eq-mk) a v rovnici (@eq-Mk) sú teda skonštruované na základe nejakého delenia intervalu $D\in\mathcal{D}([a,b])$ a na základe funkčnej hodnoty funkcie $f$. Položme
+$$
+s(D,f) = \sum_{k=1}^n m_k (x_k - x_{k-1}),\qquad
+S(D,f) = \sum_{k=1}^n M_k (x_k - x_{k-1}).
+$$
+
+Číslo $s(D,f)$ voláme **dolný Riemannov súčet** a číslo $S(D,f)$ voláme **horný Riemannov súčet** funkcie $f$ pri delení $D$. Doplňme, že k tomu, aby táto definícia dávala zmysel, respektíve aby definícia $m_k$ a $M_k$ dávala zmysel, je potrebné, aby $f(x)$ bola **ohraničená** na $[a,b]$.[^R1] Píšeme $f\in B([a,b])$ (B $\to$ bounded). 
+
+Ďalšie kroky, ktoré chceme podniknúť, využívajú ohraničenosť množín $\{s(D,f)\,;\ D\in\mathcal{D}([a,b])\}$ a $\{S(D,f)\,;\ D\in\mathcal{D}([a,b])\}$. To sa dá ľahko vidieť.[^R2] Z ohraničenosti týchto množín vyplýva, že ich suprémum a infímum sú konečné čísla, a tak zavedieme rovno aj nasledovnú definíciu.
+
+::: {.callout-note title="Definícia"}
+::: {#def-horny_a_dolny_Riemannov_sucet}
+
+Nech $f\in B([a,b])$. Potom pokladáme
+\begin{align*}
+    \lowint_a^b f(x)\, dx &= \sup\{s(D,f)\,;\ D\in\mathcal{D}([a,b])\}
+    \qquad\dots\qquad \text{\textbf{dolný} Riemannov \textbf{integrál}},\\
+    \upint_a^b f(x)\, dx &= \inf\{S(D,f)\,;\ D\in\mathcal{D}([a,b])\}
+    \qquad\dots\qquad \text{\textbf{horný} Riemannov \textbf{integrál}}.
+\end{align*}
+
+:::
+:::
+
+Samozrejme, intuitívne by sme čakali, že $\lowint_a^b f(x)\, dx=\upint_a^b f(x)\, dx$. Samozrejme tak, ako to už v analýze býva, tak našu intuíciu môžu narušiť čudesné funkcie, ktoré si ani nevieme predstaviť a môže sa stať situácia ako na @fig-nezhoda_dolneho_a_horneho_integralu.
+
+![Nezhoda dolného a horného integrálu. Na $x$-ovej osi sú nanesené jednotlivé hodnoty $s(D,f)$ a $S(D,f)$.](integral_dolny_horny.png){#fig-nezhoda_dolneho_a_horneho_integralu width=40%}
+
+Takúto nezhodu môžeme pozorovať napríklad pre Dirichletovu funkciu $\chi(x)$. Naopak, ak je dolný a horný integrál rovnaký, definujeme tzv. **určitý** (Riemannov) **integrál**.
+
+::: {.callout-note title="Definícia"}
+::: {#def-urcity_integral}
+
+Nech $f\in B([a,b])$. Ak platí $\lowint_a^b f(x)\, dx = \upint_a^b f(x)\, dx$, povieme, že funkcia $f$ je *integrovateľná* (v Riemannovom zmysle[^R3]) na $[a,b]$, píšeme $f\in R([a,b])$. V tomto prípade definujeme *určitý (Riemannov) integrál* cez interval $[a,b]$ vzťahom
+$$
+\int_a^b f(x)\, dx \coloneqq \lowint_a^b f(x)\, dx = \upint_a^b f(x)\, dx.
+$$
+
+:::
+:::
+
+Teraz sme v situácii, že máme definovaný určitý integrál, vieme, čo reprezentuje, ale nemáme reálny spôsob, ako ho spočítať, pretože nie je v našich silách overiť každé delenie intervalu. Musíme preto naše definície o niečo rozvinúť. 
+
+::: {.callout-note title="Definícia"}
+::: {#def-nul_post_delenia}
+
+Postupnosť $\{D_n([a,b])\}\subset\mathcal{D}([a,b])$ nazveme *nulová* postupnosť delenia, ak platí 
+$$
+\lim_{n\to \infty} \nu (D_n)=0.
+$$
+
+:::
+:::
+
+Typicky takáto nulová postupnosť delenia môže byť $n$ ekvidistantných (rovnako veľkých) intervalov, tj. $x_k-x_{k-1} =\frac{a-b}{n}$. Druhá možnosť je rozdeliť interval $[a,b]$ na $2^n$ rovnakých dielikov metódou polenia intervalov[^R4]. V prvom prípade sú delenia $D_n$ určené bodmi $x_k = a + k(b-a)/n,\ k=0,\dots,n$ a v druhom prípade $x_k = a+k(b-a)/2^n,\ k = 0,\dots, 2^n$.
+
+Nasledujúca veta ukazuje, že hodnotu $\lowint f$, resp. $\upint f$ nemusíme hľadať ako supréma, resp. infíma istých množín, ale môžeme tieto hodnoty nájsť ako limity vhodných číselných postupností.
+
+::: {.callout-tip title="Veta"}
+:::{#thm-intergal_ako_limita}
+
+Nech $f\in B([a,b])$. Ak je $\{D_n\}$ ľubovoľná nulová postupnosť delenia $[a,b]$, potom platí
+$$
+\lim_{n\to\infty} s(D_n,f) = \lowint_a^b f(x)\, dx, \qquad
+\lim_{n\to\infty} S(D_n,f) = \upint_a^b f(x)\, dx.
+$${#eq-limita_ako_dolny_horny_int}
+
+:::
+:::
+
+Výsledok (@eq-limita_ako_dolny_horny_int) pre integrovateľné funkcie, tj. pre $f\in R([a,b])$ znamená, že jej určitý integrál môžeme počítať ako limitu postupnosti dolných, resp. horných Riemannových súčtov.
+$$
+\lim_{n\to\infty} s(D_n,f) 
+= \int_a^b f(x)\, dx =
+\lim_{n\to\infty} S(D_n,f).
+$$
+
+Pomocou tejto definície sa už dá aj niečo spočítať. Napríklad funkcia $f(x)=x$ na intervale $[0,b]$. Pri ekvidistantnom delení dostaneme pre dolný Riemannov súčet
+$$
+s(D_n,f) = \sum_{k=1}^n \frac{(k-1)\cdot b}{n}\cdot\frac{b}{n}= \frac{b^2}{n^2}\underbrace{\sum_{k=1}^n (k-1)}_{=\frac{n(n-1)}{2}} = \frac{b^2n(n-1)}{2n^2}=\frac{b^2}{2}\frac{(n-1)}{n}\to \frac{b^2}{2}
+$$
+
+pre $n\to \infty$. Podobne pre horný Riemannov súčet platí
+$$
+S(D_n,f) = \sum_{k=1}^n \frac{k\cdot b}{n}\cdot\frac{b}{n}= \frac{b^2}{n^2}\underbrace{\sum_{k=1}^n k}_{=\frac{n(n+1)}{2}} = \frac{b^2n(n+1)}{2n^2}=\frac{b^2}{2}\frac{(n+1)}{n}\overset{n\to\infty}{\longrightarrow} \frac{b^2}{2}.
+$$
+
+Dostávame tak výsledok, že $f(x)=x \in R([0,b])$ a zároveň platí $\int_0^bx\,dx=\frac{b^2}{2}$. Okrem iného, tento výsledok sa zhoduje s výpočtom pravouhlého trojuholníka s preponami dlhými $b$. Takže sme radi, že naša metóda funguje, avšak stále to nie je úplný zázrak.[^R5]
+
+<details>
+<summary>Riemannova konštrukcia integrálu.</summary>
+
+$\circledast_3$ Uvedieme ešte jednu možnosť volenia výšky obdĺžnikov. Nie že by sme to nejako špeciálne potrebovali, jedná sa skôr o historickú zaujímavosť, pretože tento postup použil práve Riemann pri jeho pôvodnej konštrukcii integrálu. Okrem toho sa ešte študent v priebehu štúdia stretne s konštrukciou ďalších (všeobecnejších) integrálov, kde sa práve zopakuje táto konštrukcia.
+
+Nech $D=\{x_0,x_1,\dots,x_n\}$ je delenie intervalu $[a,b]$ a nech $c_k\in[x_{k-1},x_k]$ je ľubovoľné číslo $\forall k\in\{1,\dots,n\}$. Množinu $V=\{c_1,\dots,c_n\}$ nazveme *výberom*[^R6] pri delení $D$.
+
+::: {.callout-note title="Definícia"}
+::: {#def-integralny_sucet}
+
+Nech $f\in B([a,b])$, zvoľme delenie $D=\{x_0,x_1,\dots,x_n\}\in\mathcal{D}([a,b])$ a nech $V=\{c_1,\dots,c_n\}$ je výber pri $D$. Číslo 
+$$
+i(D,f,V)=\sum_{k=1}^n f(c_k)(x_k-x_{k-1})
+$$
+
+nazývame **integrálnym súčtom** funkcie $f$ pri delení $D$ a výbere (reprezentantov) $V$.
+
+:::
+:::
+
+![Integrálny súčet.](integral_i.png){#fig-integralny_sucet width=40%}
+
+Na základe tejto definície hneď vidíme vzťah medzi integrálnym súčtom a dolným, resp. horným Riemannovým súčtom.
+$$
+s(D,f) \leq i(D,f,V)\leq S(D,f),\quad \forall D\in \mathcal{D}([a,b]),\ \forall V.
+$$
+
+Okrem toho môžeme zaviesť ekvivalentnú podmienku integrovateľnosti. Ohraničená funkcia $f$ je na $[a,b]$ *integrovateľná*, ak 
+$$
+\exists I \in\mathbb{R}:\quad\lim_{\nu(D)\to0} i(D,f,V) = I
+$$
+
+a hodnota tejto limity nezávisí na $V$. Potom zároveň môžeme definovať $\int_a^b f(x)\,dx=I$.
+
+</details>
+
+## Podmienky integrovateľnosti
+
+V predchádzajúcej sekcii sme spomínali, že funkcia $f$ musí byť na $[a,b]$ ohraničená, aby malo zmysel ju integrovať (na $[a,b]$). Okrem toho sme definovali dolný a horný Riemannov súčet, ktoré museli v limitnom prípade splynúť, na to aby funkcia $f$ bola označená ako integrovateľná. 
+
+::: {.callout-tip title="Lemma" collapse="true"}
+::: {#lem-integrovatelnost1}
+Nech $f\in B([a,b])$ (funkcia $f$ je ohraničená). Potom $f\in R([a,b])$ (integrovateľná) práve vtedy, keď 
+$$
+\forall \varepsilon>0\ \exists D\in \mathcal{D}([a,b]): S(D,f) - s(D,f) < \varepsilon. 
+$$
+
+Tj. rozdiel medzi horným a dolným Riemannovým súčtom je ľubovoľne malý. 
+
+:::
+:::
+
+Jedná sa o nutnú a postačujúcu podmienku integrovateľnosti, avšak overovanie tejto podmienky je nepraktické, preto sformulujeme efektívne kritériá[^R7] integrovateľnosti.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-integrovatelnost1}
+
+$f$ je monotónna na $[a,b]$ $\implies$ $f$ je na $[a,b]$ integrovateľná.
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-integrovatelnost2}
+
+$f$ je spojitá na $[a,b]$ $\implies$ $f$ je na $[a,b]$ integrovateľná.
+
+:::
+:::
+
+Spojitosť je teda *postačujúcou* podmienkou integrovateľnosti. Avšak aj nespojité funkcie môžu byť integrovateľné[^R8], na overenie tohto tvrdenia stačí nájsť nespojitú monotónnu funkciu. Na to, aby sme mohli dobre opísať, koľko nespojitostí a akého charakteru sme schopní *odpustiť*, definuje sa tzv. Jordanova miera. Potrebujeme nejako kvantifikovať množiny, cez ktoré integrujeme.[^R9] Pretože samotnú definíciu Jordanovej miery nebudeme potrebovať, tak ju vynecháme.[^R10] My budeme potrebovať to, kedy je miera nulová, tj. kedy podstava $\times$ výška neprispieva žiadnym dielom do obsahu. 
+<details>
+<summary>Jordanova miera nula. </summary>
+
+::: {.callout-note title="Definícia"}
+:::{#def-jordanova_miera_nula}
+
+Množina $A\subseteq \mathbb{R}$ má **(Jordanovu) mieru nula**, ak $\forall\varepsilon>0$ existuje *konečný* systém intervalov $\{I_1,\dots, I_n\}$ taký, že $A \subseteq \bigcup_{k=1}^nI_k$ a $\sum_{k=1}^n d(I_k) < \varepsilon$.[^R11]
+
+:::
+:::
+
+Uveďme dôležité príklady[^R12] množín na $\mathbb{R}$, ktoré majú Jordanovu mieru nula.
+
+- Jednobodová množina, tj. $A=\{x_0\}$,
+- Konečná množina bodov, tj. $A=\{x_0, x_1, \ldots, x_n\}$,
+- Nekonečná konvergentná postupnosť bodov, tj. $A= \{x_n\}_{n=1}^\infty\cup\{x_0\}$, kde $x_n\overset{n\to\infty}{\longrightarrow} x_0$,
+- Ľubovoľné konečné zjednotenia množín uvedených vyššie.
+
+</details>
+
+Dostávame sa teda k všeobecnej podmienke integrovateľnosti pre ohraničené funkcie.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-vseob_podmienka_integrovatelnosti}
+
+$f\in B([a,b])$ a množina bodov nespojitosti má mieru nula $\implies$ $f\in R([a,b])$.
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-ekvivalencia_integralov}
+
+Nech $f,g\in B([a,b])$ a množina bodov $\{x\in[a,b]:\ f(x)\neq g(x)\}$ má mieru nula. Potom platí ekvivalencia $f\in R([a,b])$ $\iff$ $g\in R([a,b])$ a platí
+$$
+\int_a^b f(x)\,dx = \int_a^b g(x)\,dx.
+$$
+
+:::
+:::
+
+
+## Vlastnosti Riemannnovho integrálu
+Nachádzame sa v situácii, že sme niečo definovali, vieme v podstate aj čo, ale nemáme rozumný spôsob, ako to počítať. V takýchto situáciách je rozumné teda začať jednoduchšími otázkami. Podobne ako v iných vedách, keď nevieme priamo skúmať daný objekt, tak skúmame vlastnosti. Aplikujme tento prístup aj na Riemannov integrál.
+Môžeme začať tým, čo sa stane, ak budeme integrované funkcie násobiť konštantou alebo sčítavať. Inak povedané, určitý integrál je *lineárny* (*lineárny funkcionál*[^R13]).
+
+::: {.callout-tip title="Veta"}
+::: {#thm-linearita_integral}
+
+Nech $f,g\in B([a,b])$ a zároveň $f,g\in R([a,b])$, potom je taktiež $\alpha f+\beta g \in R([a,b])$. A platí
+$$
+\int_a^b \alpha f(x)+\beta g(x)\, dx = \alpha \int_a^bf(x)\, dx+\beta \int_a^bg(x)\, dx.
+$$
+
+:::
+:::
+
+Okrem týchto operácií môžeme funkcie násobiť a deliť medzi sebou ... Delenie bude vyžadovať podmienku navyše. Vzhľadom k tomu, že Riemannov integrál je konštruovaný len pre ohraničené funkcie, potrebujeme predpoklad na funkciu v menovateli, ktorý zaručí ohraničenosť integrovaného zlomku.
+
+::: {.callout-tip title="Násobenie dvoch funkcií" collapse="true"}
+::: {#thm-integral_nasobenie}
+
+Ak $f,g\in R([a,b])$, potom $f\cdot g\in R([a,b])$.
+
+:::
+:::
+
+::: {.callout-tip title="Delenie dvoch funkcií" collapse="true"}
+::: {#thm-integral_delenie}
+
+Ak $f,g\in R([a,b])$ $\And$ $g(x)\neq 0\ \forall x \in [a,b]$ $\And$ 
+
+- buď ***(i)***  $g(x)\geq c > 0\ \forall x \in [a,b]$, 
+- alebo ***(ii)*** $g(x)\leq c < 0\ \forall x \in [a,b]$, 
+
+potom $f/ g\in R([a,b])$.
+
+:::
+:::
+
+Určité integrály sú čísla, a teda ich môžeme aj celkom priamočiaro medzi sebou porovnávať.
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-integral_porovnavanie1}
+
+Ak $f,g\in R([a,b])$ a $f(x)\leq g(x)\ \forall x\in [a,b]$, potom $\int_a^b f \leq \int_a^b g$.
+
+:::
+:::
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-integral_porovnavanie2}
+
+Ak $f\in R([a,b])$, potom $|f|\in R([a,b])$ a zároveň $\left|\int_a^b f\right| \leq \int_a^b |f|$.
+
+:::
+:::
+
+Ďalšie dôsledky definície môžeme odvodiť pre manipuláciu s dolnými a hornými medzami.
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-integral_medze1}
+
+Ak $f(x)\in R([a,b])$, potom $f(x)\in R([c,d])\quad \forall c,d\in[a,b],\ c<d$.
+
+:::
+:::
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-veta_o_navaznosti_integralu}
+
+Nech $a<b<c\in\mathbb{R}$ a nech $f\in R([a,b])\cap R([b,c])$[^R14], potom $f\in R([a,c])$ a platí $\int_a^c f = \int_a^b f + \int_b^c f$.
+
+:::
+:::
+
+Dodefinovaním 
+$$
+\int_b^a f(x)\, dx \coloneqq -\int_a^b f(x)\, dx\qquad
+\text{a}\qquad
+\int_a^af(x)\,dx \coloneqq 0,
+$$
+
+môžeme vo vete (@thm-veta_o_navaznosti_integralu) odstrániť požiadavku usporiadania čísel $a,b,c$.
+
+## Vety o strednej hodnote integrálneho počtu
+
+Dôležitou súčasťou a pomocným výsledkom ku viacerým veľmi dôležitým tvrdeniam v integrálnom počte jednej premennej sú práve vety o strednej (priemernej) hodnote. Uvažujme spojitú funkciu $f$ na intervale $[a,b]$. Na tomto intervale zvoľme nejaké delenie, tj. $a\leq a_1 \leq \cdots \leq a_n \leq b$. Priemerná funkčná hodnota v týchto bodoch je daná vzťahom
+$$
+c_n =\frac{f(a_1) + \cdots+ f(a_n)}{n}.
+$$
+
+Vynásobením tohto výrazu špeciálnou jednotkou v tvare $\frac{b-a}{b-a}$, kde $b-a$ je dĺžka intervalu, na ktorom je definovaná a spojitá funkcia $f$, dostaneme
+$$
+c_n = \frac{1}{b-a}\sum_{k=1}^n f(a_k) \frac{b-a}{n}.
+$$
+
+Limitným prechodom tak dostaneme
+$$
+c_n \overset{n\to\infty}{\longrightarrow} \frac{1}{b-a}\int_a^b f(x) \, dx \eqqcolon c.
+$$
+
+Platí teda nasledovný vzťah
+$$
+c\cdot(b-a) = \int_a^b f(x) \, dx,
+$$
+
+kde $c$ je hľadaná stredná hodnota daného integrálu. 
+
+Fyzikálne túto hodnotu môžeme interpretovať nasledovne. Ak funkcia $f(t)$ udáva rýchlosť auta v čase $t$, tak už vieme, že $\int_a^b f(t) \, dt$ udáva vzdialenosť, akú prešlo toto auto za čas $b-a$. Stredná hodnota $c$ bude v tomto príklade udávať priemernú rýchlosť, akou auto išlo v čase $b-a$.
+
+Geometricky to znamená, že obsah plochy ohraničenej grafom funkcie $f$, osou $x$ a priamkami $x=a$ a $x=b$ je rovnaký ako obsah obdĺžnika s dĺžkou strany $b-a$ a výškou $c$, viď @fig-stredna_hodnota_integral.
+
+![Geometrická interpretácia strednej hodnoty integrálu.](stredna_hodnota1.png){#fig-stredna_hodnota_integral width=40%}
+
+Matematicky spolu s vetou o strednej hodnote pre derivácie tvorí *zrkadlový pár*, ktorý sa používa na spojenie integrálu a derivácie pri argumentoch o monotónnosti, konvexnosti a podobne. Okrem toho práve tento vzťah $c(b-a) = \int_a^b f(x) \, dx,$ **sa používa pri dôkaze vety (@thm-fundamentalna_veta_analyzy)**. 
+
+::: {.callout-tip title="Veta o strednej hodnote integrálneho počtu" collapse="true"}
+::: {#thm-stredna_hodnota_IP1}
+
+## Veta o strednej hodnote integrálneho počtu
+
+Nech $f,g$ sú integrovateľné na intervale $[a,b]$ a nech $g(x) \geq 0$ pre $x \in [a,b]$. Potom existuje číslo $c \in \mathbb{R}$ také, že
+$$
+\inf\{f(x): x \in [a,b]\} \leq c \leq \sup\{f(x): x \in [a,b]\}
+$$
+
+a platí
+$$
+\int_a^b f(x)\,g(x) \, dx = c\int_a^b g(x) \, dx.
+$$
+
+:::
+:::
+
+Voľbou $g(x) \equiv 1$ dostaneme naše úvahy ako dôsledok tejto vety. Ďalším dôsledkom tejto vety je poznatok, že ak je navyše funkcia $f\in C[a,b]$, tzn. je spojitá, tak existuje $x_0\in[a,b]$ také, že $c=f(x_0)$.
+
+::: {.callout-tip title="Druhá veta o strednej hodnote integrálneho počtu" collapse="true"}
+::: {#thm-stredna_hodnota_IP2}
+
+## Druhá veta o strednej hodnote integrálneho počtu
+
+Nech $f$ je integrovateľná na intervale $[a,b]$ a nech $g$ je monotónna funkcia na tomto intervale. Potom existuje také číslo $c\in[a,b]$, že platí
+$$
+\int_a^b f(x)\, g(x)\,dx = g(a) \int_a^c f(x) \, dx + g(b) \int_c^b f(x)\,dx.
+$$
+
+:::
+:::
+
+## Integrál ako funkcia hornej medze
+V predchádzajúcich sekciách sme sa snažili zdôrazniť, že aplikáciou určitého integrálu na funkciu dostaneme číslo a aplikáciou neurčitého integrálu na funkciu dostaneme inú funkciu. Avšak na to, aby sme tieto pojmy mohli prepojiť, tak musíme spraviť z určitého integrálu tiež funkciu. To sa dá napríklad tak, že horná hranica v integráli bude premenná $x$.
+$$
+F(x) = \int_a^x f(t)\,dt.
+$${#eq-int_ako_fcia_hornej_hranice}
+
+Inými slovami, funkcia $F(x)$ počíta obsah pod krivkou $f(x)$ od $a$ po $x$. Aby sme mohli korektne zaviesť takto definované $F(x)$, potrebujeme aby $f(x)$ bola integrovateľná na nejakom intervale $[a,b]$ a tým pádom aj definičný obor $D(F)=[a,b]$. Z konštrukcie Riemannovho integrálu je jasné, že tento obsah sa mení postupne po veľmi malých kúskoch, a nemala by nás prekvapiť spojitosť $F(x)$, tj. nasledovná veta.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-spojitost_fcie_int_hornej_hrancie}
+
+Nech funkcia $f\in R([a,b])$. Potom je funkcia $F$ definovaná predpisom (@eq-int_ako_fcia_hornej_hranice) spojitá na intervale $[a,b]$. ($F\in C([a,b])$)
+
+:::
+:::
+
+Pre funkciu $F$ platí aj ďalšia veta, ktorá je rigoróznou analógiou toho, čo sme sa snažili ukázať v časti *Neurčitý integrál a obsah*.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-fundamentalna_veta_analyzy}
+
+Nech funkcia $f\in R([a,b])$ a nech $x_0 \in [a,b]$. Ak je funkcia $f$ spojitá v bode $x_0$, má funkcia $F$ definovaná vzťahom (@eq-int_ako_fcia_hornej_hranice) deriváciu v bode $x_0$ a platí $F'(x_0) = f(x_0)$.
+
+:::
+:::
+
+Zrejme, ak bude $f$ spojitá na celom intervale $[a,b]$, potom predchádzajúci vzťah bude platiť pre každé $x_0\in[a,b]$. A tak podobne ako v sekcií *Neurčitý integrál a obsah*, ale až teraz korektne, dostávame primitívnu funkciu $F(x)$ k funkcii $f(x)$. Inými slovami, vieme dokázať nasledovnú vetu.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-veta_o_existencii_primitivnej_fcie}
+
+## O existencii primitívnej funkcie
+
+Nech $f\in C(I),\ I \subseteq \mathbb{R}$. Potom k nej na tomto intervale existuje primitívna funkcia.
+
+:::
+:::
+
+Poznamenajme ešte, že na začiatku tejto sekcie sme si vybrali z nejakého dôvodu hornú hranicu. Rovnako sme si mohli vybrať aj dolnú hranicu pre premennú $x$ a dostali by sme tak funkciu
+$$
+G(x) = \int_x^b f(t)\,dt \quad \text{pre} \  x\in[a,b].
+$$
+
+A platili by všetky vety analogicky, malá zmena by bola iba pri derivácii, $G'(x_0) = -f(x_0)$.
+
+
+## Metódy výpočtu Riemannovho integrálu
+V predchádzajúcich sekciách sme počítali určitý integrál pomocou delenia a obdĺžnikov. Na to môžeme v podstate zabudnúť,[^R15] pretože si teraz ukážeme oveľa efektívnejší vzorec, ktorý bude súvisieť s naším intuitívnym chápaním neurčitého integrálu. 
+
+::: {.callout-tip title="Veta"}
+::: {#thm-NL_formula}
+
+## Newtonov–Leibnizov vzorec
+
+Nech $f$ je integrovateľná na intervale $[a, b]$ a nech $F$ je funkcia, ktorá je na $[a, b]$ spojitá a na $(a, b)$ primitívna k funkcii $f$. Potom platí
+$$
+\int_a^b f(x)\, dx = F(b) - F(a).
+$${#eq-NL_formula}
+
+:::
+:::
+
+Pretože primitívne funkcie sa líšili iba o konštantu $C$, ktorá sa odčíta vo vzorci (@eq-NL_formula), tak naozaj môžeme voliť ľubovoľnú primitívnu funkciu vo vete (@thm-NL_formula). Vzorec (@eq-NL_formula) je jeden z najdôležitejších vzorcov integrálneho počtu v $\mathbb{R}^1$.
+
+Počítanie pomocou Newton-Leibnizovej formule sa väčšinou zapisuje nasledovne. Pomocou medzikroku, v ktorom sa stanoví primitívna funkcia. 
+$$
+\int_a^b f(x)\, dx = [F(x)]_a^b = F(b) - F(a).
+$$
+
+Teda napríklad povedzme, že chceme vypočítať obsah pod krivkou funkcie $\sin x$ od $0$ po $\frac{\pi}{2}$. Počítame
+$$
+\int_0^{\frac{\pi}{2}} \sin(x)\, dx = [-\cos(x)]_0^{\frac{\pi}{2}} = -\cos\left(\tfrac{\pi}{2}\right) + \cos(0) = 0 +1 = 1.
+$$
+
+Spomeňme si, že keď sme robili substitúciu v neurčitom integráli, tak sa nám podľa tej substitúcie $(x=\varphi(t))$ transformovala aj veľkosť *malých dielikov* $dx$ na $\varphi'(t)\,dt$. Pri určitom integráli budeme musieť aj hornú a dolnú medzu postrážiť pri danej transformácii.
+
+::: {.callout-tip title="Substitučná metóda pre určité integrály" collapse="true"}
+::: {#thm-substitucia_urcite_int}
+
+## Substitučná metóda pre určité integrály
+
+Nech $f\in C[a,b]$. Nech $\varphi\in C^1[a,b]$ a $\varphi'\in R([a,b])$. Nech $\varphi([a,b])\subseteq [c,d]$. Potom platí
+$$
+\int_a^b f(\varphi(x))\varphi'(x)\, dx = \int_{\varphi(a)}^{\varphi(b)}f(t)\, dt.
+$$
+
+:::
+:::
+
+Pri počítaní píšeme medzikrok
+$$
+\int_a^b f(\varphi(x))\varphi'(x) \,dx = 
+\begin{vmatrix}
+    t=\varphi(x)\\
+    dt=\varphi'(x)\,dx\\
+    a \leadsto \varphi(a),\quad b\leadsto\varphi(b)
+\end{vmatrix} =
+\int_{\varphi(a)}^{\varphi(b)} f(t)\,dt.
+$$
+
+Poznamenajme, že na prednáške sa ešte diskutuje o metóde *per-partes* pre určitý integrál a platí
+$$
+\int_a^b u'(x)\,v(x)\, dx = \Big[u(x)\,v(x)\Big]_a^b - \int_a^bu(x)\,v'(x)\, dx.
+$$
+
+
+## Nevlastný Riemannov integrál
+Riemannov integrál sme konštruovali pre ohraničené funkcie definované na *uzavrenom ohraničenom intervale*. V tejto sekcii ukážeme, ako môžeme pojem integrálu rozšíriť aj na prípady, kedy aspoň jeden z týchto požiadavkov nie je splnený. Integrály tohto typu sa nazývajú *nevlastné*. 
+
+V jednoduchosti mierime znova na použitie Newton-Leibnizovej formule. Na to, aby sme vyhodnotili funkciu v nekonečne, tak použijeme limitu. Samozrejme znova pracujeme s nekonečnom a musíme byť veľmi dôslední, aby teória ktorú budujeme, ostala konzistentná.
+
+### Integrály cez neohraničený interval
+
+::: {.callout-note title="Definícia"}
+::: {#def-neohr_int}
+
+Nech $a \in \mathbb{R}$ a nech $f$ je funkcia definovaná na $[a,\infty)$, $f\in R([a,b])$ $\forall b > a$. Definujme funkciu $F$ na intervale $[a,\infty)$ vzťahom $F(b) =  \int_a^b f(x)\,dx$.[^R16]
+
+- **(a)** Ak existuje vlastná limita $\lim_{b\to\infty}F(b)$, hovoríme, že nevlastný integrál $\int_a^\infty f(x)\,dx$ *konverguje* a kladieme
+    $$
+    \int_a^\infty f(x)\,dx = \lim_{b\to\infty}F(b) =  \lim_{b\to\infty}\int_a^b f(x)\,dx
+    $$
+
+- **(b)**  Ak neexistuje vlastná limita $\lim_{b\to\infty}F(b)$, hovoríme, že nevlastný integrál $\int_a^\infty f(x)\,dx$ *diverguje*. Ak je táto limita nevlastná, hovoríme, že nevlastný integrál *určito diverguje* k $\pm \infty$. V prípade, že táto limita neexistuje, hovoríme, že integrál *osciluje*.
+
+:::
+:::
+
+Analogicky sa definuje $\int_{-\infty}^a f(x)\, dx$. A ak je funkcia $f$ definovaná na celom $\mathbb{R}$ a je integrovateľná na každom ohraničenom intervale, tak môžeme integrovať od $-\infty$ po $\infty$ nasledovným spôsobom.
+$$
+\int_{-\infty}^\infty f(x) \, dx = \int_{-\infty}^a f(x)\, dx + \int_a^\infty f(x)\,dx,
+$${#eq-neurcity_int1}
+
+pre nejaké $a\in\mathbb{R}$.
+
+<details>
+<summary>Konvergencia v zmysle hlavnej hodnoty.</summary>
+
+Dodajme, že existuje aj druhý spôsob integrovania od $-\infty$ po $\infty$.
+$$
+    \int_{-\infty}^\infty f(x) \, dx = \lim_{a\to\infty} \int_{-a}^a f(x) \, dx.
+$${#eq-neurcity_int2}
+
+Medzi rovnicou (@eq-neurcity_int1) a rovnicou (@eq-neurcity_int2) je jemný rozdiel, ktorý spočíva v tom, že prvý vyžaduje, aby obe jednostranné limity existovali samostatne, kým druhý používa symetrický prístup a môže mať hodnotu aj v prípadoch, keď jednotlivé časti divergujú. Inými slovami, definícia (@eq-neurcity_int2) je slabšia, v zmysle, že kladie menšie požiadavky.[^R17] Na druhú stranu, definícia (@eq-neurcity_int1) sa používa napríklad v teórií pravdepodobnosti.
+
+</details>
+
+Nevlastný integrál počítame podobne pomocou Newton-Leibnizovej formule a zapisujeme nasledovne
+$$
+\int_a^\infty f(x)\,dx = [F(x)]_a^\infty = \lim_{x\to\infty} F(x) - F(a).
+$$
+
+
+
+O nevlastnom integráli môžeme skúmať navyše aj ďalšie vlastnosti. Sú prípady, kedy hodnota samotných integrálov nie je ani tak zaujímavá ako konvergencia, resp. divergencia. Preto aj my sa pozrieme na jednotlivé podmienky konvergencie, prípadne im myšlienkovo združené tvrdenia. Poznamenajme, že konvergencia integrálu $\int_a^\infty f(x)\,dx$ nezáleží od hodnoty $a$.
+
+<details>
+<summary>Vety o konvergencii nevlastneho integrálu. </summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia1}
+
+## Cauchy–Bolzanove kritérium
+
+Nevlastný integrál $\int_a^\infty f(x)\, dx$ konverguje práve vtedy, keď ku každému $\varepsilon>0$ existuje $x_0\geq a$ tak, že pre ľubovolné $x,y \in \mathbb{R},\ x>x_0,\ y>x_0$, platí
+$$
+\left| \int_x^y f(t)\, dt\right| < \varepsilon.
+$$
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia2}
+
+## Prosté porovnávacie kritérium
+
+Nech funkcie $f,g$ spĺňajú pre každé $x\in[a,\infty)$ nerovnosti $0\leq f(x)\leq g(x)$.
+
+- ***(i)*** Konvergencia $\int_a^\infty g(x)\,dx$ $\implies$ konvergenciu $\int_a^\infty f(x)\,dx$ \& platí $0\leq \int_a^\infty f(x)\,dx \leq \int_a^\infty g(x)\,dx$.
+- ***(ii)*** Divergencia $\int_a^\infty f(x)\,dx$ $\implies$ divergenciu $\int_a^\infty g(x)\,dx$. 
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia3}
+
+## Limitné porovnávacie kritérium
+
+Nech funkcie $f,g$ sú nezáporné na $[a,\infty)$ a nech existuje $\lim_{x\to\infty} \tfrac{f(x)}{g(x)}= L$.[^R18]
+
+- ***(i)*** Ak $L<\infty$ \& $\int_a^\infty g(x)\,dx<\infty$ (konverguje) $\implies$ $\int_a^\infty f(x)\,dx<\infty$.
+- ***(ii)*** Ak $0<L\leq\infty$ \& $\int_a^\infty g(x)\,dx =\infty$ (diverguje) $\implies$ $\int_a^\infty f(x)\,dx = \infty$.
+
+:::
+:::
+
+::: {.callout-tip title="Dôsledok"}
+::: {#cor-konvergencia4}
+
+Nech je $f(x)>0$ na $[a,\infty)$.
+
+- ***(i)*** Ak $\exists\,k>1$, resp. ak $\exists\, k>0$ také, že $\lim_{x\to\infty} x^kf(x) < \infty$, resp. $\lim_{x\to\infty} e^{kx}f(x) < \infty$, potom $\int_a^\infty f$ konverguje.
+- ***(ii)*** Ak $\exists\,k\leq1$, resp. ak $\exists\, k\leq0$ také, že $\lim_{x\to\infty} x^kf(x) > 0$, resp. $\lim_{x\to\infty} e^{kx}f(x) > 0$, potom $\int_a^\infty f$ diverguje.
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia5}
+
+## Nutná podmienka konvergencie
+
+Nech $\int_a^\infty f(x)\,dx < \infty$ a nech $\exists\, c:$ $lim_{x\to\infty} f(x) = c$, potom $c = 0$.
+:::
+:::
+
+Ďalšie dve kritériá konvergencie sú technicky trochu náročnejšie, ale možno aj vďaka tomu vedia rozhodnúť o konvergencii integrálov zaujímavých funkcií. Napríklad $\int_a^\infty \tfrac{\sin x}{x} < \infty$ alebo $\int_a^\infty \sin x^2 <\infty$.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia6}
+
+## Abelove kritérium
+
+Nech $\int_a^\infty f$ existuje a konverguje, a nech je funkcia $g$ monotónna a ohraničená na $[a,\infty)$. Potom $\int_a^\infty f(x)g(x)\,dx < \infty$.
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia7}
+
+## Dirichletove kritérium
+
+Nech $\exists\, k>0:$ $\left|\int_a^b f(x)\, dx\right| \leq k$ $\forall\, b>a$, nech je $g$ monotónna funkcia na $[a,\infty)$ a nech platí $\lim_{x\to\infty} g(x) = 0$. Potom $\int_a^\infty f(x)g(x)\,dx<\infty$.
+
+:::
+:::
+
+Ďalšie dôležité kritérium je vzhľadom na absolútnu hodnotu funkcie. Pretože niekedy je jednoduchšie rozhodnúť o konvergencii integrálu absolútnej hodnoty funkcie, tak toto kritérium si často nájde svoje uplatnenie pri rôznych dôkazoch. 
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia8}
+
+## Absolútna konvergencia
+
+Ak $\int_a^\infty |f(x)|\,dx<\infty$ $\implies$ $\int_a^\infty f(x)\,dx$ konverguje. A platí
+$$
+\left|\int_a^\infty f(x)\,dx\right| \leq \int_a^\infty |f(x)|\,dx<\infty.
+$$
+
+::: 
+:::
+
+Predchádzajúca veta ponúka silnejšiu definíciu konvergencie, ktorá sa tiež často využíva a má implikácie na silnejšie[^R19] tvrdenia ako samotná konvergencia. Tieto tvrdenia si ale nebudeme v tomto kurze uvádzať. 
+
+::: {.callout-note title="Definícia"}
+::: {#def-abs_konvergencia}
+
+Hovoríme, že nevlastný integrál $\int_a^\infty f(x)\,dx$ *konverguje absolútne*, ak konverguje $\int_a^\infty |f(x)|\,dx$. Ak ale integrál $\int_a^\infty f(x)\,dx$ konverguje, ale integrál $\int_a^\infty |f(x)|\,dx$ (určito) diverguje, hovoríme, že integrál $\int_a^\infty f(x)\,dx$ *konverguje neabsolútne*.
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia9}
+
+Nech funkcia $g(x)\geq0$ pre $x\in[a,\infty)$ a nech integrál $\int_a^\infty g(x)\,dx < \infty$. A ak platí $|f(x)|\leq g(x)\ \forall\, x\in[a,\infty)$ alebo 
+$$
+\lim_{x\to\infty} \frac{|f(x)|}{g(x)} < \infty,
+$$
+
+potom integrál $\int_a^\infty f(x)\,dx$ konverguje absolútne.
+
+:::
+:::
+
+Poznamenajme, že všetky definície a vety platia prirodzene aj pre nevlastný integrál $\int_{-\infty}^af(x)\,dx$.
+
+</details>
+
+### Integrály z neohraničených funkcií
+
+Pre pohodlné pracovanie s neohraničenými funkciami sa na nám hodí nasledovná definícia singulárneho bodu. V našom prípade sa bude v podstate jednať o nekonečný skok (@fig-nespojitost).
+
+::: {.callout-note title="Definícia"}
+::: {#def-singularny_bod}
+
+Nech $f$ je funkcia definovaná na $[a, b)$. Povieme, že $b$ je *singulárny bod* funkcie $f$, ak $f\in B[a,b-\varepsilon]\cap R[a,b-\varepsilon]$[^R20], kde $\varepsilon$ je ľubovoľné: $0<\varepsilon<b-a$, a $f$ nie je ohraničená v žiadnom ľavom okolí bodu $b$, tj. na intervale $(b-\varepsilon, b]$.
+
+:::
+:::
+
+::: {.callout-note title="Definícia"}
+::: {#def-definicia_nevlastny_integral}
+
+Nech je $f$ funkcia definovaná na intervale $(a, b)$ a nech $b$ je jej singulárnym bodom. Označme $F(x) \coloneqq \int_a^x f(t)\, dt$. 
+
+- ***(i)*** Ak existuje vlastná limita $\lim_{x \to b^-} F(x)$, povieme, že nevlastný integrál $\int_a^b f(x)\, dx$ **konverguje** a položíme
+    $$
+    \int_a^b f(x)\, dx = \lim_{x \to b^-} F(x).
+    $$
+- ***(ii)*** Ak vlastná limita $\lim_{x \to b^-} F(x)$ neexistuje, povieme, že nevlastný integrál $\int_a^b f(x)\, dx$ *diverguje*. Ak je táto limita nevlastná, povieme, že nevlastný integrál *určite diverguje* k $\pm \infty$. V prípade, že táto limita neexistuje, povieme, že nevlastný integrál *osciluje*.
+
+:::
+:::
+
+Analogicky sa definuje aj singulárny bod na ľavom kraji intervalu. 
+
+<details>
+<summary>Konvergencia v zmysle hlavnej hodnoty. </summary>
+
+Doplňme, že aj v tomto prípade neurčitého integrálu existuje *slabšia* definícia konvergencie, ktorá počíta nevlastný integrál v okolí singulárneho bodu z oboch strán simultánne. 
+
+Konkrétne, nech sú $a, b, c \in \mathbb{R}$, pričom $a < c < b$, a nech $f$ je funkcia definovaná na $[a, c) \cup (c, b]$, pričom $c$ je jej jediným singulárnym bodom v intervale $(a, b)$. V niektorých aplikáciách (najmä vo fyzike) sa objavuje nasledujúca definícia konvergencie integrálu, ktorá sa nazýva *konvergencia v zmysle hlavnej hodnoty*. 
+
+Ak existuje vlastná limita
+$$
+I := \lim_{t \to 0^+} \left[ \int_a^{c-t} f(s)\, ds + \int_{c+t}^b f(s)\, ds \right],
+$$
+
+povieme, že nevlastný integrál $\int_a^b f(x)\, dx$ *konverguje v zmysle hlavnej hodnoty*, túto limitu nazveme *hlavnou hodnotou* a píšeme
+$$
+I = (\text{v.p.}) \int_a^b f(x)\, dx,
+$$
+
+kde „v.p.“ je skratka z francúzskeho *valeur principale* (*hlavná hodnota*). Dá sa ukázať, že ak nevlastný integrál $\int_a^b f(x)\, dx$ konverguje v obvyklom zmysle 
+(tj. v zmysle definície (@def-definicia_nevlastny_integral)), potom konverguje aj v zmysle hlavnej hodnoty a jeho hodnota sa zhoduje s jeho hlavnou hodnotou.
+
+Pre nevlastné integrály $\int_a^bf$, kde $f$ je neohraničená funkcia a $a$ alebo $b$ je singulárnym bodom funkcie $f$, platia porovnávacie tvrdenia, ktoré sú analogické k tvrdeniam sekcie o integráloch cez neohraničený interval.
+
+</details>
+
+<details>
+<summary>Vety o konvergencii nevlastného integrálu. </summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia10}
+
+## Prosté porovnávacie kritérium
+Nech funkcie $f,g$ spĺňajú pre každé $x\in[a,b)$ nerovnosti $0\leq f(x)\leq g(x)$.
+
+- **(i)** Konvergencia $\int_a^b g(x)\,dx$ $\implies$ konvergenciu $\int_a^b f(x)\,dx$ \& platí $0\leq \int_a^b f(x)\,dx \leq \int_a^b g(x)\,dx$.
+- **(ii)** Divergencia $\int_a^b f(x)\,dx$ $\implies$ divergenciu $\int_a^b g(x)\,dx$. 
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia11}
+
+## Limitné porovnávacie kritérium
+
+Nech funkcie $f,g$ sú nezáporné na $[a,b)$ a nech $b$ je singulárnym bodom oboch funkcií $f,g$ a nech existuje $\lim_{x\to b^-} \tfrac{f(x)}{g(x)}= L$.
+
+- **(i)** Ak $L<\infty$ \& $\int_a^b g(x)\,dx<\infty$ (konverguje) $\implies$ $\int_a^b f(x)\,dx<\infty$.
+- **(ii)** Ak $0<L\leq\infty$ \& $\int_a^b g(x)\,dx =\infty$ (diverguje) $\implies$ $\int_a^b f(x)\,dx = \infty$.
+
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia12}
+
+## Abelove kritérium
+
+Nech $\int_a^b f$ existuje a konverguje, a nech je funkcia $g$ monotónna a ohraničená na $[a,b)$. Potom $\int_a^b f(x)g(x)\,dx < \infty$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia13}
+
+## Dirichletove kritérium
+
+Nech $\exists\, k>0:$ $\left|\int_a^c f(x)\, dx\right| \leq k$ $\forall\,c: b>c>a$, nech je $g$ monotónna funkcia na $[a,b)$ a nech platí $\lim_{x\to b} g(x) = 0$. Potom $\int_a^b f(x)g(x)\,dx<\infty$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-konvergencia14}
+
+## Absolútna konvergencia 
+
+Ak $\int_a^b |f(x)|\,dx<\infty$ $\implies$ $\int_a^b f(x)\,dx$ konverguje. A platí
+$$
+\left|\int_a^b f(x)\,dx\right| \leq \int_a^b |f(x)|\,dx<\infty.
+$$
+
+:::
+:::
+
+
+</details>
+
+
+## (Geometrická) aplikácia určitého integrálu
+
+Prvou aplikáciou neurčitého integrálu je nepochybne obsah plochy medzi krivkou a osou $x$. Túto plochu nazývame *podgraf* funkcie $f$ na intervale $[a,b]$. 
+
+```{python}
+#| message: false
+#| warning: false
+#| label: fig-podgraf_a_integral
+#| fig-cap: Plocha pod krivkou $f(x)$, vymedzená priamkami $x=a$ a $x=b$.
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the function
+def f(x):
+    return 0.3*np.sin(2*x) + 0.1*(x-3)**2 + 1
+
+# Domain
+x = np.linspace(-1, 6, 400)
+y = f(x)
+
+# Integration limits
+a, b = 1, 5
+
+# Create plot
+fig, ax = plt.subplots(figsize=(5, 3))
+
+# Plot the function
+ax.plot(x, y, linewidth=2, color='black', label=r'$f(x)$')
+
+# Shade the region between a and b
+xs = np.linspace(a, b, 300)
+ax.fill_between(xs, f(xs), color='gray', alpha=0.35, hatch='///')
+
+# Draw vertical lines at a and b
+ax.vlines([a, b], ymin=0, ymax=f(np.array([a, b])),
+          colors='black', linestyles='solid')
+
+# Axes labels & aesthetics
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.axhline(0, color='black', linewidth=1)
+ax.set_xlim(-1, 6)
+ax.set_ylim(0, max(y)+0.5)
+ax.legend(loc='upper right', fontsize='small', 
+          facecolor='snow', edgecolor='black')
+          
+# Remove unnecessary spines
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+# Put axes through the origin
+ax.spines['bottom'].set_position('zero')
+ax.spines['left'].set_position('zero')
+
+# Clean x and y-axis ticks
+ax.set_yticks([-1, 0, 1, 2])
+ax.set_xticks([a, b])
+ax.set_xticklabels(['a', 'b'])
+
+
+plt.tight_layout()
+plt.show()
+```
+
+Samozrejme, nesmieme zabúdať, že ak funkcia má na nejakom podintervale funkčné hodnoty menšie ako $0$ a na inom podintervale funkčné hodnoty väčšie ako $0$, tak v integráli sa tieto obsahy plôch budú odčítavať. Preto, ak chceme vypočítať absolútny obsah medzi grafom funkcie $f(x)$ a osou $x$ na intervale $[a,b]$, musíme počítať
+$$
+S = \int_a^b \left|f(x)\right|\,dx.
+$$
+
+<details>
+<summary>Prečo?</summary>
+
+Uvažujme jednoduchú funkciu $f(x)=\sin(x)$ a počítajme určitý integrál od $0$ po $2\pi$. 
+
+```{python}
+#| message: false
+#| warning: false
+
+import sympy as sp
+x = sp.Symbol('x')
+f = sp.sin(x)
+
+I_def = sp.integrate(f, (x, 0, 2*sp.pi))
+print("The definite integral of f(x)=sin(x) from 0 to 2π is:", I_def, ".")
+```
+
+Vidíme, že výsledok je $0$, ale my chceme obsah vymedzený krivkou a osou $x$ ako na @fig-podgraf_a_integral_abs1.
+
+```{python}
+#| message: false
+#| warning: false
+#| label: fig-podgraf_a_integral_abs1
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the function
+def f(x):
+    return np.sin(x)
+
+# Domain
+x = np.linspace(-1, 7, 400)
+y = f(x)
+
+# Integration limits
+a, b = 0, 2*np.pi
+
+# Create plot
+fig, ax = plt.subplots(figsize=(5, 3))
+
+# Plot the function
+ax.plot(x, y, linewidth=2, color='black', label=r'$f(x)$')
+
+# Shade the region between a and b
+xs = np.linspace(a, b, 300)
+ax.fill_between(xs, f(xs), color='gray', alpha=0.35, hatch='///')
+
+# Draw vertical lines at a and b
+ax.vlines([a, b], ymin=0, ymax=f(np.array([a, b])),
+          colors='black', linestyles='solid')
+
+# Axes labels & aesthetics
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.axhline(0, color='black', linewidth=1)
+ax.set_xlim(-1, 7)
+ax.set_ylim(min(y)-0.5, max(y)+0.5)
+ax.legend(loc='upper right', fontsize='small', 
+          facecolor='snow', edgecolor='black')
+          
+# Remove unnecessary spines
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+# Put axes through the origin
+ax.spines['bottom'].set_position('zero')
+ax.spines['left'].set_position('zero')
+
+# Clean x and y-axis ticks
+ax.set_yticks([-2, -1, 0, 1, 2])
+ax.set_xticks([a, b])
+ax.set_xticklabels(['a', 'b'])
+
+
+plt.tight_layout()
+plt.show()
+```
+
+Akurát, že integrál $\int_0^{2\pi} \sin(x)\, dx$ môžeme rozdeliť na dva integrály $\int_0^{\pi} \sin(x)\, dx + \int_{\pi}^{2\pi} \sin(x)\, dx$, ktorých jednotlivé výsledky sú $2$ a $-2$.
+```{python}
+#| message: false
+#| warning: false
+
+import sympy as sp
+x = sp.Symbol('x')
+f = sp.sin(x)
+
+I_def1 = sp.integrate(f, (x, 0, sp.pi))
+print("The definite integral of f(x)=sin(x) from 0 to π is:", I_def1, ".")
+
+I_def2 = sp.integrate(f, (x, sp.pi, 2*sp.pi))
+print("The definite integral of f(x)=sin(x) from π to 2π is:", I_def2, ".")
+```
+
+
+Preto jednoduchým trikom $f(x)\to |f(x)|$ dostaneme nasledovný graf (@fig-podgraf_a_integral_abs2), ktorého určitý integrál nám dá výsledok taký, ako sme žiadali.
+
+```{python}
+#| message: false
+#| warning: false
+#| label: fig-podgraf_a_integral_abs2
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the function
+def f(x):
+    return np.abs(np.sin(x))
+
+# Domain
+x = np.linspace(-1, 7, 400)
+y = f(x)
+
+# Integration limits
+a, b = 0, 2*np.pi
+
+# Create plot
+fig, ax = plt.subplots(figsize=(5, 3))
+
+# Plot the function
+ax.plot(x, y, linewidth=2, color='black', label=r'$f(x)$')
+
+# Shade the region between a and b
+xs = np.linspace(a, b, 300)
+ax.fill_between(xs, f(xs), color='gray', alpha=0.35, hatch='///')
+
+# Draw vertical lines at a and b
+ax.vlines([a, b], ymin=0, ymax=f(np.array([a, b])),
+          colors='black', linestyles='solid')
+
+# Axes labels & aesthetics
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.axhline(0, color='black', linewidth=1)
+ax.set_xlim(-1, 7)
+ax.set_ylim(min(y)-0.5, max(y)+0.5)
+ax.legend(loc='upper right', fontsize='small', 
+          facecolor='snow', edgecolor='black')
+          
+# Remove unnecessary spines
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+# Put axes through the origin
+ax.spines['bottom'].set_position('zero')
+ax.spines['left'].set_position('zero')
+
+# Clean x and y-axis ticks
+ax.set_yticks([-2, -1, 0, 1, 2])
+ax.set_xticks([a, b])
+ax.set_xticklabels(['a', 'b'])
+
+
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+#| message: false
+#| warning: false
+
+x = sp.Symbol('x')
+f = sp.Abs(sp.sin(x))
+
+I_def = sp.integrate(f, (x, 0, 2*sp.pi))
+print("The definite integral of f(x)=|sin(x)| from 0 to 2π is:", I_def, ".")
+```
+
+Teda dostaneme výsledok $\int_0^{2\pi} |\sin(x)|\, dx=4$.
+
+</details>
+
+Plocha, ktorej obsah chceme určiť, môže byť taktiež vymedzená grafmi dvoch funkcií. Napr. ak $f(x) \geq g(x)$ pre $x \in [a,b]$, jedná sa o plochu ohraničenú grafmi funkcií $g(x), f(x)$ a priamkami $x = a, x = b$, tj.
+$$
+\{[x, y] \in \mathbb{R}^2 : a \leq x \leq b,\ g(x) \leq y \leq f(x)\}.
+$$
+
+Potom obsah plochy $S$ počítame pomocou integrálu
+$$
+S=\int_a^bf(x)-g(x)\, dx.
+$$
+
+Podobne sa aj tento prípad dá zovšeobecniť na plochu ohraničenú grafmi funkcií $f,g$, ktoré nemajú medzi sebou jasne dané usporiadanie, napríklad ako na @fig-plocha_medzi_krivkami. Potom daný obsah počítame pomocou absolútnej hodnoty.
+$$
+S=\int_a^b\left|f(x)-g(x)\right|\, dx.
+$$
+
+```{python}
+#| message: false
+#| warning: false
+#| label: fig-plocha_medzi_krivkami
+#| fig-cap: Plocha vymedzená krivkami $f,g$ a priamkami $x=a,$ a $x=b$.
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the function
+def f(x):
+    return x**2 + np.sin(3*x)
+
+def g(x):
+    return x**2
+
+# Domain
+x = np.linspace(-1, 2, 400)
+y1 = f(x)
+y2 = g(x)
+
+# Integration limits
+a, b = -0.5, 1.5
+
+# Create plot
+fig, ax = plt.subplots(figsize=(5, 3))
+
+# Plot the function
+ax.plot(x, y1, linewidth=2, color='black', label=r'$f(x)$')
+ax.plot(x, y2, linewidth=2, color='purple', label=r'$g(x)$')
+
+# Shade the region between a and b
+xs = np.linspace(a, b, 300)
+ax.fill_between(xs, g(xs), f(xs), color='gray', alpha=0.35, hatch='///')
+
+# Draw vertical lines at a and b
+ax.vlines([a, b], ymin=g(np.array([a, b])), ymax=f(np.array([a, b])),
+          colors='black', linestyles='solid')
+
+# Axes labels & aesthetics
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+ax.axhline(0, color='black', linewidth=1)
+ax.legend(loc='upper left', fontsize='small', 
+          facecolor='snow', edgecolor='black')
+          
+# Remove unnecessary spines
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+# Put axes through the origin
+ax.spines['bottom'].set_position('zero')
+ax.spines['left'].set_position('zero')
+
+# Clean x and y-axis ticks
+ax.set_yticks([-2, -1, 0, 1, 2, 3, 4])
+ax.set_xticks([a, b])
+ax.set_xticklabels(['a', 'b'])
+
+
+plt.tight_layout()
+plt.show()
+```
+
+
+Uvažujme teraz, že plocha, ktorej obsah chceme určiť, nie je ohraničená grafom funkcie $f$, ale krivkou zadanou parametricky rovnicami
+$$
+x = \varphi(t) \quad
+\text{a}
+\quad
+y = \psi(t),
+\quad
+t\in[\alpha, \beta],
+$${#eq-krivka}
+
+pričom funkcie $\varphi$ a $\psi$ sú spojito diferencovateľné a platí $\varphi'(t) \neq0$ pre všetky $t\in(\alpha,\beta)$. Potom obsah takejto plochy určíme pomocou nasledovného integrálu. 
+$$
+S = \int_\alpha^\beta \psi(t)\cdot |\varphi'(t)|\, dt.
+$$
+
+Poznamenajme, že tento vzorec v skutočnosti vysvetľuje substitučné pravidlo určitého integrálu, kde sa škála na osi $x$ *preškáluje* na $x=\varphi(t)$ a tým pádom sa funkčné hodnoty preškálujú na $f(x)=f(\varphi(t))=\psi(t)$.
+
+Ďalšou dôležitou geometrickou aplikáciou teórie určitého integrálu je určenie dĺžky rovinnej krivky a grafu spojitej funkcie. Uvažujme preto krivku $C$ (curve) danú parametricky rovnicami (@eq-krivka), tj. $F=[\varphi,\psi]: [\alpha,\beta]\to C$.[^R21] Dĺžku tejto krivky sa teraz pokúsime aproximovať pomocou úsečiek, ktorých dĺžku vieme určiť pomocou Pytagorovej vety. 
+
+Zvoľme preto na intervale $[\alpha,\beta]$ ľubovoľné delenie
+$$
+D=\{t_0,t_1,\dots,t_n\}.
+$$
+
+A teda podla definície $F$ platí 
+$$
+F(t_k)=[\varphi(t_k),\psi(t_k)]\in C\quad \forall\,k=0,1,\dots,n.
+$$
+
+Dĺžka úsečky $\overline{F(t_{k-1})F(t_k)}$ zodpovedajúca deliacemu intervalu $[t_{k-1}, t_k]$ je
+$$
+d(\overline{F(t_{k-1})F(t_k)}) = \sqrt{\left[\varphi(t_k) - \varphi(t_{k-1})\right]^2+\left[\psi(t_k) - \psi(t_{k-1})\right]^2}.
+$$
+
+Dĺžku celej krivky $C$ aproximujeme pomocou lomenej čiary ako
+$$
+d(C)\approx\sum_{k=1}^n\sqrt{\left[\varphi(t_k) - \varphi(t_{k-1})\right]^2+\left[\psi(t_k) - \psi(t_{k-1})\right]^2}.
+$$
+
+Je zrejmé, že ak je krivka spojitá, tak čím viac deliacich intervalov na nej budeme mať, tak tým presnejšiu aproximáciu dostaneme.[^R22] Preto nasledovné vynásobenie špeciálnou jednotkou je dôležité, aby sa nám suma zjednodušila pri limitnom prechode $n\to\infty$.
+$$
+d(C)\approx\sum_{k=1}^n\sqrt{\left[\frac{\varphi(t_k) - \varphi(t_{k-1})}{t_k-t_{k-1}}\right]^2+\left[\frac{\psi(t_k) - \psi(t_{k-1})}{t_k-t_{k-1}}\right]^2}\cdot(t_k-t_{k-1}).
+$$
+
+Pre $n\to\infty$ dostaneme $\frac{\varphi(t_k) - \varphi(t_{k-1})}{t_k-t_{k-1}} = \varphi'(t)$ a $\frac{\psi(t_k) - \psi(t_{k-1})}{t_k-t_{k-1}} = \psi'(t)$. Limitným prechodom okrem derivácii dostaneme $\sum \to \int$ a $(t_k-t_{k-1})\to dt$. Celkovo tak dostávame vzorec na výpočet dĺžky krivky v tvare
+$$\label{dlzka krivky}
+L = d(C) = \int_\alpha^\beta \sqrt{\left[\varphi'(t)\right]^2 + \left[\psi'(t)\right]^2}\,dt.
+$${#eq-dlzka_krivky}
+
+S týmto vzorcom sa študent matematickej analýzy stretne ešte pri krivkovom integráli, ktorý je mimoriadne dôležitý pri fyzikálnych aplikáciách, napríklad tzv. práce (work).
+
+Pomocou vzorca (@eq-dlzka_krivky) je možné určiť aj dĺžku grafu funkcie $f(x)$. Jediné, čo si treba uvedomiť, je, že krivka $f(x)$ je daná "parametricky" ako $x=t$ a $y=f(t)$, resp. $\varphi(t)=t$ a $\psi(t)=f(t)$. A teda dĺžka grafu funkcie $f$ je daná
+$$
+d(\text{Gr}(f)) = \int_a^b \sqrt{1+\left[f'(x)\right]^2}\, dx
+$$
+
+Poznámka.[^R23]
+
+Prekvapivo Riemannov integrál (z funkcie $f:\mathbb{R}\to\mathbb{R}$) má svoje aplikácie aj v $\mathbb{R}^3$. Stačí si spomenúť na objem valca $V=\pi r^2h$, pomocou podobnej logiky vieme totižto odvodiť objem ľubovolného rotačného telesa.
+$$
+V_x = \int_a^b\pi [f(x)]^2\,dx.
+$$
+
+![Teleso vzniknuté rotáciou podgrafu funkcie $f$ okolo osi $x$.](rotacne_teleso.png){#fig-rotacne_teleso_objem width=40%}
+
+S využitím @fig-rotacne_teleso_os_y_objem a vzorca pre obsah plášťa rotačného valca, ktorý je rovný $2\pi rh$, môžeme získať vzorec pre objem telesa vzniknutého rotáciou podgrafu nezápornej funkcie $f$ okolo osi $y$.
+$$
+V_y = \int_a^b 2\pi x f(x) \, dx
+$$
+
+Vzorec môžeme interpretovať ako sčítanie všetkých plášťov.
+
+![Teleso vzniknuté rotáciou podgrafu funkcie $f$ okolo osi $y$.](rotacne_teleso_y.png){#fig-rotacne_teleso_os_y_objem width=40%}
+
+
+Riemannov integrál môžeme taktiež použiť na výpočet obsahu plášťa rotačného telesa. Pre obsah plášťa valca platí $S=2\pi r h$. Pre rotačné teleso nepôjde o presnú analógiu, musíme totižto v tomto prípade nejakým spôsobom obsiahnuť vo vzorci aj krivosť krivky, ktorú nechávame točiť okolo osi $x$, či $y$. 
+
+Z časti o dĺžke krivky danej grafom funkcie $f$ vieme, že *jeden dielik* dĺžky takejto krivky je aproximovaný pomocou Pytagorovej vety ako $\sqrt{1+[f'(x)]^2}$. Pri rotácii okolo osi $x$ prejde tento dielik vzdialenosť $2\pi f(x)$. Tým teda dostávame vzorec pre obsah plášťa rotačného telesa ako
+$$
+S_x = \int_a^b 2\pi f(x) \sqrt{1+[f'(x)]^2}\, dx.
+$$
+
+Pre rotáciu okolo osi $y$ dostávame podobne vzorec
+$$
+S_y = \int_a^b 2\pi x \sqrt{1+[f'(x)]^2}\,dx
+$$
+
+
+
+A už iba na záver, ako zaujímavý príklad predstavujúci istú formu paradoxu[^R24], uveďme Torricelliho trúbku, respektíve Gabrielov roh. Jedná sa o rotačné teleso vzniknuté rotáciou podgrafu funkcie $f(x)=\frac{1}{x}$ okolo osi $x$ od $a=1$ po $b=+\infty$. Dostaneme totižto výsledok, že tento útvar má konečný objem $V=\pi$, ale nekonečný obsah plášťa.[^R25]
+
+![Torricelliho trúbka, resp. Gabrielov roh.](toricelliho_lievik.png){#fig-toricelliho_trubka width=60%}
+
+
+
+[^R1]: Vlastne skoro každé tvrdenie či definícia v tejto sekcii bude požadovať túto vlastnosť.
+
+[^R2]: Myšlienka je využiť ohraničenosť funkcie $f(x)$ a nájsť obdĺžnik cez celý interval $[a,b]$ s výškou menšou (resp. väčšou) ako $f(x)\ \forall x \in [a,b]$.
+
+[^R3]: Konštrukcií integrálov je viacero a niektoré umožňujú integrovať funkcie, ktoré táto *Riemannovská* konštrukcia nedovoľuje.
+
+[^R4]: Výhodou tejto metódy je výpočtová nenáročnosť. Ak vypočítame napr. dolný Riemannov súčet pre $D_n$, tak potom pre výpočet $D_{n+1}$ môžeme použiť predchádzajúce výpočty $f(x)$ v uzloch (deliacich bodoch) $x_k$.
+
+[^R5]: Pre úplnosť príkladu môžeme ešte dodať, že $\int_a^b x\, dx = \frac{b^2}{2} - \frac{a^2}{2}$.
+
+[^R6]: Často sa používa aj *výber reprezentantov delenia* $D$.
+
+[^R7]: Tj. nájdeme vlastnosti, z ktorých plynie integrovateľnosť.
+
+[^R8]: Toto je jeden z dôvodov, prečo konštruujeme určitý integrál práve takto (pomocou súčtov), a nie ako v @eq-obsah_integral1.
+
+[^R9]: Inými slovami, napríklad pri počítaní obsahu obdĺžnika (pomocou integrálu) je otázkou, že koľko úsečiek z neho môžeme ubrať na to, aby sme mu nezmenšili obsah.
+
+[^R10]: Okrem toho sa Jordanovej miere budeme venovať v matematickej analýze III, prípadne iným mieram v analýze IV.
+
+[^R11]: Súčet dĺžok intervalov je menší ako $\varepsilon$.
+
+[^R12]: Teraz sú pre nás možno dôležitejšie príklady ako samotná definícia.
+
+[^R13]: Funkcionál (v skratke) je operácia, ktorá prevedie funkciu na číslo.
+
+[^R14]: Rozumej, $f(x)$ je integrovateľná na $[a,b]$ a zároveň na $[c,d]$.
+
+[^R15]: Povedané veľmi nadnesene. Celá konštrukcia pomocou dolných a horných súčtov je založená práve na fakte, že nie vždy vieme nájsť primitívnu funkciu.
+
+[^R16]: Inými slovami, $F$ je primitívna funkcia k funkcii $f$. Oproti Newton-Leibnizovej formule je posunutá o konštantu $F(a)$, ale to nevadí.
+
+[^R17]: Táto definícia sa používa pri Fourierovej analýze a našiel som k tomu niečo pod názvom *Cauchy principal value*. Pamätám si, že na spektrálnej analýze sme o tom diskutovali.
+
+[^R18]: $L$ je nejaké konkrétne číslo bližšie špecifikované v ďalšej časti tejto vety.
+
+[^R19]: Silnejšie, pretože absolútna konvergencia implikuje konvergenciu.
+
+[^R20]: Ohraničená a integrovateľná (v Riemannovom zmysle).
+
+[^R21]: $F$ je zobrazenie, ktoré zobrazuje $t\in[\alpha,\beta]$ na krivku $C$ pomocou funkcií $\varphi$ a $\psi$.
+
+[^R22]: Formálne by sme to mali odvodiť ako pomocné tvrdenie, ale my to preskočíme.
+
+[^R23]: Tu som upustil od presných predpokladov pre jednotlivé vzorce, možno by sa mohli doplniť.
+
+[^R24]: No tak paradox ..., závisí od toho, či študent naozaj pochopil nekonečnu, alebo ho ešte čaká dlhá cesta k nekonečnému poznaniu.
+
+[^R25]: Existuje nejaký podobný "paradox" aj o dimenziu nižšie? Odpoveď je áno -- napríklad Kochova vločka, ktorá má konečný obsah, ale nekonečný obvod.

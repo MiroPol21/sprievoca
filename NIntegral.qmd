@@ -1,0 +1,242 @@
+## Primitívne funkcie a ich vlastnosti
+
+Všimnime si, že medzi mocninou a deriváciou funkcie existuje istá analógia. 
+\begin{align*}
+    f^0(x) &\to f(x) \\
+    f^1(x) &\to f'(x) \\
+    f^2(x) &\to f''(x) \\
+    &\vdots\\
+    f^n(x) &\to f^{(n)}(x) 
+\end{align*}
+V procese rozmýšľania nad deriváciou je teda prirodzené sa zamyslieť aj nad tým, či môže existovať aj opačná operácia, posun o riadok vyššie. Respektíve, či existuje funkcia, ktorú by sme mohli priradiť $f^{-1}(x)$. Inými slovami, či existuje k pôvodnej funkcii nová funkcia, ktorú keď zderivujeme, tak dostaneme tú pôvodnú funkciu. V niektorých prípadoch túto funkciu vieme celkom rýchlo nájsť. Napríklad k funkcii $f(x)=x^2$ existuje funkcia $F(x)=\frac{x^3}{3}$, ktorú keď zderivujeme, tak dostaneme pôvodnú funkciu $f(x)$. Zrejme teda predošlá úvaha nebola scestná, a preto nazvime túto (novú) funkciu **primitívna funkcia**.
+
+::: {.callout-note title="Definícia"}
+::: {#def-primitivna_funkcia}
+Nech $f(x)$ a $F(x)$ sú funkcie na intervale $I$. Funkcia $F(x)$ je primitívna k funkcii $f(x)$ na intervale $I$ ak
+$$
+F'(x) = f(x) \quad \forall x\in I.
+$${#eq-primitivna_funkcia}
+
+:::
+:::
+
+Pozn.[^N1]
+
+Možno sme mali šťastie a funkcia, ktorou sme odôvodnili zavedenie pojmu primitívna funkcia, je jedna z mála. Preto je rozumné sa pýtať: "Pre aké funkcie $f(x)$ môžeme primitívnu funkciu $F(x)$ nájsť?" Postačujúcu odpoveď na túto otázku (a predošlú obavu) dáva nasledovná veta.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-existencia_primitivnej_funkcie}
+Ak je $f(x)$ spojitá na $I$, potom $\exists$ primitívna funkcia $F(x)$ k $f(x)$ na $I$.
+:::
+:::
+
+Ďalšou prirodzenou otázkou je pýtať sa, koľko primitívnych funkcií k funkcii $f(x)$ existuje. Inými slovami, či je primitívna funkcia *určená jednoznačne*. Ukazuje sa, že skôr nie, pretože k funkcii $f(x)=x^2$ je primitívna aj $F_1(x) = \frac{x^3}{3} + 1$. V skutočnosti primitívnych funkcií k $f(x)$ bude nekonečne veľa 
+$$
+F_C(x) = \frac{x^3}{3} + C, \quad \forall C\in \mathbb{R}.
+$$
+
+Množina týchto funkcií sa bude nazývať **neurčitý integrál**.[^N2] Avšak na to, aby sme tento pojem mohli zaviesť, potrebujeme predošlé tvrdenie uviesť (a dokázať) všeobecnejšie. 
+
+::: {.callout-tip title="Lemma" collapse="true"}
+::: {#lem-primitivne_posun_o_konst}
+Nech $F(x)$ a $G(x)$ sú primitívne funkcie k $f(x)$ na $I$, potom $F(x)=G(x)+C\ \forall\,x\in I$, pre nejaké vhodné $C\in\mathbb{R}$.[^N3]
+:::
+:::
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-neurcity_integral_mnozina}
+Ak je $F(x)$ jedna zvolená primitívna funkcia k $f(x)$ na $I$, potom je množina všetkých primitívnych funkcií tvaru
+$$
+\left\{ F(x) + C,\ C\in\mathbb{R} \right\}.
+$${#eq-neurcity_integral_mnozina}
+
+:::
+:::
+
+::: {.callout-note title="Definícia"}
+::: {#def-neurcity_integral}
+Množina @eq-neurcity_integral_mnozina sa nazýva neurčitý integrál funkcie $f(x)$ na $I$ a značí sa $\int f(x)\,dx$, resp. píšeme 
+$$
+\int f(x)\,dx = F(x) + C, \quad x\in I,\ C\in\mathbb{R}
+$${#eq-neurcity_integral}
+
+:::
+:::
+
+K elementárnym funkciám môžeme odvodiť integračné vzorce (@thm-integracne_vzorce). Poznamenajme, že samotné hľadanie primitívnych funkcií je o niečo náročnejšie ako overovanie, či funkcia je naozaj primitívna.
+
+::: {.callout-tip title="Integračné vzorce" collapse="true"}
+::: {#thm-integracne_vzorce}
+Pre integrovanie elementárnych funkcií platí
+\begin{align*}
+    & \int x^r\, dx = \frac{x^{r+1}}{r+1} + C,\ (r\neq -1), & \int \frac{1}{x}\, dx = \ln |x| + C,\\
+    & \int \cos x\, dx = \sin x+ C, & \int\sin x\, dx = -\cos x+C,\\
+    & \int \frac{1}{\cos^2x}\, dx = \mathrm{tg}\, x + C, & \int \frac{1}{\sin^2x}\, dx = \mathrm{cotg}\, x + C,\\
+    & \int e^x \, dx = e^x +C, & \int a^x\, dx = \frac{a^x}{\ln a}+C,\ (a>0,\ a\neq 0),\\
+    & \int \frac{1}{x^2+1}\, dx = \mathrm{arctg}\, x +C, & \int \frac{1}{\sqrt{1-x^2}}\, dx = \arcsin x + C_1 = -\arccos x + C_2,\\
+    &\int\frac{f'(x)}{f(x)}\, dx = \ln \left| f(x) \right| + C.
+\end{align*}
+:::
+:::
+
+## Neurčitý integrál a obsah
+V zápise neurčitého integrálu sa vzali dva symboly zdanlivo bez vysvetlenia, konkrétne $\int$ a $dx$. Pokúsime sa teda vysvetliť kde, ako, čo, prečo.
+
+Pomôžeme si najprv tzv. analýzou dimenzií, tj. vezmime si tri funkcie, ktoré sú prepojené deriváciou. Pre jednoduchosť, vezmime si tri konkrétne funkcie o premennej $t$ (čas), vzdialenosť od počiatku $f(t)=s(t)$, rýchlosť $f'(t) = v(t)$ a zrýchlenie $f''(t) = a(t)$. Aplikujme teraz na tieto veličiny analýzu dimenzií v nejakom bode $t_0$. Polohu $s(t_0)$ môžeme udať v metroch $[m]$; rýchlosť $v(t_0)$ môžeme udať v metroch za sekundu $[m/s]$; zrýchlenie $a(t_0)$ môžeme udať v $[m/s^2]$. Vidíme teda, že derivovaním sa nám mení dimenzia, konkrétne v tomto prípade ju delíme časom (sekundami). Tento fakt by nemal byť moc prekvapivý, pretože derivácia vznikla ako limitný podiel dvoch rozdielov $\frac{\Delta f(t)}{\Delta t}$. Preto, ak má teda integrál byť opačnou operáciou k derivácii, tak tiež musí meniť dimenziu. Teda ak ideme napríklad integrovať rýchlosť, očakávame, že dostaneme vzdialenosť. Preto musíme rýchlosť vynásobiť časom, respektíve niečím, čoho dimenzia je čas, napríklad teda by to mohlo byť $dt$. Ak má $\int$ značiť sumu, tak to nám dimenziu nezmení, a preto dimenzie vo výraze $s(t)=\int v(t)\, dt$ sú správne.
+
+Akurát táto analýza nám ukázala len to, že náš zápis je dimenzionálne v poriadku, čo je teda uspokojivé, ale nevysvetľuje, prečo chceme sčítavať a násobiť infinitezimálnym číslom $dt$, resp. $dx$.
+
+Poďme sa teda pozrieť na to, prečo $dx$ a prečo $\int$. Majme nejakú funkciu $f(x)$, ktorá bude mať také vlastnosti, ktoré sa nám budú hodiť.[^N4] Okrem $f(x)$ majme druhú funkciu $F(x)$, ktorá bude vyjadrovať obsah medzi osou $x$ a krivkou $f(x)$ od $-\infty$ po $x$. Teda obsah útvaru medzi osou $x$ a krivkou $f(x)$ od $-\infty$ po nejaký ľubovoľný bod $x_0$ bude $F(x_0)$, viď @fig-neurcity_integral.
+
+![Funkcia $f(x)$ a funkcia $F(x)$ ako obsah medzi osou $x$ a krivkou $f(x)$. $F(x_0)$ je obsah od $-\infty$ po $x_0$, a preto derivácia funkcie $F$ v bode $x_0$ je práve $f(x_0)$.](integral.png){#fig-neurcity_integral width=60%}
+
+Všimnime si, že zmena funkcie $F(x)$ v bode $x_0$ je rovná $f(x_0)$.[^N5] To je z toho dôvodu, že funkcia $F$ opisuje obsah medzi $x$ a $f(x)$, a práve v bode $x_0$ sa tento obsah mení o hodnotu $f(x_0)$. Teda platí
+$$
+    F'(x_0) = \frac{dF(x_0)}{dx} = f(x_0).
+$$
+
+Preto platí aj 
+$$
+    dF(x_0) = F(x) - F(x_0) = f(x_0)\,dx.
+$$
+
+To je vlastne iba prepísané do rovnice, že zmena obsahu je funkčná hodnota krát malilinký kúsok na $x$-ovej osi, $f(x_0)\cdot dx$. Všimnime si, že toto, čo sme odvodili pre nejaký bod $x_0$, platí pre každý bod $x$. Preto môžeme písať
+$$
+    dF(x) = f(x)\,dx.
+$$
+
+A aby sme sa dostali od rozdielov $dF(x)$, tak nám stačí spočítať všetky rozdiely od $-\infty$ po $x$, a pretože týchto rozdielov je nekonečne veľa, tak namiesto $\sum$ píšeme $\int$ a dostávame tak výraz
+$$
+    F(x) = \int f(x)\, dx.
+$$
+
+Samozrejme, toto odvodenie, ktoré sme ponúkli, sa dá skonštruovať aj presnejšie.[^N6] Nech funkcia $f$ je integrovateľná na intervale $I=(a,b)$. Pre jednoduchosť požadujme, nech je integrovateľná na kúsok väčšom intervale, na $(c,b)$, kde $c<a$. Nech teraz funkcia $F(x)$ je definovaná na $(c,b)$ a počíta obsah pod krivkou od bodu $c$ po $x\in(c,b)$. Konkrétne, nech $F(x_0)$ udáva obsah (mieru) množiny.
+$$
+A = \left\{ (x,y) \in \mathbb{R}^2,\ x\in(c,x_0),\ 0\leq y\leq f(x) \right\}.
+$$
+
+Potom platí, že obsah pod krivkou $f(x)$ na intervale $(a,x)\subset I$ vieme spočítať ako
+$$
+    S(a,x) = F(x)-F(a),
+$${#eq-obsah_integral1}
+
+kde $F(a)$ je nejaké konečné číslo udávajúce obsah od $c$ po $a$. Pretože $F(x)-F(a)$ je primitívna funkcia, tak aj $F(x)$ bude primitívna funkcia k funkcii $f(x)$. $\implies$ $\int f(x)\, dx = F(x)+C, \ C\in\mathbb{R}.$
+
+
+Ukázali sme si, prečo a ako súvisí obsah pod krivkou s neurčitým integrálom (ako s "antideriváciou"). Okrem toho sme sa pokúsili objasniť, že v zápise musí existovať člen s dimenziou $x$ a že je rozumné voliť práve $dx$. Akurát sme tým spravili nekonečne malú veličinu, a preto musíme nekonečne veľakrát túto veličinu sčítať, aby sme dostali reálne číslo. V skutočnosti dôvodov, prečo je zápis integrálu taký, aký je a prečo je tam práve $dx$, je oveľa viac. Zatiaľ nevieme poskytnúť o moc lepšie dôvody, a preto nám musí študent tak trochu slepo veriť. Avšak môže sa aj z tohto titulu tešiť na ďalšie predmety, ktoré ponúknu o niečo dôslednejšie vysvetlenia týchto otázok. Okrem toho, ďalšia technická chyba, ktorej sme sa dopustili, bolo pracovanie s deriváciou ako so zlomkom. Totižto niekedy to je možné a niekedy nie a celé je to na veľmi krehkom ľade, preto sú jednotlivé vety a výsledky odvodené inak.
+
+
+## Základné integračné metódy
+
+Pri derivácií sme rozmýšľali, že ak budeme nejako manipulovať s funkciou ($+,-,\cdot,\div$), tak ako to zmení jej deriváciu. Rovnako sa môžeme zaujímať, ako to ovplyvní jej neurčitý integrál. Zistíme, že platí[^N7]
+$$
+\int \left[ a\cdot f(x) \pm b\cdot g(x) \right]\,dx = a \cdot \int f(x)\,dx \pm b \cdot \int g(x)\,dx.
+$$
+
+::: {.callout-tip title="Veta" collapse="true"}
+
+::: {#thm-sucet}
+
+Nech $f_1,\dots,f_n$ sú funkcie definované na intervale $I\subseteq\mathbb{R}$ a nech $c_1,\dots,c_n\in\mathbb{R}$ sú dané konštanty. Ak má každá funkcia $f_i$, kde $i=1,\dots,n$, primitívnu funkciu $F_i$ na $I$, potom je funkcia $c_1 F_1 + \dots + c_n F_n$ primitívna ku funkcii $c_1f_1+\dots +c_nf_n$ na $I$.
+
+:::
+:::
+
+Násobenie funkcií je o niečo komplikovanejšie a je potrebné to nejako šikovne vymyslieť. Spomeňme si na deriváciu súčinu $(f\cdot g)' = f'\cdot g + f\cdot g'$. Integrovaním (a použitím predchádzajúcej vlastnosti neurčitého integrálu) ľavej a pravej strany rovnice dostaneme $f\cdot g = \int f'\cdot g + \int f\cdot g'$. Odtiaľto dostávame vzorec
+$$
+\int f'(x)\cdot g(x)\,dx = \int f(x) \cdot g(x)\,dx  - \int f(x)\cdot g'(x) \,dx.
+$$
+
+Dostávame teda tak výsledok neurčitého integrálu pre súčin dvoch funkcií, konkrétne funkcií $f'(x)$ a $g(x)$. Táto metóda sa volá metóda *per-partes* a obvykle sa pri nej používajú označenia pre funkcie $u(x)$ a $v(x)$ namiesto $f(x)$ a $g(x)$. 
+
+::: {.callout-tip title="Veta" collapse="true"}
+
+::: {#thm-per_partes}
+
+## Metóda per-partes
+
+Nech funkcie $u,v$ majú na intervale $I\subseteq\mathbb{R}$ deriváciu. Ak má funkcia $u'(x)\cdot v(x)$ primitívnu funkciu $H(x)$ na intervale $I$, potom je funkcia $u(x)\cdot v(x) - H(x)$ primitívna k funkcii $u(x)v'(x)$ na intervale $I$.
+
+:::
+:::
+
+Zápis metódy per-partes pre integrál $\int f(x)g(x)\,dx$ je nasledovný, označíme si funkcie $f(x)$ a $g(x)$ ako $u'(x)$ a $v(x)$, a počítame
+\begin{align*}
+    \int u'(x)\cdot v(x) \,dx &= 
+    \begin{vmatrix}
+        u'(x) = \text{poznáme}\dots f(x) & u(x) = \text{dopočítame integrovaním}\dots F(x)\\
+        v(x) = \text{poznáme}\dots g(x) & v'(x) = \text{dopočítame derivovaním}\dots g'(x)
+    \end{vmatrix} =\\
+    &= u(x)\cdot v(x) - \int u(x) \cdot v'(x)\,dx.
+\end{align*}
+
+Na prvý pohľad tento vzorec nevyzerá moc použiteľne[^N8], ale väčšinou máme niečo do činenia so súčinom dvoch funkcií, z ktorých jedna sa dobre integruje a druhá sa dobre derivuje. Inými slovami, prevádzame súčin nejakých dvoch funkcií na súčin inej dvojice, ktorá sa nám bude ľahšie integrovať, preto aj názov per--partes.[^N9]
+
+Skladanie funkcií tiež nie je jednoduché, ale môžeme sa znova skúsiť pozrieť, ako to bolo s derivovaním zloženej funkcie, platí $(f(\varphi(x)))' = f'(\varphi(x))\cdot\varphi'(x)$. Toto vieme zapísať aj trochu inak, pomocou primitívnej funkcie, $(F(\varphi(x)))' = f(\varphi(x))\cdot\varphi'(x)$. Teraz integrovaním oboch strán dostaneme $F(\varphi(x)) = \int f(\varphi(x))\cdot\varphi'(x)\, dx$. Vidíme teda, že $F(\varphi(x))$ je primitívna funkcia ku $f(\varphi(x))\cdot\varphi'(x)$. Platí teda
+$$
+F(\varphi(x)) = \int f(\varphi(x))\cdot\varphi'(x)\, dx.
+$$
+
+::: {.callout-tip title="Veta" collapse="true"}
+
+::: {#thm-substitucia}
+
+## Substitučná metóda I
+
+Nech funkcia $f$ je definovaná na intervale $I_1$, nech funkcia $\varphi$ je definovaná a majúca deriváciu na intervale $I_2$ a nech $\varphi(I_2)\subseteq I_1$. Ak má funkcia $f$ primitívnu funkciu $F$ na $I_1$, potom je zložená funkcia $F(\varphi)$ primitívna funkcia k funkcii $f(\varphi)\varphi'$ na intervale $I_2$
+
+:::
+:::
+
+Ak spravíme substitúciu $t = \varphi(x)$, tak dostaneme rovnosť $F(t) = \int f(t)\cdot\varphi'(x)\, dx$. Zrejme platí aj rovnosť $F(t) = \int f(t)\, dt$, a preto nás to oprávňuje zaviesť aj substitúciu diferenciálov v tvare $dt=\varphi'(x)\,dx$. Poznamenajme, že táto substitúcia je v súlade s rovnosťami platiacimi pre diferenciál @eq-diferencial. Inými slovami, platí nezávisle na predchádzajúcom, že ak $\varphi(x) = t$, tak $dt=\varphi'(x)\,dx$, pretože
+\begin{align*}
+    \varphi(x) &= t, \\
+    \left[ \frac{d}{dx} \varphi(x) \right] dx &= \left[\frac{d}{dt}t\right]dt, \\
+    \varphi'(x) \cdot dx &= 1\cdot dt,
+\end{align*}
+a teda aj naše značenie je konzistentné.
+ 
+Toto pravidlo sa volá *substitučné pravidlo* a pri počítaní sa zapisuje 
+$$
+\int f(\varphi(x))\varphi'(x) \,dx = 
+\begin{vmatrix}
+    t=\varphi(x)\\
+    dt=\varphi'(x)\,dx
+\end{vmatrix} =
+\int f(t)\,dt.
+$$
+
+
+## Špeciálne integračné postupy
+Integrácia racionálnych lomených funkcií, tj. funkcií typu $R(x) = \frac{P(x)}{Q(x)}$, kde $P,Q$ sú polynómy, používa pri výpočte rozklad na parciálne zlomky.[^N10]
+
+Ďalej na prednáške sa rozoberajú aj ďalšie typy funkcií, ktorým sa podarilo nájsť nejaký *algoritmický* postup. Pripomeňme iba, že sa znova ukáže trojuholník z @fig-arctan ako užitočný nástroj.
+
+
+Dodajme ešte, že toto sú všetky nástroje, ktoré máme. Nevieme teda všetky funkcie jednoducho nájsť. Funkcia môže vyzerať zdanlivo jednoducho, a napriek tomu jej integrál nemusí byť vyjadriteľný pomocou bežných elementárnych funkcií, ktoré používame. Typický príklad je potrebná štatistická funkcia $\int e^{-x^2}\,dx$. Keby taká funkcia existovala, tak sa všetci veľmi tešíme.
+
+
+[^N1]: V rovnici (@eq-primitivna_funkcia) musí technicky na krajoch intervalu $I$ platiť "len" jednostranná derivácia tj., $F'_\pm(\partial I) = f(\partial I)$.
+
+[^N2]: Symbol integrálu zaviedol Leibniz (1675) ako predĺžené písmeno *S* (suma).
+
+[^N3]: Pripomeňme @cor-dosledok_fxgxc.
+
+[^N4]: To sú také vlastnosti, že ak sa nájde protipríklad, tak naše vlastnosti ho vylúčia. Pretože pri vytváraní intuície podmienky, ktoré sa kladú na jednotlivé vety, nie sú až tak dôležité a vedia byť niekedy zavádzajúce.
+
+[^N5]: Poznamenajme k tomu ešte aj fakt, že derivácia redukuje dimenziu o $1$ a kým obsah je $2\mathrm{D}$, úsečka s dĺžkou $f(x_0)$ je $1\mathrm{D}$.
+
+[^N6]: Mne to prišlo od $-\infty$ intuitívnejšie.
+
+[^N7]: Integrál je *lineárna operácia*!
+
+[^N8]: Z jedného problému sme vytvorili dva.
+
+[^N9]: Zlaté pravidlo (``Rule of thumb'') pri integrovaní pomocou per-partes je LATE, tj. priorita derivovania je v poradí 
+
+    1. logaritmické funkcie,
+    2. *a* mocninové funkcie $(x^a)$,
+    3. trigonometrické funkcie,
+    4. exponenciálne funkcie.
+
+[^N10]: Rozklad na parciálne zlomky sa obvykle robí na cvičení.

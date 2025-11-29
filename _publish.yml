@@ -1,0 +1,4 @@
+- source: sprievodca.qmd
+  quarto-pub:
+    - id: 25e6ef13-f958-441b-94c9-2d7e238e19b6
+      url: https://monstruoz.quarto.pub/spma

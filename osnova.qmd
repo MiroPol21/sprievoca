@@ -1,0 +1,6 @@
+* **Úvod:** Reálne čísla a ich základné vlastnosti, všeobecné vlastnosti reálnych funkcií, elementárne funkcie. Axiómy reálnych čísel a ich vlastnosti.
+* **Funkcie a postupnosti:** Postupnosti reálnych čísel, limita a spojitosť funkcií, vlastnosti spojitých funkcií.
+* **Derivácia funkcie:** Základné pravidlá, vlastnosti derivácie, geometrický význam derivácie, Taylorov vzorec, vyšetrovanie priebehu funkcií, krivky v rovine.
+* **Neurčitý integrál:** primitívne funkcie a ich vlastnosti, základné integračné metódy, špeciálne integračné postupy (integrály s goniometrickými, iracionálnymi a ďalšími typmi elementárnych funkcií).
+* **Riemannov integrál a jeho vlastnosti:** konštrukcia Riemannovho integrálu a jeho výpočet (Newton-Leibnizova formula), aplikácia integrálu (plocha rovinných obrazcov, dĺžka krivky, objem a povrch plášťa rotačného telesa).
+

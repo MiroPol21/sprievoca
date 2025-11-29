@@ -1,0 +1,872 @@
+## Geometrický význam derivácie
+
+Derivácia funkcie patrí spolu s pojmami limita a spojitosť funkcie k základným pojmom diferenciálneho počtu. K pojmu derivácia funkcie vedie celý rad geometrických a fyzikálnych úloh. Jedna z najstarších (tzv. základná úloha diferenciálneho počtu) je nájsť dotyčnicu ku grafu známej funkcie. Vyriešiť túto úlohu intuitívne (s malou odchýlkou) je veľmi jednoduché, viď @fig-derivacia_rukou.
+
+![Derivácia $=$ smernica dotyčnice. To vieme približne aproximovať aj rukou.](derivacia_scetch.png){#fig-derivacia_rukou width=50%}
+
+Avšak calculus, alebo matematická analýza je istým spôsobom formalizácia tohto postupu. Teda postup, ktorý vykonávame podvedome pri kreslení (rysovaní) dotyčnice, sa dá formalizovať -- prepísať do analytického jazyka.
+
+Najprv nájdeme sečnicu prechádzajúcu bodom (nejakým konkrétnym bodom $x_0$), ku ktorému hľadáme dotyčnicu a ľubovoľným iným bodom (nejakým ľubovoľným bodom $x$). Teda sečnica grafu je daná bodmi $T=(x_0, f(x_0))$ a $(x,f(x))$. Približovaním $x$ k $x_0$ zlepšujeme aproximáciu dotyčnice. Inými slovami, dotyčnicou s bodom dotyku $T$ rozumieme limitnú polohu zmienenej sečnice, kedy sa bod $x$ blíži k bodu $x_0$, viď @fig-geometricky_vyznam_derivacie.
+
+![Geometrický význam derivácie.](derivacia.png){#fig-geometricky_vyznam_derivacie width=80%}
+
+Preto[^D1], v jazyku rovníc, je smernica uvažovanej sečnice 
+$$
+k_s = \tan{\varphi_s} = \frac{f(x) - f(x_0)}{x - x_0}
+$$
+
+a smernica dotyčnice 
+$$
+    k_t = \tan{\varphi_t} = \lim_{x\to x_0}\frac{f(x) - f(x_0)}{x - x_0}.
+$${#eq-dotycnica}
+
+Dostávame tak úlohu o limite typu $\frac{0}{0}$.
+
+## Fyzikálna interpretácia
+
+K podobnej limite sa dostaneme aj inou úlohou. Sledujme polohu auta (alebo lopty, planéty, ...) v čase. Pre jednoduchosť úlohy uvažujme, že sa auto môže hýbať iba po priamke a zaznamenajme jeho polohu (vzdialenosť od počiatku) každú minútu. Tieto dáta môžeme uložiť napríklad do tabuľky (@tbl-derivacia).
+
+::: {#tbl-derivacia}
+
+| $t$ (min) | $s$ (ft) |
+|-----------|----------|
+| 0         | 0        |
+| 1         | 1200     |
+| 2         | 4000     |
+| 3         | 9000     |
+| 4         | 9500     |
+| 5         | 9600     |
+| 6         | 13000    |
+| 7         | 18000    |
+| 8         | 23500    |
+| 9         | 24000    |
+
+
+Čas vs vzdialenosť.
+
+:::
+
+Toto je jeden spôsob ako sledovať pohyb. Iný spôsob je nakresliť graf. Ak nanesieme čas na horizontálnu os a vzdialenosť na vertikálnu os, tak dostaneme krivku, ktorá by mohla vyzerať ako @fig-graf_vzdialenost_vs_cas. Poznamenajme rýchlo, že ak by krivka na obrázku (@fig-graf_vzdialenost_vs_cas) bola rastúca, tak by to znamenalo, že auto išlo iba vpred. V tomto duchu sú vlastnosti funkcií užitočné a často z aplikácií matematiky v rôznych oblastiach priamo vynútené. Zatiaľ čo samotná funkcia môže byť ešte stále *neznáma*.
+
+![Graf vzdialenosti auta v čase.](rychlost.png){#fig-graf_vzdialenost_vs_cas width=30%}
+
+Okrem polohy vieme sledovať rýchlosť. V aute meriame rýchlosť pomocou tachometra a viac menej tušíme, čo jednotlivé hodnoty znamenajú, napríklad pod $60\,\mathrm{km/h}$ rozumieme, že ak by sme šli hodinu, tak by sme prešli $60$ kilometrov. Avšak my nemusíme ísť celú hodinu $60\,\mathrm{km/h}$, a preto interpretácia tejto hodnoty je o niečo širšia. Znamená to, že ak by sme šli napríklad len $30$ minút takto rýchlo, prešli by sme polovicu vzdialenosti, tj. $30$ kilometrov. Pokojne túto hodnotu môžeme prepočítať aj na metre za sekundu, čo bude zase o niečo presnejšie vyjadrenie. Inými slovami platí $60\,\mathrm{km/h} = 16.67\,\mathrm{m/s}$.
+
+$$
+v_p = \frac{x(t_2) - x(t_1)}{t_2 - t_1},
+$$
+
+kde $t_1$, $t_2$ sú dva okamihy, kedy meriame polohu, $x(t)$ je poloha (píšeme do zátvorky $t$, pretože poloha závisí na čase, respektíve lebo sa jedná o funkciu polohy v závislosti na čase) v daný okamih, tj. jej grafom by mohol byť napríklad @fig-graf_vzdialenost_vs_cas a $v_p$ je priemerná rýchlosť za časový úsek $t_2-t_1$.
+
+Časový úsek jednej sekundy je často dobrá aproximácia rýchlosti auta. Avšak cítime, že sa stále jedná o priemernú rýchlosť za nejaký časový interval. Na vyjadrenie presnej rýchlosti v danom okamihu musíme zmenšiť časový interval na infinitezimálnu ($\frac{1}{\infty}$) veľkosť. Znovu si pomôžeme limitou. 
+$$
+v_o = \lim_{t\to t_0}\frac{x(t) - x(t_0)}{t - t_0}.
+$${#eq-rychlost}
+
+Dostávame tak podobnú limitu ako v prípade dotyčnice (@eq-dotycnica). Táto limita v našom fyzikálnom význame znamená **okamžitú *zmenu* polohy**. 
+
+Obe limity (@eq-dotycnica) a (@eq-rychlost) sú matematicky jeden objekt - **derivácia**. Je vhodné tento pojem pochopiť intuitívne, pretože využitie derivácie je v matematike a iných vedách časté. Často naša intuícia daného problému vedie na rovnice, ktorých konštrukcia je možná práve vďaka derivácii.
+
+## Základné pravidlá, vlastnosti derivácie
+
+::: {.callout-note title="Definícia"}
+:::{#def-derivacia}
+Nech $f$ je funkcia a bod $x_0\in D(f)$. Ak existuje
+$$
+\lim_{x\to x_0} \frac{f(x)-f(x_0)}{x-x_0},
+$${#eq-derivacia}
+
+nazývame túto limitu derivácia funkcie $f$ v bode $x_0$ a značíme $f'(x_0)$. Ak je limita (@eq-derivacia) vlastná, nazýva sa číslo $f'(x_0)$ *vlastná derivácia* funkcie $f$ v bode $x_0$, ak je limita (@eq-derivacia) nevlastná, nazýva sa $f'(x_0)$ *nevlastnou deriváciou* funkcie $f$ v bode $x_0$.
+:::
+:::
+
+![Príklad nevlastnej derivácie: $f(x)=\sqrt[3]{x}$, v bode $x_0=0$ je $f'(x_0)=+\infty$.](nevlastna_derivacia.png){#fig-nevlastna_derivacia width=40%}
+
+Značenie $f'(x_0)$ zaviedol Joseph Louis Lagrange. Používame aj značenie $\frac{df}{dx}(x_0)$, ktoré zaviedol Gottfried Wilhelm Leibniz. 
+Obe značenia majú svoje pre a proti[^D2], a preto budeme používať obe značenia podľa toho, ako sa nám to bude hodiť. Okrem duality značenia sa nám zíde aj alternatívna definícia derivácie, ktorú onedlho využijeme.
+
+$$
+    f' (x_0) =\lim_{h\to0} \frac{f(x_0+h)-f(x_0)}{h}.
+$${#eq-derivacia_limh}
+
+Takto zadefinovaná derivácia je ekvivalentná s definíciou v rovnici (@eq-derivacia). Stačí zaviesť $h = x - x_0$.
+
+Poznamenajme, že derivácie majú charakter limity[^D3], teda pozeráme sa na ne ako na číslo. 
+Avšak niektoré (respektíve skoro všetky, ktoré používame) funkcie majú celkom peknú vlastnosť, že existuje iná funkcia, ktorej hodnoty v každom bode definičného oboru našej pôvodnej funkcie sa rovnajú deriváciám v tých bodoch. Túto inú funkciu tiež voláme derivácia.[^D14]
+
+Prvým dôležitým výsledkom o deriváciách je súvislosť medzi spojitosťou funkcie a existenciou (vlastnej) derivácie.
+
+::: {.callout-tip title="Spojitosť a derivácia" collapse="true"}
+:::{#thm-spojitost_derivacia}
+Ak má funkcie $f$ v bode $x_0$ vlastnú deriváciu, potom je v tomto bode spojitá.
+:::
+:::
+
+Ďalšie výsledky sa znova týkajú počítania s deriváciami, nakoľko sa jedná o čísla, respektíve funkcie, môžeme robiť s nimi aritmetické operácie, ale znova musíme byť opatrní, pretože sme v definícii použili *nekonečno*.
+
+::: {.callout-tip title="Aritmetické operácie s deriváciou" collapse="true"}
+:::{#thm-aritmeticke_operacie_derivacia}
+Nech majú funkcie $f,g$ vlastnú deriváciu v bode $x_0$. Potom platí:
+
+- ***(i)*** $(cf(x))_{x=x_0}' = cf'(x_0)$,
+- ***(ii)*** $(f(x) \pm g(x))_{x=x_0}' = f'(x_0) \pm g'(x_0)$,
+- ***(iii)*** $(f(x)\cdot g(x))_{x=x_0}' = f'(x_0)g(x_0)+f(x_0)g'(x_0)$,
+- ***(iv)*** Ak je $g(x_0)\neq 0$, potom $\left(\frac{f(x)}{g(x)}\right)_{x=x_0}' = \left(\frac{f'(x_0)g(x_0)-f(x_0)g'(x_0)}{g^2(x_0)}\right)$.
+:::
+:::
+
+Predtým, ako prejdeme k ďalším vetám, ktoré pojednávajú o počítaní s deriváciami, tak sa ponúka (ďalšia) alternatívna definícia derivácie. Učebnice matematickej analýzy zvyknú uvádzať aj túto definíciu, pretože nepotrebuje limity a dôkazy niektorých nasledovných viet sú tak jednoduchšie.
+<details>
+<summary>Carathéodoryho definícia derivácie</summary>
+V podstate sa definuje funkcia $\varphi(x) = \frac{f(x)-f(x_0)}{x-x_0}$ na množine $\mathcal{O}(x_0)\smallsetminus\{x_0\}$. Z úvodu vieme, že túto funkciu si môžeme predstaviť ako sklon sečnice prechádzajúcej bodmi $f(x)$ a $f(x_0)$. A veta teda v podstate hovorí, že ak vieme spojito dodefinovať hodnotu $\varphi(x_0)$, tak funkcia $f(x)$ má vlastnú deriváciu v bode $x_0$ (a naopak "$\iff$"). 
+
+::: {.callout-tip title="Lemma"}
+::: {#lem-Caratheodory}
+## Carathéodory 
+
+Funkcia $f$ má v bode $x_0$ vlastnú deriváciu práve vtedy, keď existuje funkcia $\varphi$ definovaná na nejakom $\mathcal{O}(x_0)$, ktorá je spojitá v bode $x_0$ a taká, že $\forall\,x\in\mathcal{O}(x_0)$, platí
+$$
+f(x)-f(x_0) = \varphi(x)(x-x_0).
+$$
+
+Ak existuje taká funkcia $\varphi$, potom platí $f'(x_0)=\varphi(x_0)$.
+:::
+:::
+
+```{python}
+#| message: false
+#| warning: false
+#| eval: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation, PillowWriter
+
+# Function to differentiate
+def f(x):
+    return x**3 + 2*x**2 + 1
+
+def df_dx(x):
+    return 3 * x**2 + 4*x
+
+# Domain
+x = np.linspace(-5, 5, 500)
+
+# Fixed x0
+x0 = 1
+
+# Secant line
+def secant_line(x, x0, x1):
+    return f(x0) + (f(x1) - f(x0)) / (x1 - x0) * (x - x0)
+
+# Carathéodory φ(x)
+def phi(x, x0):
+    return (f(x) - f(x0)) / (x - x0)
+
+# Remove singularity at x0
+ox = x[x != x0]
+
+# --- Figure setup ---
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6,10))
+
+# Left plot: f(x)
+ax1.plot(x, f(x), color="black", label='$f(x)$')
+ax1.plot(x0, f(x0), 'bo', label='$x_0$')
+point_plot1, = ax1.plot([], [], 'ro', label='$f(x_i)$')
+secant_plot, = ax1.plot([], [], 'r--')
+ax1.set_title("A function $f(x)$")
+ax1.legend(loc='upper left', fontsize='small', 
+           facecolor='snow', edgecolor='black')
+
+# Right plot: φ(x)
+ax2.plot(ox, phi(ox, x0), color="black", label='$\\varphi(x)$')
+ax2.scatter(x0, df_dx(x0), color='white', marker='o', label='$x_0$', edgecolors='black')
+ax2.plot(x, df_dx(x), 'g--', label="$f'(x)$")
+point_plot2, = ax2.plot([], [], 'ro', label='$\\varphi(x_i)$')
+ax2.set_title("Carathéodory function $\\varphi(x)$")
+ax2.legend(loc='upper left', fontsize='small', 
+           facecolor='snow', edgecolor='black')
+
+# Animation frames: sweep secant point across domain
+frames = np.linspace(-5, 5, 300)
+
+def init():
+    point_plot1.set_data([], [])
+    secant_plot.set_data([], [])
+    point_plot2.set_data([], [])
+    return point_plot1, secant_plot, point_plot2
+
+def animate(x_secant):
+    # Left plot
+    point_plot1.set_data([x_secant], [f(x_secant)])
+    secant_plot.set_data(x, secant_line(x, x0, x_secant))
+    
+    # Right plot
+    point_plot2.set_data([x_secant], [phi(x_secant, x0)])
+    
+    return point_plot1, secant_plot, point_plot2
+
+anim = FuncAnimation(fig, animate, frames=frames, init_func=init, interval=40, blit=True)
+
+anim.save("caratheodory_differentiation.gif", writer=PillowWriter(fps=30))
+
+plt.show()
+
+```
+
+![Carathéodoryho derivácia implimentovaná v pythone.](caratheodory_differentiation.gif)
+
+</details>
+
+
+Ďalšie dôležité vety o počítaní s deriváciami sú so zloženými funkciami a s inverznými funkciami. Konkrétne, ak $y=F(x)=f(g(x))$ je naša zložená funkcia, jej derivácia v bode $x_0$ je nasledovná:
+$$
+F'(x_0)=f'(g(x_0))\cdot g'(x_0).
+$$
+
+::: {.callout-tip title="Veta" collapse="true"}
+:::{#thm-derivacia_zlozenej_funkcie}
+## Derivácia zloženej funkcie
+
+Nech funkcia $u=g(x)$ má vlastnú deriváciu v bode $x_0$ a nech funkcia $y=f(u)$ má vlastnú deriváciu v bode $u_0=g(x_0)$. Potom zložená funkcia $y=F(x)=f[g(x)]$ má vlastnú deriváciu v bode $x_0$ a platí:
+$$
+F'(x_0)=f'(u_0)\cdot g'(x_0).
+$$
+
+:::
+:::
+
+Pre inverzné funkcie je to trošku komplikovanejšie. Inverzné funkcie píšeme ako $y=f^{-1}(x)$, čo je zrejme rovnica, na ktorú môžeme aplikovať $f$. Dostaneme tak $f(y)=x$. Teraz znova na obe strany rovnice aplikujeme deriváciu, dostaneme tak pomocou predošlého výsledku o zložených funkciách 
+\begin{align*}
+    f'(y)\cdot y' &= x',\\
+    f'(y)\cdot y' &= 1,\\
+    y' &= \frac{1}{f'(y)}.
+\end{align*}
+Dostali sme tak vzťah pre derivovanie inverznej funkcie. Tak ako pri každom manipulovaní s rovnicami, tak aj pri tomto je rozumné sa obzrieť späť, či každá operácia bola *rozumná*, viď malá úprava v nasledujúcej vete. 
+
+Dostávame teda vetu o derivácii inverznej funkcie.
+
+::: {.callout-tip title="Veta" collapse="true"}
+:::{#thm-derivacia_inverznej_funkcie}
+## Derivácia inverznej funkcie
+Nech funkcia $x=f(y)$ je spojitá a rýdzo monotónna na intervale $I$.[^D4] Nech $y_0$ je vnútorný bod intervalu $I$ a nech $f$ má v $y_0$ deriváciu $f'(y_0)$. Potom má inverzná funkcia $y=f^{-1}(x)$ v bode $x_0=f(y_0)$ taktiež deriváciu.
+$$
+(f^{-1})'(x_0) =
+\begin{cases}
+    \frac{1}{f'(y_0)}, \qquad &\text{ak}\ f'(y_0) \neq 0,\\
+    +\infty, \qquad &\text{ak } f'(y_0)=0 \text{ a}\ f(y)\ \text{je rastúca},\\
+    -\infty, \qquad &\text{ak } f'(y_0)=0 \text{ a}\ f(y)\ \text{je klesajúca}.
+\end{cases}
+$$
+
+:::
+:::
+
+Tvrdenie predchádzajúcej vety má aj názorný geometrický význam. Upriamením pozornosti na @fig-geom_inv_deriv si spomeňme, že pre $f'(x_0)\neq0$, platí $\tan(\varphi) = f'(x_0)$. Z geometrického významu inverznej funkcie (jej graf je súmerný s $f(x)$ podľa osi $y=x$, pozn.[^D5]) vieme, že $\tan(\psi) = (f^{-1})'(x_0)$. Pretože $\varphi + \psi = \frac{\pi}{2}$, platí
+$$
+(f^{-1})'(x_0) = \tan\psi = \tan(\frac{\pi}{2}-\varphi) = \mathrm{cotg}(\varphi)=\frac{1}{\tan(\varphi)} = \frac{1}{f'(x_0)}.
+$$
+
+![Geometrický význam derivácie inverznej funkcie.](inv_derivacia.png){#fig-geom_inv_deriv width=50%}
+
+Tu sa môže objaviť otázka, čo je to $f'(y)$, a to je presne problém čiarkového značenia derivácie. V tomto kontexte je to derivácia funkcie $f$ voči premennej $y$. 
+Pre vzájomné pochopenie uveďme príklad. Derivujme funkciu $y=\arctan(x)=\tan^{-1}(x)$, tj. označme $f(x) = \tan(x)$ a $f^{-1}(x)=\arctan(x)$.
+\begin{align*}
+    y &= f^{-1}(x)=\arctan(x) \qquad \Big/\tan(\cdot)\\
+    \tan(y) &= x \qquad \Big/\frac{d}{dx}(\cdot)\\
+    \frac{d}{dx}\tan(y) &= \frac{d}{dx} x\\
+    \frac{d}{dx}\tan(y) &= 1 \qquad \Big/ \text{Ľavú stranu derivujeme ako zloženú funkciu.} \\
+    \left( \frac{1}{\cos^2(y)}\right) \frac{dy}{dx} &= 1\\
+    \frac{dy}{dx} &= \cos^2(y) = \frac{1}{f'(y)} \\
+    y'&= \cos^2(\arctan(x)).
+\end{align*}
+
+Poznamenajme, že tento výsledok sa dá pomocou geometrických viet (@fig-arctan) zjednodušiť na tvar
+$$
+\frac{dy}{dx}=y'=\frac{1}{1+x^2}, \qquad \text{resp.} \qquad
+\frac{d}{dx}\arctan(x)=\frac{1}{1+x^2}.
+$$
+
+![Pre tento trojuholník[^D6] platí $\tan(y) = x$. Zrejme preň platí aj $\cos(y) = \frac{1}{\sqrt{1+x^2}}$. Odtiaľto dostaneme $\cos^2(y) = \frac{1}{1+x^2}$.](arctan.png){#fig-arctan width=40%}
+
+
+V rámci všeobecných definícií a viet môžeme definovať aj deriváciu derivácie, nakoľko výsledok derivovania funkcie môže byť funkcia.
+
+::: {.callout-note title="Definícia"}
+:::{#def-derivacia_vyssi_rad}
+Druhou deriváciou funkcie $f$ rozumieme funkcie $f'' = (f')'$ a pre ľubovoľné $n\geq 2$ definujeme $n$-tú deriváciu (deriváciu $n$-tého rádu) funkcie $f$ vzťahom $f^{(n)}= (f^{(n-1)})'$.
+:::
+:::
+
+Ďalej sa prednáška venuje odvodeniu vzorcov pre derivovanie elementárnych funkcií. Práve pomocou týchto vzorcov a tých pár pravidiel odvodených na začiatku tejto kapitoly sa dá derivovať široká škála funkcií, ktoré sa používajú v praxi.
+
+::: {.callout-tip title="Derivácie elementárnych funkcií" collapse="true"}
+:::{#thm-derivacie_elementarnych_funkcii}
+Pre derivácie elementárnych funkcií platí:
+\begin{align*}
+    &c' = 0,  &&(x^a)' = ax^{a-1},\quad (a\in\mathbb{R}),\\
+    &(\sin x)' = \cos x, &&(\cos x)' = -\sin x,\\
+    &(\tan x)' = \frac{1}{\cos^2x}, && (\mathrm{cotg}\, x)' = -\frac{1}{\sin^2x},\\
+    &(\arcsin x)' = \frac{1}{\sqrt{1-x^2}},  &&(\arccos x)' = -\frac{1}{\sqrt{1-x^2}},\\
+    &(\arctan x)' =  \frac{1}{x^2+1}, &&(\mathrm{arccotg}\ x)' =  -\frac{1}{x^2+1},\\ 
+    &(e^x)' = e^x, && (a^x)' = a^x \cdot \ln a,\\
+    &(\ln x)' = \frac{1}{x}, && (\log_a x)' = \frac{1}{x\ln a}.
+\end{align*}
+:::
+:::
+
+
+## Vety o strednej hodnote
+Vety o strednej hodnote (Rolleho veta, Lagrangeova veta, Cauchyho veta) patria medzi základné výsledky diferenciálneho počtu. Ich význam je obrovský - využívajú sa v rôznych oblastiach matematiky aj v aplikáciách. Avšak samotné tvrdenia nie sú až tak prekvapivé ako fakt, že platia *pre každú* spojitú funkciu. A my to *vieme* pomocou matematickej analýzy dokázať.
+
+::: {.callout-tip title="Lemma" collapse="true"}
+:::{#lem-deriv_rast_pokles}
+$f'(x_0)>0 \implies$ $f$ je rastúca v bode $x_0$. Analogicky, $f'(x_0)<0 \implies\ f$ je klesajúca v bode $x_0$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+:::{#thm-Rolle}
+## Rolleho veta
+
+Nech $f\in C([a,b])$ má v každom bode intervalu $(a,b)$ vlastnú alebo nevlastnú deriváciu a nech $f(a)=f(b)$. Potom existuje $c\in(a,b)$ tak, že $f'(c)=0$.
+:::
+:::
+
+![Rolleho veta.](Rolle.png){#fig-rolle width=40%}
+
+::: {.callout-tip title="Veta"}
+:::{#thm-Lagrange}
+## Lagrangeova veta
+
+Nech $f\in C([a,b])$ a nech v každom bode $x\in(a,b)$ existuje vlastná alebo nevlastná derivácia $f'(x)$. Potom existuje $c\in(a,b)$, pre ktoré platí 
+$$
+f'(c) = \frac{f(b)-f(a)}{b-a}.
+$$
+
+:::
+:::
+
+![Lagrangeova veta.](Lagrange.png){#fig-lagrange width=40%}
+
+::: {.callout-tip title="Veta"}
+:::{#thm-Cauchy}
+## Cauchyho veta
+
+Nech $f,g\in C([a,b])$ a nech v každom bode $x\in(a,b)$ existujú vlastné derivácie $f'(x),\ g'(x)$. Potom existuje $c\in(a,b)$ také, že platí
+$$
+[f(b)-f(a)]g'(c) = [g(b)-g(a)]f'(c).
+$$
+
+:::
+:::
+
+Vety o strednej hodnote sú mostom medzi lokálnymi vlastnosťami (deriváciami) a globálnym správaním funkcie na intervale.
+
+Ak by sme interpretovali jednotlivé vety fyzikálne, teda konkrétne ako pohyb na priamke, tak napríklad Rolleho veta hovorí: Ak pôjdeme (po priamke) z bodu $A$ do bodu $B$ a späť, tak v nejakom bode sme sa museli otočiť, a teda ísť v tom momente nulovou rýchlosťou. Langrangeova veta hovorí, že ak sme šli z bodu $A$ do bodu $B$ (po priamke), tak sme išli v nejakom momente priemernou rýchlosťou.\footnote{Interpretácia Cauchyho vety chýba, pretože je náročné ju interpretovať. Práve pri takýchto vetách, kedy je interpretácia náročná sa ukazuje matematika ako veľmi užitočný nástroj.} Tieto vety majú aj geometrickú interpretáciu, ktorá je znázornená na @fig-rolle, resp. @fig-lagrange. 
+
+
+Na záver uveďme ešte jeden dôsledok, ktorý je dôležité si uvedomiť, nejedná sa o raketovú vedu, ale dôsledok máme v podstate zadarmo z Lagrangeovej vety. Okrem toho sa nám bude hodiť pri neurčitých integráloch, čo nás čaká o chvíľu.
+
+::: {.callout-tip title="Dôsledok" collapse="true"}
+:::{#cor-dosledok_fxgxc}
+Nech funkcie $f,g$ majú vlastné derivácie v každom bode otvoreného intervalu $I$. Ak $\forall\,x\in I$ platí $f'(x)=g'(x)$, potom $\exists\,c\in\mathbb{R}$ také, že
+$$
+f(x) = g(x)+c.
+$$
+
+Konkrétne, ak $f'(x)=0$ na $I$, potom je $f$ na $I$ konštantná funkcia.
+:::
+:::
+
+  
+## L'Hospitalovo pravidlo
+
+Jedným z dôležitých dôsledkov Cauchyho vety o strednej hodnote je práve L'Hospitalovo pravidlo, ktoré používame pri počítaní limít. 
+
+::: {.callout-tip title="Veta"}
+:::{#thm-LHospital}
+## L'Hospitalovo pravidlo 
+
+Nech $x_0\in\mathbb{R}^\ast$. Nech je splnená jedna z podmienok
+
+- ***(i)*** $\lim_{x\to x_0} f(x) = \lim_{x\to x_0} g(x) = 0$ (typ $|\frac{0}{0}|$),
+- ***(ii)*** $\lim_{x\to x_0} g(x) = +\infty$ (typ $|\frac{\ast}{+\infty}|$).
+
+Ak existuje (vlastná alebo nevlastná) $\lim_{x\to x_0} \frac{f'(x)}{g'(x)}$, potom existuje tiež $\lim_{x\to x_0} \frac{f(x)}{g(x)}$ a platí
+$$
+\lim_{x\to x_0} \frac{f(x)}{g(x)} = \lim_{x\to x_0} \frac{f'(x)}{g'(x)}.
+$$
+
+Obe tvrdenia platia aj pre jednostranné limity.
+:::
+:::
+
+Dôležité je uvedomiť si, že sa jedná iba o jednostrannú implikáciu, a teda ak limita derivácií čitateľa a menovateľa neexistuje, tak potom o pôvodnej limite nevieme nič povedať. Okrem toho je dôležité si postrážiť *typ* limity z predpokladov, na ktorú chceme aplikovať L'Hospitalovo pravidlo.
+
+## Priebeh funkcie
+Pomocou derivácie vieme skúmať množstvo užitočných (avšak iba lokálnych) vlastností. Prvá derivácia nám hovorí o monotónnosti funkcie. Napríklad ak $f'(x)>0,\  \forall x \in I$ potom je funkcia $f(x)$ rastúca na $I$. 
+
+::: {.callout-tip title="Veta" collapse="true"}
+:::{#thm-priebeh_funkcie1}
+Nech má funkcia $f$ na otvorenom intervale $I$ vlastnú deriváciu. Potom platí:
+
+- ***(i)*** Funkcia $f$ je neklesajúca na $I$ $\iff$ $f'(x)\geq0$ na $I$.
+- ***(ii)*** Funkcia $f$ je rastúca na $I$ $\iff$ $f'(x)\geq0$ na $I$, pričom $f'(x)=0$ neplatí na žiadnom podintervale intervalu $I$.
+
+Analogicky pre nerastúce a klesajúce funkcie.
+:::
+:::
+
+::: {.callout-tip title="Dôsledok" collapse="true"}
+:::{#cor-monotonnost_a_prva_derivacia}
+Nech má funkcia $f$ na otvorenom intervale $I$ vlastnú deriváciu. Potom platí:
+
+- ***(i)*** $f'(x)>0\ \forall\,x\in I\implies$ $f$ je rastúca na $I$.
+- ***(ii)*** $f'(x)<0\ \forall\,x\in I\implies$ $f$ je klesajúca na $I$.
+:::
+:::
+
+Monotónnosť funkcie zistenú pomocou prvej derivácie zapisujeme pomocou tabuľky (@tbl-1.derivacia), kde $x_1,\dots,x_n$ sú buď body nespojitosti funkcie $f$ a funkcie $f'$ alebo sú to korene funkcie $f'$, tj. $f'(x_i)=0$.
+
+::: {#tbl-1.derivacia}
+
+| interval | $(-\infty, x_1)$ | $(x_1, x_2)$ | $\dots$ | $(x_n,\infty)$ |
+|----------|------------------|--------------|---------|----------------|
+| $f'$     | $+$              | $+$          | $\dots$ | $-$            |
+| $f$      | $\nearrow$       | $\nearrow$   | $\dots$ | $\searrow$     |
+
+Značenie monotónnosti funkcie $f$ pomocou prvej derivácie.
+
+:::
+
+Ďalšia vlastnosť, ktorú odhaľuje prvá derivácia, sú lokálne extrémy funkcie. Je dôležité si ale najprv definovať, čo to vlastne znamená mať lokálny extrém.
+
+::: {.callout-note title="Definícia"}
+::: {#def-lok_extrem}
+Povieme, že funkcia $f$ má v bode $x_0$ *(ostré) lokálne maximum*, ak existuje $\mathcal{O}(x_0)$ tak, že $\forall x\in \mathcal{O}(x_0)$ je $f(x) \leq f(x_0)$, resp. $f(x) < f(x_0)$.
+Podobne sa definuje aj (ostré) lokálne minimum.
+:::
+:::
+
+Predchádzajúce definície a vety implikujú vetu (@thm-lok_extrem), respektíve @fig-lokalne_extremy je tiež celkom názorný.
+
+::: {.callout-tip title="Veta"}
+::: {#thm-lok_extrem}
+Nech má funkcia $f$ v bode $x_0$ lokálny extrém a nech $f'(x_0)$ existuje. Potom $f'(x_0) = 0$.
+:::
+:::
+
+
+![Lokálne extrémy s dotyčnicami. Z obrázku je vidno, že v lokálnom extréme je dotyčnica rovnobežná s osou $x$, ergo jej smernica $f'(x)$ je rovná 0. Body, v ktorých je $f'(x)=0$, sa nazývajú **stacionárne body**. Bod $x_1$ je stacionárny bod, bod $x_2$ je stacionárny bod a zároveň aj lokálny extrém a bod $x_3$ je iba lokálny extrém.](lokalne_extremy.png){#fig-lokalne_extremy width=40%}
+
+
+Z vety okrem iného vyplýva, že lokálne extrémy môžeme hľadať pomocou derivácie, respektíve pomocou rovnice $f'(x)=0$. Body, ktoré spĺňajú $f'(x)=0$, sa nazývajú **stacionárne body** (dotyčnica v nich je rovnobežná s osou $x$). Aby stacionárny bod $x_0$ (tj. $f'(x_0)=0$) bol lokálnym extrémom, je potrebné, aby sa zmenilo znamienko $f'(x_0)$ pri prechode cez bod $x_0$. 
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-lok_extrem_a_prva_derivacia}
+## Lokálne extrémy a $f'$
+
+Nech funkcia $f$ je *spojitá* v bode $x_0$ a existuje vlastná derivácia $f'(x)$ v nejakom rýdzom okolí $\mathcal{O}_1(x_0)\smallsetminus\{x_0\}$.
+
+- ***(i)*** Ak $\forall\,x\in\mathcal{O}_1(x_0)$ také, že $x<x_0$ platí $f(x)>0$ a $\forall\,x\in\mathcal{O}_1(x_0)$ také, že $x>x_0$ platí $f(x)<0$, potom má $f$ v bode $x_0$ ostré lokálne maximum. (Analogicky pre ostré lokálne minimum).
+- ***(ii)*** Ak je znamienko $f'(x)$ rovnaké $\forall\,x\in\mathcal{O}_1(x_0)\smallsetminus\{x_0\}$, potom v $x_0$ nie je lokálny extrém.
+
+:::
+:::
+
+Ak má funkcia $f$ aj druhú deriváciu, tak vieme aj alternatívne určiť, či je stacionárny bod lokálnym extrémom. V podstate sa jedná o presnú analógiu k vete (@thm-lok_extrem_a_prva_derivacia), ale v reči, ktorá používa derivácie[^D15].
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-lok_extrem_a_druha_derivacia}
+## Lokálne extrémy a $f''$
+
+Nech $f'(x_0) = 0$. 
+
+- ***(i)*** $f''(x_0)>0\implies$ funkcia $f$ má v $x_0$ ostré lokálne **minimum**.
+- ***(ii)*** $f''(x_0)<0\implies$ funkcia $f$ má v $x_0$ ostré lokálne **maximum**.
+:::
+:::
+
+Derivácie predstavujú celkom rozumný spôsob hľadania lokálnych extrémov. Na druhú stranu, globálny extrém žiaľ nenájdeme pomocou derivácie, a sme tak odkázaní porovnať všetky lokálne extrémy a krajné body, aby sme povedali niečo o globálnom extréme.
+
+::: {.callout-note title="Definícia"}
+::: {#def-glob_extrem}
+Nech je funkcia $f$ definovaná na množine $M$. Ak existuje najväčšia, resp. najmenšia hodnota funkcie $f$, nazývame ju globálnym (absolútnym) maximom, resp. globálnym minimom funkcie $f$ na $M$. 
+
+Ak teda $x_0\in M$ a platí $f(x)\leq f(x_0)\ \forall\,x\in M$, hovoríme, že funkcia $f$ má na $M$ globálne maximum v bode $x_0$.
+:::
+:::
+
+Pozn.[^D7]
+
+Derivácie vyšších rádov nám tiež vedia napovedať čo to o funkcii. Derivácia druhého rádu ($f''(x)$) je derivácia derivácie. Ak teda $f''(x)>0$, znamená to, že derivácia prvého rádu ($f'(x)$) je rastúca. Povedzme, že aj $f'(x)>0$. Na základe informácií z týchto dvoch derivácií vieme povedať, že $f$ bude mať kladnú a postupne väčšiu a väčšiu smernicu, ako napr. na @fig-konvexna_intro.
+
+![Odhad funkcie podľa znalosti $f'(x)>0$ \& $f''(x)>0$.](konvexna_intro.png){#fig-konvexna_intro width=50%}
+
+::: {.callout-note title="Definícia"}
+::: {#def-konvex_konkav}
+
+Povieme, že funkcia $f$ je *konvexná* na intervale $I$, ak pre ľubovoľné tri body $x_1, x_2, x_3 \in I$ také, že $x_1 < x_2 < x_3$, platí
+$$
+f(x_2) \leq f(x_1) + \frac{f(x_3) - f(x_1)}{x_3 - x_1}(x_2 - x_1).
+$$
+
+Povieme, že funkcia $f$ je *konkávna* na intervale $I$, ak pre ľubovoľné tri body $x_1, x_2, x_3 \in I$ také, že $x_1 < x_2 < x_3$, platí
+$$
+f(x_2) \geq f(x_1) + \frac{f(x_3) - f(x_1)}{x_3 - x_1}(x_2 - x_1).
+$$
+
+Ak v definícii nahradíme neostré nerovnosti ostrými, dostaneme definície pojmov *ostrá konvexnosť* a *ostrá konkávnosť* na intervale $I$.
+:::
+:::
+
+Na @fig-konvexna_intro hovoríme teda o konvexnosti. Opačné zakrivenie voláme konkávnosť. Definícia týchto vlastností nepoužíva derivácie, a preto súvislosť medzi deriváciou a zakrivením je predmetom nasledujúcich tvrdení.
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-priebeh_funkcie2}
+Nech $f$ má vlastnú deriváciu na otvorenom intervale $I$. Potom $f$ je konvexná (ostro konvexná) na $I$ $\iff$ $f'$ je neklesajúca (rastúca) na $I$. Analogicky pre konkávnosť.
+:::
+:::
+
+::: {.callout-tip title="Dôsledok" collapse="true"}
+::: {#cor-veta_o_druhej_derivacii_a_zakriveni}
+Nech $I$ je otvorený interval a $f$ má vlastnú druhú deriváciu na $I$. 
+
+- ***(i)*** Ak je $f''(x)>0 \quad \forall x\in I$, potom je $f$ ostro konvexná na $I$.
+- ***(ii)*** Podobne ak je $f''(x)<0 \quad \forall x\in I$, potom je $f$ ostro konkávna na $I$.[^D8]
+
+:::
+:::
+
+
+S konvexnosťou sa študent zrejme už stretol v geometrii, kde sa definovala konvexná množina ako množina obsahujúca celú úsečku, ktorá spája ľubovoľné dva body tejto množiny. Pri funkciách je táto vlastnosť zachovaná, avšak je presunutá na tzv. nadgraf funkcie, viď @fig-konvexna_obr, resp. viď vetu (@thm-rozne_definicie_konvexnosti).
+
+::: {.callout-note title="Definícia"}
+::: {#def-nadgraf}
+Nech $f$ je funkcia s definičným oborom $D(f)$. Nadgrafom funkcie $f$ rozumieme rovinnú množinu $G_f =\{(x,y) \in \mathbb{R}^2\ :\ x \in D(f)\ \wedge \ y \geq f(x)\}$.
+:::
+:::
+
+![Konvexná funkcia.](konvexna_obr.png){#fig-konvexna_obr width=40%}
+
+
+::: {.callout-tip title="Ďalšie alternatívne definície konvexnosti" collapse="true"}
+::: {#thm-rozne_definicie_konvexnosti}
+Nech funkcia $f$ je definovaná na intervale $I$. Potom nasledovné vlastnosti sú ekvivalentné (TFAE -- the following are equivalent).
+
+- ***(i)*** Funkcia $f$ je konvexná na $I$.
+- ***(ii)*** Pre ľubovoľné rôzne body $x_1,x_2\in I$ a ľubovoľné čísla $\lambda_1,\lambda_2\in(0,1)$ také, že $\lambda_1+\lambda_2 = 1$, platí nerovnosť
+    $$
+    f (\lambda_1x_1 + \lambda_2x_2) \leq \lambda_1 f(x_1) + \lambda_2f(x_2).
+    $$
+
+- ***(iii)*** Pre ľubovoľné $x_1<x_2<x_3$ z $I$ platí 
+    $$
+    \tfrac{f(x_2) - f(x_1)}{x_2-x_1} \leq \tfrac{f(x_3) - f(x_1)}{x_3-x_1},
+    \quad
+    \text{resp.}
+    \quad
+    \tfrac{f(x_2) - f(x_1)}{x_2-x_1} \leq \tfrac{f(x_3) - f(x_2)}{x_3-x_2},
+    \quad
+    \text{resp.}
+    \quad
+    \tfrac{f(x_3) - f(x_1)}{x_3-x_1} \leq \tfrac{f(x_3) - f(x_2)}{x_3-x_2}.
+    $$
+
+- ***(iv)*** Nadgraf funkcie $f$ je konvexná množina.
+
+:::
+:::
+
+::: {.callout-tip title="Konvexnosť a dotyčnica" collapse="true"}
+::: {#thm-priebeh_funkcie3}
+Nech funkcia $f$ má vlastnú deriváciu na intervale $I$. Potom je $f$ konvexná (konkávna) na $I$ práve vtedy, keď pre každé dva rôzne body $x,x_0\in I$, platí:[^D9]
+$$
+f (x) \geq f (x_0) + f'(x_0)(x - x_0),
+\quad
+\text{resp.}
+\quad
+f (x) \leq f (x_0) + f'(x_0)(x - x_0).
+$$
+
+:::
+:::
+
+
+
+Poznamenajme ešte, že @cor-veta_o_druhej_derivacii_a_zakriveni nehovorí o situácii, keď $f''(x)=0$. V takom prípade nevieme rozhodnúť o konvexnosti resp. o konkávnosti, napríklad funkcie $x^4,$ $-x^{4}$ a $x^3$. Funkcia $f(x)=x^3$ je zaujímavý prípad, v ktorom sa v počiatku funkcia mení z konkávnej na konvexnú. V takomto prípade hovoríme o **inflexnom bode**. Inflexný bod je zaujímavý napríklad tým, že dotyčnica pretína graf v tomto bode.
+
+::: {.callout-note title="Definícia"}
+::: {#def-inflexny_bod}
+Nech má funkcia $f$ deriváciu v bode $x_0 \in \mathbb{R}$. Ak je táto derivácia nevlastná, predpokladáme navyše, že $f$ je spojitá v bode $x_0$. Povieme, že $x_0$ je *inflexným bodom* funkcie $f$, ak existuje okolie $\mathcal{O}_\delta(x_0)$ také, že funkcia $f$ je ostro konkávna na intervale $(x_0 - \delta, x_0)$ a ostro konvexná na intervale $(x_0, x_0 + \delta)$, alebo naopak. - viď @fig-inflexia.
+:::
+:::
+
+![Inflexný bod funkcie $f$.](inflexia.png){#fig-inflexia width=40%}
+
+<details>
+<summary>Vety o inflexnom bode.</summary>
+
+::: {.callout-tip title="Veta"}
+::: {#thm-priebeh_funkcie4}
+Nech $x_0$ je inflexný bod a nech existuje $f''(x_0)$. Potom $f''(x_0) = 0$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-priebeh_funkcie5}
+Nech $f''(x_0) = 0$ a existuje okolie $\mathcal{O}_\delta(x_0)$ také, že platí $f''(x) < 0$ pre každé $x \in (x_0 - \delta, x_0)$ a $f''(x) > 0$ pre každé $x \in (x_0, x_0 + \delta)$, alebo naopak. Potom je $x_0$ inflexným bodom funkcie $f$.
+:::
+:::
+
+::: {.callout-tip title="Veta"}
+::: {#thm-priebeh_funkcie6}
+Nech $f''(x_0) = 0$ a $f'''(x_0) \neq 0$. Potom je $x_0$ inflexným bodom funkcie $f$.
+:::
+:::
+
+</details>
+
+Zakrivenosť funkcie zistenú pomocou druhej derivácie zapisujeme pomocou tabuľky (@tbl-2.derivacia), kde $x_1,\dots,x_n$ sú buď body nespojitosti funkcie $f$ a funkcie $f''$ alebo sú to korene funkcie $f''$, tj. $f''(x_i)=0$.[^D10]
+
+::: {#tbl-2.derivacia}
+
+| interval | $(-\infty, x_1)$ | $(x_1, x_2)$ | $\dots$ | $(x_n,\infty)$ |
+|----------|------------------|--------------|---------|----------------|
+| $f''$    | $+$              | $+$          | $\dots$ | $-$            |
+| $f$      | $\cup$           | $\cup$       | $\dots$ | $\cap$         |
+
+Značenie zakrivenia funkcie $f$ pomocou druhej derivácie.
+
+:::
+
+
+
+Ďalšie derivácie nám, samozrejme, tiež vedia napovedať niečo o lokálnych vlastnostiach, ale už to nie je až také priamočiare.[^D11] Deriváciám vyššieho rádu sa preto budeme venovať o trochu neskôr. Teraz sa pozrime na správanie funkcie v nevlastných bodoch. Na opis správania funkcie v týchto bodoch nám pomôžu tzv. asymptoty.
+
+::: {.callout-note title="Definícia"}
+::: {#def-asymptoty}
+Nech $x_0\in\mathbb{R}$. Priamka $x = x_0$ sa nazýva *asymptotou bez smernice* funkcie $f$, ak má $f$ v $x_0$ aspoň jednu jednostrannú limitu nevlastnú, tj.
+$$
+\lim_{x\to x_0^+} f(x) = \pm \infty \quad \text{alebo} \quad \lim_{x\to x_0^-} f(x) = \pm \infty.
+$$
+
+Priamka $y=ax+b,$ $a,b\in\mathbb{R}$, sa nazýva *asymptotou so smernicou* funkcie $f$, ak platí
+$$
+\lim_{x\to-\infty} [f(x)-(ax+b)] = 0 \quad \text{alebo} \quad\lim_{x\to+\infty} [f(x)-(ax+b)] = 0.
+$$
+
+:::
+:::
+
+Asymptota so smernicou je o niečo komplikovanejšia, je v nej potrebné určiť hodnoty $a$ a $b$. Zrejme z definície platí
+\begin{align*}
+    \lim_{x\to\pm\infty} [f(x)-(ax+b)] &= 0\\
+    \lim_{x\to\pm\infty} [f(x)- ax] &= \lim_{x\to\pm\infty} b\\
+    \lim_{x\to\pm\infty} [f(x)- ax] &= b.
+\end{align*}
+A zároveň platí
+\begin{align*}
+    \lim_{x\to\pm\infty} [f(x)-(ax+b)] &= 0\\
+    \lim_{x\to\pm\infty} [f(x)- ax] &= \lim_{x\to\pm\infty} b \quad\big/\cdot\tfrac{1}{x}\\
+    \lim_{x\to\pm\infty} [\tfrac{f(x)}{x}- a] &= \lim_{x\to\pm\infty} \tfrac{b}{x}\\
+    \lim_{x\to\pm\infty} \tfrac{f(x)}{x} - \lim_{x\to\pm\infty} a &= 0\\
+    \lim_{x\to\pm\infty} \tfrac{f(x)}{x} &= a.
+\end{align*}
+
+
+Dostávame sa tak k nasledovnému tvrdeniu.
+
+::: {.callout-tip title="Veta o asymptote so smernicou" collapse="true"}
+::: {#thm-asymptoty}
+Priamka $y = ax + b$ je asymptotou funkcie $f$ pre $x \to +\infty$ práve vtedy, keď
+$$
+\lim_{x\to +\infty} \frac{f(x)}{x} = a \qquad \text{a} \qquad
+\lim_{x\to+\infty} (f(x)-ax)=b.
+$$
+
+Analogické tvrdenie platí pre $x\to-\infty$.
+:::
+:::
+
+Vyšetrovanie priebehu funkcie sa teda dá zhrnúť do nasledovných bodov.
+
+<details>
+<summary>Vyšetrovanie priebehu funkcie.</summary>
+
+Pri vyšetrovaní priebehu funkcie $f$ postupujeme takto:
+
+- Určíme $D(f)$, $H(f)$, zistíme, či je funkcia $f$ párna, nepárna, ohraničená alebo periodická.
+    Nájdeme body nespojitosti a rozhodneme o ich druhu.
+    Určíme nulové body funkcie $f$ a intervaly, kde je $f$ kladná a kde záporná.
+- Vypočítame $f'$ a podľa jej znamienka určujeme:
+    - intervaly, kde je $f$ rastúca (z podmienky $f'>0$),
+    - intervaly, kde je $f$ klesajúca (z podmienky $f'<0$),
+    - lokálne extrémy (podľa zmeny znamienka $f'$).
+- Vypočítame $f''$ a podľa jej znamienka určujeme:
+    - intervaly, kde je $f$ konvexná (z podmienky $f''>0$),
+    - intervaly, kde je $f$ konkávna (z podmienky $f''<0$),
+    - inflexné body (podľa zmeny znamienka $f''$).
+- Určíme asymptoty funkcie $f$.
+- Vypočítame funkčné hodnoty vo významných bodoch (lokálne extrémy, inflexné body atď.).
+- Nakreslíme graf funkcie.
+
+</details>
+
+
+
+
+## Taylorov vzorec -- aproximácia funkcie
+V predchádzajúcom výklade o derivácii sme si ukázali, že sa naozaj jedná o tak silnú definíciu, ako bolo vždy sľubované. Totižto hodnota derivácie nám dáva informáciu o správaní sa funkcie v okolí, ktoré je obvykle celkom široké. 
+
+Tento lokálny charakter môžeme využiť na aproximáciu funkcií v okolí nejakého bodu. Totižto ako už dotyčnica z @fig-geometricky_vyznam_derivacie mohla napovedať, tak krivky s rovnakou funkčnou hodnotou v nejakom bode $x_0$ a s rovnakou deriváciou v bode $x_0$, prípadne s rovnakou druhou, treťou, ... deriváciou v bode $x_0$ sa v okolí bodu $x_0$ správajú veľmi podobne. 
+
+Na to, aby sme pochopili aproximáciu funkcie správne, musíme sa vrátiť späť. V tomto kontexte sa nám bude viac hodiť definícia derivácie uvedená v rovnici (@eq-derivacia_limh). 
+
+::: {.callout-note title="Definícia"}
+::: {#def-prirastok}
+Nech je funkcia $f$ definovaná v okolí $\mathcal{O}(x_0)$ bodu $x_0$ a platí $x_0 + h \in \mathcal{O}(x_0)$. Potom číslo $h$ nazývame prírastok nezávislej premennej a rozdiel $\Delta f (x_0) = f (x_0 + h) - f (x_0)$ nazývame prírastok funkcie $f$ v bode $x_0$ s krokom $h$, respektíve prírastok závislej premennej -- viď @fig-diferencial.
+:::
+:::
+
+Toto značenie je obvyklé najmä v aplikáciách, kde sa zvykne písať derivácia ako
+$$
+f'(x)=\lim_{\Delta x \to 0}\dfrac{\Delta f(x)}{\Delta x}.
+$$
+
+::: {.callout-note title="Definícia"}
+::: {#def-diferencovatelnost}
+Povieme, že funkcia $f$ je diferencovateľná v bode $x_0 \in \mathbb{R}$, ak existuje okolie $\mathcal{O}(x_0)$ bodu $x_0$ tak, že pre všetky body $x_0 + h \in \mathcal{O}(x_0)$ platí
+$$
+f (x_0 + h) - f (x_0) = A \cdot h + \tau (h),
+$$
+
+kde $A$ je vhodné číslo a $\tau (h)$ je funkcia taká, že $\lim_{h\to 0} \frac{\tau(h)}{h} = 0$. Ak je funkcia $f$ v bode $x_0$ diferencovateľná, nazýva sa výraz $A\cdot h$ diferenciál funkcie $f$ v bode $x_0$ a značí sa $df (x_0)(h)$ alebo stručne bez označenia prírastku $h$ len $df (x_0)$.
+:::
+:::
+
+Požiadavka $\lim_{h\to 0}\frac{\tau(h)}{h} = 0$ na funkciu $\tau(h)$ znamená len to, že funkcia $\tau(h)$ ide rýchlejšie do $0$ ako lineárna funkcia $f(h)=h$. Inými slovami to znamená aj to, že neobsahuje žiadny lineárny člen. 
+
+Diferenciál a derivácia sú prepojené nasledovným tvrdením, že číslo $A = f'(x_0)$.
+
+::: {.callout-tip title="Veta" collapse="true"}
+::: {#thm-diferencial}
+Funkcia $f$ má v bode $x_0$ diferenciál (je diferencovateľná v $x_0$) práve vtedy, keď existuje vlastná derivácia $f'(x_0)$. Pritom pre platí $A = f'(x_0)$, a teda
+$$
+df(x_0)(h) = f'(x_0) \cdot h.
+$${#eq-diferencial}
+
+:::
+:::
+
+![Diferenciál funkcie.](diferencial.png){#fig-diferencial width=50%}
+
+Spomeňme si na Leibnizove značenie derivácie $f'(x)=\frac{df(x)}{dx}$. Toto značenie presne korešponduje so značením diferenciálu, a teda $df(x) = f'(x)\cdot dx$. Pri tomto označení majú niektoré vzorce pre derivovanie názorný tvar. Napríklad:
+
+- Vetu o derivácii zloženej funkcie o zložkách $y = f(x)$, $z = g(y)$ môžeme zapísať ako
+    $$
+        \frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}.
+    $$
+
+- Vetu o derivácii inverznej funkcie $x = f^{-1}(y)$ ku funkcii $y = f(x)$ môžeme vyjadriť ako
+    $$
+        \frac{dx}{dy} = \frac{1}{\frac{dy}{dx}}.
+    $$
+
+Diferenciál je teda (lineárna) aproximácia prírastku funkcie $f$. Najbežnejšia aplikácia diferenciálu spočíva v tom, že (pre malé $h$) kladieme
+$$
+    f(x_0 + h) \approx f(x_0) + f'(x_0)h,
+$$
+
+tj. skutočný prírastok funkcie $\Delta f(x_0)$ nahradíme, s určitou chybou, diferenciálom $df(x_0)$ (geometricky graf funkcie nahradíme jej dotyčnicou[^D12]). Niekedy sa používa označenie
+$$
+f(x) \approx f(x_0) + f'(x_0)(x - x_0), \quad \text{pre } x \to x_0.
+$$
+
+Ukázali sme si, ako použiť prvú deriváciu, resp. diferenciál na odhad funkčných hodnôt v okolí bodu $x_0$. Na tento odhad nám poslúžila lineárna funkcia, resp. polynóm prvého rádu. Inými slovami, tento problém sme linearizovali. Ak má funkcia aj ďalšie derivácie známe, tak môžeme tento odhad zlepšiť. Predpokladajme, že poznáme (alebo vieme spočítať) deriváciu funkcie $f$ až po rád $n$ v nejakom bode $x_0$. Pokúsme sa teraz nájsť polynóm stupňa $n$, ktorý v tomto bode bude mať zhodnú funkčnú hodnotu a aj všetky derivácie (po rád $n$). Uvažujme polynóm v nasledovnom tvare (@eq-polynom).
+$$
+    P_n = a_0 + a_1(x-x_0)+\dots + a_n(x-x_0)^n.
+$${#eq-polynom}
+
+Derivovaním funkcie a polynómu $P_n$ dostávame nasledovné výrazy pre jednotlivé členy:
+\begin{align*}
+    f(x_0) &= P_n(x_0) = a_0,\\
+    f'(x_0) &= P'_n(x_0) = a_1,\\
+    f''(x_0) &= P''_n(x_0) = 2a_2,\\
+    &\vdots\\
+    f^{(n)}(x_0)& = P_n^{(n)}(x_0) = n(n-1)\cdot \ldots \cdot 1 \cdot a_n = n! \, a_n.
+\end{align*}
+
+Odtiaľto dostávame hľadaný polynóm
+$$
+    P_n(x) = f(x_0) + \frac{f'(x_0)}{1!}(x - x_0) + 
+    \frac{f''(x_0)}{2!}(x - x_0)^2 + \cdots + 
+    \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n.    
+$$
+
+Tento polynóm sa nazýva **Taylorov polynóm** stupňa $n$ funkcie $f$ so stredom $x_0$ a značí sa $T_n(x)$ alebo podrobnejšie $T_n(f, x_0, x)$. Ak zvolíme $x_0=0$, obdržíme tzv. **Maclaurinov polynóm**. Ak nahradíme funkciu $f$ v okolí bodu $x_0$ Taylorovým polynómom $T_n$, dopustíme sa chyby, ktorú označujeme $R_n$, tj.
+$$
+    f(x) = T_n(x) + R_n(x).
+$$
+O veľkosti tejto chyby hovorí nasledujúca veta[^D13].
+
+::: {.callout-tip title="Taylorova veta" collapse="true"}
+::: {#thm-taylor}
+## Taylorova veta 
+
+Nech má funkcia $f$ v okolí bodu $x_0$ vlastné derivácie až do rádu $n+1$ pre niektoré $n \in \mathbb{N} \cup \{0\}$. Potom pre všetky $x$ z tohto okolia platí:
+$$
+f(x) = f(x_0) + \frac{f'(x_0)}{1!}(x - x_0) + \cdots + \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n + R_n(x),
+$${#eq-taylor}
+
+$$
+\text{kde}\qquad R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x - x_0)^{n+1},
+$$
+
+kde $\xi$ je vhodné číslo ležiace medzi $x_0$ a $x$. Chyba $R_n(x)$ sa nazýva *zvyšok* a vzorec (@eq-taylor) sa nazýva *Taylorov vzorec*.
+:::
+:::
+
+Aproximácia funkcie pomocou Taylorovho polynómu je obvyklým nástrojom v aplikáciách, ale aj v teoretickej matematike. V teórií dynamických systémov je jedným zo základných nástrojov, pretože nás zaujímajú iba lokálne vlastnosti funkcie v konkrétnych bodoch. Vo fyzike sa Taylorov polynóm druhého stupňa považuje za dosť presný (v niektorých oblastiach stačí dokonca Taylorov polynóm len prvého stupňa) a ďalej sa väčšinou nepočíta. 
+
+V rámci aplikácií je dôležité vedieť Maclaurinove vzorce najdôležitejších elementárnych funkcií.
+\begin{align*}
+    e^x &\approx 1 + \frac{x}{1!} + \frac{x^2}{2!} + \dots + \frac{x^n}{n!},\\
+    \sin(x) &\approx x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots +
+    (-1)^{n+1}\frac{x^{2n-1}}{(2n-1)!},\\
+    \cos(x) &\approx 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots +
+    (-1)^{n}\frac{x^{2n}}{(2n)!}.
+\end{align*}
+
+
+
+[^D1]: Pripomeňme, že priamka prechádzajúca bodmi $(x_0, y_0)$ a $(x_1, y_1)$, $x_0\neq x_1$ má smernicu $k = \frac{y_1 - y_0}{x_1 - x_0} = \tan{\varphi}$, kde $\varphi$ je uhol, ktorý zviera priamka s kladným smerom osi $x$. Táto priamka je potom daná rovnicou $y-y_0 = k(x-x_0).$
+
+[^D2]: Toto druhé značenie, od Leibniza, je o niečo prehľadnejšie, respektíve nesie v sebe viac informácii ako iba čiarka ($'$). Na druhú stranu, čiarka je priestorovo efektívnejšia.
+
+[^D3]: Nebolo to tak vždy, prvý matematik, ktorý definoval deriváciu rigorózne (pomocou limít) bol až Bolzano v roku 1817.
+
+[^D4]: Predpoklady pre existenciu inverznej funkcie.
+ 
+[^D5]: Namiesto predstavovania si súmerného grafu je vhodnejšie iba vymeniť osi $x$ a $y$ na @fig-geom_inv_deriv.
+
+[^D6]: Tento trojuholník je celkom užitočný a oplatí sa ho mať v povedomí.
+
+[^D7]: Funkcia môže nadobúdať ten istý globálny extrém vo viacerých bodoch. Funkcia nemusí mať na danej množine žiadny globálny extrém. Dôležitú a postačujúcu podmienku existencie globálnych extrémov dáva Weierstrassova @thm-weierstrass.
+
+[^D8]: Priamym dôsledkom týchto vlastností je to, že druhá derivácia prezrádza, aký je v stacionárnom bode lokálny extrém.
+
+[^D9]: Inými slovami, bez rovníc, platí, že graf funkcie je nad, resp. pod dotyčnicou v danom bode.
+
+[^D10]: V prípade, ak sa jedná o koreň funkcie $f''$, tak sa rozprávame o možných kandidátoch na inflexné body. To, či sa naozaj jedná o inflexný bod, zistíme z tabuľky.
+
+[^D11]: Pun intended.
+
+[^D12]: Plochozemci veria, že Zem je plochá. Aj ja verím, že Zem je plochá, **avšak iba lokálne**! $\dots$ My máme so Zemou iba lokálnu skúsenosť, preto rozšíriť túto lokálnu vlastnosť na globálnu vlastnosť je prirodzené, ale určite to nie je správne.
+
+[^D13]: Táto veta v dôkaze tiež používa Cauchyho vetu o strednej hodnote.
+
+[^D14]: Ak hovoríme o derivácii funkcie v bode $x_0$, tak by sa mala myslieť limita. Na druhú stranu, ak hovoríme o derivácii funkcie, tak sa tým myslí funkcia. Avšak je ľahké sa v tom stratiť!
+
+[^D15]: A tým pádom predpokladá ich existenciu.
