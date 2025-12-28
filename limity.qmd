@@ -121,7 +121,7 @@ Limity postupností sa ukazujú ako užitočný nástroj na definovanie iracion�
 ::: {#thm-lim_post10}
 
 - Postupnosť $\{a_n\}$, kde $a_n=(1+\frac{1}{n})^n$ je *rastúca a zhora ohraničená* postupnosť. 
-- Postupnosť $\{b_n\}$, kde $a_n=(1+\frac{1}{n})^{n+1}$ je *klesajúca a zdola ohraničená* postupnosť.
+- Postupnosť $\{b_n\}$, kde $b_n=(1+\frac{1}{n})^{n+1}$ je *klesajúca a zdola ohraničená* postupnosť.
 
 Obe postupnosti sú teda konvergentné a majú rovnakú limitu.
 :::
