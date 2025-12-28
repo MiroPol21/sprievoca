@@ -469,7 +469,7 @@ Z vety okrem iného vyplýva, že lokálne extrémy môžeme hľadať pomocou de
 
 Nech funkcia $f$ je *spojitá* v bode $x_0$ a existuje vlastná derivácia $f'(x)$ v nejakom rýdzom okolí $\mathcal{O}_1(x_0)\smallsetminus\{x_0\}$.
 
-- ***(i)*** Ak $\forall\,x\in\mathcal{O}_1(x_0)$ také, že $x<x_0$ platí $f(x)>0$ a $\forall\,x\in\mathcal{O}_1(x_0)$ také, že $x>x_0$ platí $f(x)<0$, potom má $f$ v bode $x_0$ ostré lokálne maximum. (Analogicky pre ostré lokálne minimum).
+- ***(i)*** Ak $\forall\,x\in\mathcal{O}_1(x_0)$ také, že $x<x_0$ platí $f'(x)>0$ a $\forall\,x\in\mathcal{O}_1(x_0)$ také, že $x>x_0$ platí $f'(x)<0$, potom má $f$ v bode $x_0$ ostré lokálne maximum. (Analogicky pre ostré lokálne minimum).
 - ***(ii)*** Ak je znamienko $f'(x)$ rovnaké $\forall\,x\in\mathcal{O}_1(x_0)\smallsetminus\{x_0\}$, potom v $x_0$ nie je lokálny extrém.
 
 :::
